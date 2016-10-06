@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_serach"
+            android:icon="@drawable/ic_search"
+            android:title="Найти рецепт" />
+        <item
+            android:id="@+id/nav_categories"
+            android:icon="@drawable/ic_catigories"
+            android:title="Категории" />
+        <item
+            android:id="@+id/nav_favorite"
+            android:icon="@drawable/ic_favorite"
+            android:title="Избранные рецепты" />
+        <item
+            android:id="@+id/nav_shop_list"
+            android:icon="@drawable/ic_shopping_list"
+            android:title="Список покупок" />
+
+        <item
+            android:id="@+id/nav_update"
+            android:icon="@drawable/ic_sync"
+            android:title="Обновить базу" />
+    </group>
+
+</menu>

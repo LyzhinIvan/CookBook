@@ -1,3 +1,37 @@
 <resources>
-    <string name="app_name">Cookbook</string>
+    <string name="app_name">CookBook</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_categories_activity">Категории</string>
+    <string name="title_app_name">Книга рецептов</string>
+
+    <string-array name="dummy_categories">
+        <item>Все категории</item>
+        <item>Супы</item>
+        <item>Соусы</item>
+        <item>Первые блюда</item>
+        <item>Вторые блюда</item>
+        <item>Закуски</item>
+        <item>Салаты</item>
+        <item>Десерты</item>
+        <item>Напитки</item>
+        <item>Пельмени</item>
+        <item>Макарошки</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sapien lectus, vestibulum id metus eget, venenatis pellentesque nisi. Ut lacinia velit sit amet nulla vulputate tempus. Sed et finibus erat, eget gravida neque. Sed magna urna, laoreet vitae placerat a, faucibus sed nulla. Nam velit sapien, tincidunt in neque luctus, aliquet congue libero. Aenean blandit mauris at interdum dictum. Suspendisse pharetra tristique turpis, vel tempor nunc lacinia non. Proin at est vestibulum, rutrum tellus sit amet, bibendum mauris. Aenean vulputate risus eget dictum aliquam. Proin maximus eros a porta gravida. Suspendisse tincidunt suscipit enim, sit amet consequat libero blandit at. Nulla a ipsum nunc.
+
+Nulla aliquet dui sed rutrum rhoncus. Suspendisse enim magna, mollis quis nulla quis, posuere luctus nibh. Ut nisi odio, consequat gravida scelerisque eu, tincidunt sed diam. Aliquam scelerisque fermentum lectus quis tristique. Fusce convallis purus sit amet sapien ultricies bibendum. Curabitur elementum felis sed massa efficitur, eu pretium tellus convallis. Curabitur fermentum dui dui, et vulputate eros finibus id. Maecenas et massa eget dolor rhoncus dapibus quis at ante. Integer mattis nulla vel nunc fermentum, vel vulputate urna feugiat. Donec elit metus, commodo non eleifend at, consectetur nec purus. Cras maximus mattis posuere.
+
+Praesent eu congue urna. Donec porta nunc lorem, et vehicula est consectetur faucibus. Morbi arcu nunc, mollis facilisis iaculis eget, pretium nec neque. Etiam a est ac leo aliquam tincidunt. Nullam mattis augue nec tortor maximus dictum. Etiam ultrices quis dui vitae fermentum. Etiam vehicula mi eget ornare tincidunt. Mauris laoreet libero diam, nec placerat quam tempus porta. Pellentesque et elit a turpis ultrices hendrerit sit amet sed dui. Sed vel dui sit amet dui dapibus euismod et et odio. Maecenas quis eros ut elit luctus ornare feugiat quis nibh. Mauris sit amet velit urna.
+
+Duis ut quam auctor, viverra ex eu, fermentum ipsum. Morbi vel est est. Duis efficitur blandit nunc a dictum. Etiam efficitur risus ut nunc dictum, eget gravida purus molestie. Nunc in convallis arcu. Phasellus nec rhoncus mauris. Mauris ut massa vel ex semper dignissim.
+
+Nunc placerat nulla ut ante sagittis dictum. Pellentesque viverra eros consectetur laoreet hendrerit. Quisque sem augue, ultricies porta fringilla a, consectetur nec augue. Fusce eget odio ut purus fringilla eleifend. Ut eleifend pulvinar sollicitudin. Pellentesque ac convallis velit. Vivamus fermentum dignissim nunc sed sodales.</string>
 </resources>
