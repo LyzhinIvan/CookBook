@@ -1,0 +1,19 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/recycler_background"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        tools:context="com.cookbook.MainActivity"
+        tools:showIn="@layout/content_main"
+        app:layoutManager="GridLayoutManager"
+        tools:listitem="@layout/category_grid_item"/>
+
+</FrameLayout>
