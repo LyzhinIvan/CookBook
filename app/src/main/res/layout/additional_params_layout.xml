@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="10dp">
+
+    <RelativeLayout
+        android:id="@+id/additionalParamsLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvAdditionalParams"
+            android:layout_centerVertical="true"
+            android:text="Дополнительные параметры"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:layout_marginBottom="5dp"/>
+
+        <ImageButton
+            android:id="@+id/ivChevron"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@android:color/transparent"
+            android:layout_toRightOf="@id/tvAdditionalParams"
+            android:src="@drawable/ic_expand_more"/>
+    </RelativeLayout>
+
+    <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+        android:id="@+id/expandableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:ael_interpolator="linear"
+        app:ael_expanded="false"
+        app:ael_duration="200"
+        app:ael_orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/linLayout"
+            android:layout_below="@id/tvAdditionalParams"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Искать в категории:" />
+
+            <Spinner
+                android:id="@+id/spinnerCategories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/dummy_categories"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_below="@id/linLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Сытность:"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="2dp" />
+
+        <LinearLayout
+            android:id="@+id/linLayout2"
+            android:layout_below="@id/tv2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <RadioGroup
+                android:id="@+id/rg1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <RadioButton
+                    android:id="@+id/rbLight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Легкое"/>
+                <RadioButton
+                    android:id="@+id/rbMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Среднее"/>
+            </RadioGroup>
+            <RadioGroup
+                android:id="@+id/rg2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <RadioButton
+                    android:id="@+id/rbNourishing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Сытное"/>
+                <RadioButton
+                    android:id="@+id/rbAny"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Любое" />
+            </RadioGroup>
+        </LinearLayout>
+
+    </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+</LinearLayout>
+
