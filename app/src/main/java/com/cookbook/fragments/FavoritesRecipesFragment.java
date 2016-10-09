@@ -1,4 +1,4 @@
-package com.cookbook.adapters;
+package com.cookbook.fragments;
 
 
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cookbook.R;
+import com.cookbook.adapters.RecipeListAdapter;
 import com.cookbook.dummy.DummyRecipes;
 import com.cookbook.pojo.Recipe;
 import com.google.gson.Gson;
