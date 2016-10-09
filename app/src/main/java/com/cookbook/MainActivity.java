@@ -2,7 +2,6 @@ package com.cookbook;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,10 +17,17 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.cookbook.fragments.CategoriesFragment;
+import com.cookbook.fragments.FavoritesRecipesFragment;
+import com.cookbook.fragments.SearchRecipeFragment;
+import com.cookbook.fragments.ShopingListFragment;
 
 public class MainActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener, NavigationView.OnNavigationItemSelectedListener {
 
     CategoriesFragment categoriesFragment = new CategoriesFragment();
+    SearchRecipeFragment searchRecipeFragment = new SearchRecipeFragment();
+    FavoritesRecipesFragment favoritesRecipesFragment = new FavoritesRecipesFragment();
+    ShopingListFragment shopingListFragment = new ShopingListFragment();
+
 
     Fragment currentFragment;
     ActionBarDrawerToggle drawerToggle;
@@ -76,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         navigationView.setCheckedItem(R.id.nav_categories);
     }
 
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -104,16 +111,16 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         int id = item.getItemId();
 
         if (id==R.id.nav_serach) {
-
+            setFragment(searchRecipeFragment,false);
         }
         else if (id == R.id.nav_categories) {
-
+            setFragment(categoriesFragment,false);
         }
         else if (id == R.id.nav_favorite) {
-
+            setFragment(favoritesRecipesFragment,false);
         }
         else if (id == R.id.nav_shop_list) {
-
+            setFragment(shopingListFragment,false);
         }
 
         mDrawerLayout.closeDrawer(GravityCompat.START);

@@ -58,6 +58,10 @@ public class CategoriesFragment extends Fragment implements Category.CategoryCli
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()==R.id.action_search) {
+            MainActivity activity = (MainActivity) getActivity();
+            activity.setFragment(new SearchRecipeFragment(),false);
+        }
         return true;
     }
 
@@ -75,8 +79,9 @@ public class CategoriesFragment extends Fragment implements Category.CategoryCli
     @Override
     public void onClick(Category category) {
 
+        MainActivity mainActivity = (MainActivity) getActivity();
+        RecipesListFragment fragment = RecipesListFragment.newInstance(category.recipes, category.name);
+
+        mainActivity.setFragment(fragment, true);
     }
-
-
-
 }
