@@ -67,7 +67,7 @@ public class RecipeFragment extends Fragment implements Ingredient.IngredientCli
     @Override
     public void onStart() {
         super.onStart();
-        ingredients = DummyIngredients.getIngredients(getContext(),3);
+        //ingredients = DummyIngredients.getIngredients(getContext(),3);
         initRecycleView();
     }
 
@@ -75,8 +75,8 @@ public class RecipeFragment extends Fragment implements Ingredient.IngredientCli
         RecyclerView recycler = (RecyclerView)getView().findViewById(R.id.recyclerView);
         recycler.setHasFixedSize(true);
 
-        RecipeIngredientAdapter adapter = new RecipeIngredientAdapter(getContext(), ingredients, this);
-        recycler.setAdapter(adapter);
+        //RecipeIngredientAdapter adapter = new RecipeIngredientAdapter(getContext(), ingredients, this);
+        //recycler.setAdapter(adapter);
     }
 
     @Override
