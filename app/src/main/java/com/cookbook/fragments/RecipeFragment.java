@@ -14,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.util.Pair;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.cookbook.R;
 import com.cookbook.adapters.RecipeIngredientAdapter;
@@ -74,7 +76,20 @@ public class RecipeFragment extends Fragment implements Ingredient.IngredientCli
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_recipe, container, false);
+        View view = inflater.inflate(R.layout.fragment_recipe, container, false);
+        ImageView ivIcon = (ImageView) view.findViewById(R.id.ivIcon);
+        TextView tvCaption = (TextView) view.findViewById(R.id.tvCaption);
+        TextView tvSatiety = (TextView) view.findViewById(R.id.tvSatiety);
+        TextView tvCookingTime = (TextView) view.findViewById(R.id.tvCookingTime);
+        TextView tvRecipe = (TextView) view.findViewById(R.id.tvRecipe);
+
+        ivIcon.setImageBitmap(recipe.icon);
+        tvCaption.setText(recipe.name);
+        tvSatiety.setText(recipe.satiety.toString());
+        tvCookingTime.setText(recipe.cookingTime+" мин");
+        tvRecipe.setText(recipe.instruction);
+
+        return view;
     }
 
     @Override

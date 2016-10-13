@@ -28,7 +28,8 @@
             android:text="Название блюда"
             android:layout_marginTop="40dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:maxLines="2"/>
+            android:maxLines="2"
+            android:id="@+id/tvCaption" />
 
         <RelativeLayout
             android:layout_marginTop="20dp"
