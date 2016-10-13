@@ -1,5 +1,7 @@
 package com.cookbook;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -16,13 +18,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.cookbook.dummy.DummyCategories;
 import com.cookbook.fragments.CategoriesFragment;
 import com.cookbook.fragments.FavoritesRecipesFragment;
 import com.cookbook.fragments.SearchRecipeFragment;
 import com.cookbook.fragments.ShopingListFragment;
+import com.cookbook.helpers.BitmapHelper;
+import com.cookbook.helpers.DBCategoriesHelper;
+import com.cookbook.helpers.DBHelper;
+import com.cookbook.pojo.Category;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener, NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String LOG_TAG = "CookBook";
     CategoriesFragment categoriesFragment = new CategoriesFragment();
     SearchRecipeFragment searchRecipeFragment = new SearchRecipeFragment();
     FavoritesRecipesFragment favoritesRecipesFragment = new FavoritesRecipesFragment();
@@ -47,6 +58,18 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         initDrawer(toolbar);
         currentFragment = categoriesFragment;
         setFragment(categoriesFragment,false);
+
+        //TODO: не удалять базу!
+        dropData();
+        DBCategoriesHelper dbCategoriesHelper = new DBCategoriesHelper(this);
+        List<Category> categories;
+        dbCategoriesHelper.addOrUpdate(DummyCategories.getCategories(getApplicationContext(),10,1));
+        categories = dbCategoriesHelper.getAll();
+    }
+
+    private void dropData() {
+        Log.w(LOG_TAG,"Удаление локальной базы");
+        deleteDatabase(DBHelper.DB_NAME);
     }
 
     public void setFragment(Fragment fragment, boolean backEnabled) {

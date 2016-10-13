@@ -2,8 +2,10 @@ package com.cookbook.dummy;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
 
 import com.cookbook.R;
+import com.cookbook.helpers.BitmapHelper;
 import com.cookbook.pojo.Category;
 import com.cookbook.pojo.Recipe;
 
@@ -17,8 +19,8 @@ public class DummyCategories {
         Random random = new Random();
 
         for (int i = 0; i < count; i++) {
-            ArrayList<Recipe> recipes = DummyRecipes.getRecipes(context, recipesPerCategory);
-            categories.add(new Category(captions[random.nextInt(captions.length)],recipes));
+            Bitmap image = BitmapHelper.drawableToBitmap(context.getResources().getDrawable(R.drawable.ic_placeholder));
+            categories.add(new Category(i, captions[random.nextInt(captions.length)], BitmapHelper.getBytes(image)));
         }
         return categories;
     }

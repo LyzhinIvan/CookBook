@@ -72,13 +72,16 @@ public class DBHelper extends SQLiteOpenHelper {
                     + IR_REC_ID +" INTEGER NOT NULL,"
                     + IR_QUANTITY +" TEXT NOT NULL,"
                     + "FOREIGN KEY ("+IR_ING_ID+") REFERENCES "+TABLE_INGREDIENTS + "("+ING_ID+"),"
-                    + "FOREIGN KEY ("+IR_REC_ID+") REFERENCES "+TABLE_RECIPES + "("+RECIPE_ID+"),"
+                    + "FOREIGN KEY ("+IR_REC_ID+") REFERENCES "+TABLE_RECIPES + "("+RECIPE_ID+")"
                     + ");";
-    private static final String LOG_TAG = "dbCookbook";
+
+    protected static final String LOG_TAG = "dbCookbook";
+
+    public static final String DB_NAME = "CookBook";
 
 
     public DBHelper(Context context) {
-        super(context, "CookBook", null, 1);
+        super(context, DB_NAME, null, 1);
     }
 
     @Override
