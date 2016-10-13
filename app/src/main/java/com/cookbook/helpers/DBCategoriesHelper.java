@@ -41,6 +41,7 @@ public class DBCategoriesHelper extends DBHelper {
             Log.e(LOG_TAG, "Ошибка при обновлении категории");
         } finally {
             db.endTransaction();
+            db.close();
         }
     }
 
@@ -58,6 +59,8 @@ public class DBCategoriesHelper extends DBHelper {
 
         ArrayList<Category> categories = new ArrayList<>();
         bindCategories(c, categories);
+
+        db.close();
         return categories;
     }
 

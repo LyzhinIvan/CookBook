@@ -34,6 +34,7 @@ public class DBIngredientsHelper extends DBHelper {
         ArrayList<Pair<Ingredient,String>> pairs = new ArrayList<>();
         bindPairs(c, pairs);
 
+        db.close();
         return pairs;
     }
 
@@ -49,6 +50,7 @@ public class DBIngredientsHelper extends DBHelper {
         ArrayList<Ingredient> ings = new ArrayList<>();
         bindIng(c, ings);
 
+        db.close();
         return ings.get(0);
     }
 
@@ -79,6 +81,7 @@ public class DBIngredientsHelper extends DBHelper {
             Log.e(LOG_TAG, "Ошибка при обновлении ингредиента");
         } finally {
             db.endTransaction();
+            db.close();
         }
     }
 
@@ -107,6 +110,7 @@ public class DBIngredientsHelper extends DBHelper {
             Log.e(LOG_TAG, "Ошибка при обновлении пар ингредиент - рецепт");
         } finally {
             db.endTransaction();
+            db.close();
         }
     }
 

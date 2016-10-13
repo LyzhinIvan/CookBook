@@ -46,6 +46,7 @@ public class DBRecipesHelper extends DBHelper {
             Log.e(LOG_TAG, "Ошибка при обновлении категории");
         } finally {
             db.endTransaction();
+            db.close();
         }
     }
 
@@ -60,6 +61,8 @@ public class DBRecipesHelper extends DBHelper {
 
         ArrayList<Recipe> recipes = new ArrayList<>();
         bindRecipes(c, recipes);
+
+        db.close();
         return recipes;
     }
 
@@ -78,7 +81,16 @@ public class DBRecipesHelper extends DBHelper {
         if (recipes.size()!=1) {
             Log.e(LOG_TAG,String.format("В базе найдено %d рецептов с id = %d",recipes.size(),recipeId));
         }
+
+        db.close();
         return recipes.get(0);
+    }
+
+
+    public void addOrUpdate(final Recipe r) {
+        addOrUpdate(new ArrayList<Recipe>() {{
+            add(r);
+        }});
     }
 
     private void bindRecipes(Cursor c, ArrayList<Recipe> recipes) {
@@ -104,9 +116,4 @@ public class DBRecipesHelper extends DBHelper {
         }
     }
 
-    public void addOrUpdate(final Recipe r) {
-        addOrUpdate(new ArrayList<Recipe>() {{
-            add(r);
-        }});
-    }
 }
