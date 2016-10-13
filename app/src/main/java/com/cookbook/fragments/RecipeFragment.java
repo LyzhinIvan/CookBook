@@ -13,19 +13,56 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.util.Pair;
 
 import com.cookbook.R;
+import com.cookbook.adapters.RecipeIngredientAdapter;
+import com.cookbook.helpers.DBIngredientsHelper;
+import com.cookbook.helpers.DBRecipesHelper;
 import com.cookbook.pojo.Ingredient;
+import com.cookbook.pojo.Recipe;
 
 import java.util.List;
 
 
 public class RecipeFragment extends Fragment implements Ingredient.IngredientClickListener {
 
+    private static final String ARG_REC_ID = "recipe_id";
+    private static final String LOG_TAG = "CookBook";
+
     private boolean isFavorite = false;
-    private List<Ingredient> ingredients;
+    private Recipe recipe = null;
+    private List<Pair<Ingredient,String>> pairs = null;
 
     public RecipeFragment() {
+    }
+
+    public static RecipeFragment newInstance(long recId) {
+        RecipeFragment fragment = new RecipeFragment();
+        Bundle args = new Bundle();
+        args.putLong(ARG_REC_ID, recId);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            long recId = getArguments().getLong(ARG_REC_ID);
+
+            DBRecipesHelper dbRecipesHelper = new DBRecipesHelper(getContext());
+            DBIngredientsHelper dbIngredientsHelper = new DBIngredientsHelper(getContext());
+
+            recipe = dbRecipesHelper.getById(recId); // получаем рецепт из базы
+            pairs = dbIngredientsHelper.getByRecipeId(recId); // получаем список его ингредиентов и их количества
+
+            getActivity().setTitle(recipe.name);
+        }
+        else {
+            Log.e(LOG_TAG,"Создан фрагмент RecipesList без аргументов!");
+        }
+        setHasOptionsMenu(true);
     }
 
 
@@ -58,14 +95,8 @@ public class RecipeFragment extends Fragment implements Ingredient.IngredientCli
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public void onStart() {
         super.onStart();
-        //ingredients = DummyIngredients.getIngredients(getContext(),3);
         initRecycleView();
     }
 
@@ -73,8 +104,8 @@ public class RecipeFragment extends Fragment implements Ingredient.IngredientCli
         RecyclerView recycler = (RecyclerView)getView().findViewById(R.id.recyclerView);
         recycler.setHasFixedSize(true);
 
-        //RecipeIngredientAdapter adapter = new RecipeIngredientAdapter(getContext(), ingredients, this);
-        //recycler.setAdapter(adapter);
+        RecipeIngredientAdapter adapter = new RecipeIngredientAdapter(getContext(), pairs, this);
+        recycler.setAdapter(adapter);
     }
 
     @Override

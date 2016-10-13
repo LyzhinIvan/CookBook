@@ -9,8 +9,6 @@ import android.util.Pair;
 
 import com.cookbook.mock.IngRecPair;
 import com.cookbook.pojo.Ingredient;
-import com.cookbook.pojo.Recipe;
-import com.cookbook.pojo.Satiety;
 
 import java.util.ArrayList;
 import java.util.List;

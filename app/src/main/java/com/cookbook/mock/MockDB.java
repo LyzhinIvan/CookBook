@@ -63,7 +63,7 @@ public class MockDB {
     private static List<IngRecPair> getIngRecPairs(int i, int j, int count) {
         List<IngRecPair> pairs = new ArrayList<>();
         for (int k = 0; k < count; k++) {
-            IngRecPair ingRecPair = new IngRecPair(i * 100 + j * 10 + k, i * 100 + j, i, getRandomQuantity());
+            IngRecPair ingRecPair = new IngRecPair(i * 100 + j * 10 + k, i * 100 + j, random.nextInt(10), getRandomQuantity());
             pairs.add(ingRecPair);
         }
         return pairs;
