@@ -49,18 +49,36 @@ public class DBRecipesHelper extends DBHelper {
         }
     }
 
-    public List<Recipe> getByCategory(long id) {
-        if (id < 0)
+    public List<Recipe> getByCategory(long categoryId) {
+        if (categoryId < 0)
             return null;
 
         SQLiteDatabase db = getReadableDatabase();
 
-        String FIND_QUERY = String.format("SELECT * FROM %s WHERE %s = '%d'", TABLE_RECIPES, RECIPE_CATEGORY_ID, id);
+        String FIND_QUERY = String.format("SELECT * FROM %s WHERE %s = '%d'", TABLE_RECIPES, RECIPE_CATEGORY_ID, categoryId);
         Cursor c = db.rawQuery(FIND_QUERY, null);
 
         ArrayList<Recipe> recipes = new ArrayList<>();
         bindRecipes(c, recipes);
         return recipes;
+    }
+
+    public Recipe getById(long recipeId) {
+        if (recipeId < 0)
+            return null;
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        String FIND_QUERY = String.format("SELECT * FROM %s WHERE %s = '%d'", TABLE_RECIPES, RECIPE_ID, recipeId);
+        Cursor c = db.rawQuery(FIND_QUERY, null);
+
+        ArrayList<Recipe> recipes = new ArrayList<>();
+        bindRecipes(c, recipes);
+
+        if (recipes.size()!=1) {
+            Log.e(LOG_TAG,String.format("В базе найдено %d рецептов с id = %d",recipes.size(),recipeId));
+        }
+        return recipes.get(0);
     }
 
     private void bindRecipes(Cursor c, ArrayList<Recipe> recipes) {
