@@ -55,6 +55,10 @@ public class FavoritesHelper {
         return recipes;
     }
 
+    public boolean isFavorite(long id) {
+        return getSavedIds().contains(id);
+    }
+
     private void saveLongList(List<Long> savedIds) {
         StringBuilder sb = new StringBuilder();
         for (long sId : savedIds) {

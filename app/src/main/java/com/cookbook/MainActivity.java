@@ -52,8 +52,8 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         setFragment(categoriesFragment,false);
 
         //TODO: не удалять базу!
-        dropData();
-        MockDB.createFakeDatabese(getApplicationContext());
+        //dropData();
+        //MockDB.createFakeDatabese(getApplicationContext());
     }
 
     private void dropData() {
@@ -104,17 +104,18 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         }
     }
 
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        currentFragment.onCreateOptionsMenu(menu,getMenuInflater());
+        //currentFragment.onCreateOptionsMenu(menu,getMenuInflater());
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        currentFragment.onOptionsItemSelected(item);
+        //currentFragment.onOptionsItemSelected(item);
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {

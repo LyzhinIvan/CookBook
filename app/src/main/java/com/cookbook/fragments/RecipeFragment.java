@@ -19,6 +19,7 @@ import com.cookbook.R;
 import com.cookbook.adapters.RecipeIngredientAdapter;
 import com.cookbook.helpers.DBIngredientsHelper;
 import com.cookbook.helpers.DBRecipesHelper;
+import com.cookbook.helpers.FavoritesHelper;
 import com.cookbook.pojo.Ingredient;
 import com.cookbook.pojo.Recipe;
 
@@ -30,9 +31,10 @@ public class RecipeFragment extends Fragment implements Ingredient.IngredientCli
     private static final String ARG_REC_ID = "recipe_id";
     private static final String LOG_TAG = "CookBook";
 
-    private boolean isFavorite = false;
+    private boolean isFavorite;
     private Recipe recipe = null;
     private List<Pair<Ingredient,String>> pairs = null;
+    FavoritesHelper favoritesHelper;
 
     public RecipeFragment() {
     }
@@ -57,10 +59,13 @@ public class RecipeFragment extends Fragment implements Ingredient.IngredientCli
             recipe = dbRecipesHelper.getById(recId); // получаем рецепт из базы
             pairs = dbIngredientsHelper.getByRecipeId(recId); // получаем список его ингредиентов и их количества
 
+            favoritesHelper = FavoritesHelper.getInstance(getContext());
+            isFavorite = favoritesHelper.isFavorite(recipe.id);
+
             getActivity().setTitle(recipe.name);
         }
         else {
-            Log.e(LOG_TAG,"Создан фрагмент RecipesList без аргументов!");
+            Log.e(LOG_TAG,"Создан фрагмент RecipeFragment без аргументов!");
         }
         setHasOptionsMenu(true);
     }
@@ -87,11 +92,14 @@ public class RecipeFragment extends Fragment implements Ingredient.IngredientCli
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.menu_include || id == R.id.menu_exculde) {
+            if (isFavorite)
+                favoritesHelper.removeFromFavorites(recipe.id);
+            else favoritesHelper.addToFavorite(recipe.id);
+
             isFavorite = !isFavorite;
             getActivity().invalidateOptionsMenu();
         }
-        Log.d("Cook","onOptionsItemSelected");
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

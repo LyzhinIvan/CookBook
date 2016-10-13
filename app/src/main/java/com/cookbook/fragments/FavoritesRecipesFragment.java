@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cookbook.MainActivity;
 import com.cookbook.R;
 import com.cookbook.adapters.RecipeListAdapter;
 import com.cookbook.helpers.FavoritesHelper;
@@ -42,8 +43,6 @@ public class FavoritesRecipesFragment extends Fragment implements Recipe.RecipeC
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        recipes = FavoritesHelper.getInstance(getContext()).getFavoriteRecipes();
 
         getActivity().setTitle("Любимые рецепты");
         setHasOptionsMenu(true);
@@ -90,6 +89,7 @@ public class FavoritesRecipesFragment extends Fragment implements Recipe.RecipeC
     @Override
     public void onStart() {
         super.onStart();
+        recipes = FavoritesHelper.getInstance(getContext()).getFavoriteRecipes();
         initRecycleView();
     }
 
@@ -109,7 +109,10 @@ public class FavoritesRecipesFragment extends Fragment implements Recipe.RecipeC
 
     @Override
     public void onClick(Recipe recipe) {
-        Snackbar.make(getActivity().findViewById(R.id.root_layout),String.format("Click on %s",recipe.name), Snackbar.LENGTH_SHORT).show();
+        RecipeFragment fragment = RecipeFragment.newInstance(recipe.id);
+        MainActivity mainActivity = (MainActivity) getActivity();
+        mainActivity.setFragment(fragment, true);
+        //Snackbar.make(getActivity().findViewById(R.id.root_layout),String.format("Click on %s",recipe.name), Snackbar.LENGTH_SHORT).show();
     }
 
 }
