@@ -15,8 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cookbook.R;
-import com.cookbook.adapters.RecipeIngredientAdapter;
-import com.cookbook.dummy.DummyIngredients;
 import com.cookbook.pojo.Ingredient;
 
 import java.util.List;
