@@ -10,7 +10,6 @@
     android:layout_margin="10dp">
 
     <ImageView
-
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:src="@drawable/ic_placeholder"
@@ -20,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/ivIcon"
+        android:layout_marginLeft="5dp"
         android:layout_alignBaseline="@id/ivIcon"
         android:orientation="vertical">
         <TextView
@@ -51,16 +51,28 @@
                 android:text="40 мин"/>
         </RelativeLayout>
     </LinearLayout>
-    <GridLayout
-        android:id="@+id/gridIng"
+
+    <TextView
+        android:id="@+id/tvIngredients"
         android:layout_below="@id/ivIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Что потребуется?"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_below="@id/tvIngredients"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </GridLayout>
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/recipe_ingredient_item">
+    </android.support.v7.widget.RecyclerView>
 
     <TextView
         android:id="@+id/tvCaption"
-        android:layout_below="@id/gridIng"
+        android:layout_below="@id/recyclerView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Как приготовить?"
