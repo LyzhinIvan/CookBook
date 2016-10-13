@@ -1,7 +1,5 @@
 package com.cookbook;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -18,18 +16,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.cookbook.dummy.DummyCategories;
 import com.cookbook.fragments.CategoriesFragment;
 import com.cookbook.fragments.FavoritesRecipesFragment;
 import com.cookbook.fragments.SearchRecipeFragment;
 import com.cookbook.fragments.ShopingListFragment;
-import com.cookbook.helpers.BitmapHelper;
-import com.cookbook.helpers.DBCategoriesHelper;
 import com.cookbook.helpers.DBHelper;
-import com.cookbook.pojo.Category;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.cookbook.mock.MockDB;
 
 public class MainActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener, NavigationView.OnNavigationItemSelectedListener {
 
@@ -39,11 +31,11 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
     FavoritesRecipesFragment favoritesRecipesFragment = new FavoritesRecipesFragment();
     ShopingListFragment shopingListFragment = new ShopingListFragment();
 
-
     Fragment currentFragment;
     ActionBarDrawerToggle drawerToggle;
     DrawerLayout mDrawerLayout;
     FragmentManager fragmentManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +53,7 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
 
         //TODO: не удалять базу!
         dropData();
-        DBCategoriesHelper dbCategoriesHelper = new DBCategoriesHelper(this);
-        List<Category> categories;
-        dbCategoriesHelper.addOrUpdate(DummyCategories.getCategories(getApplicationContext(),10,1));
-        categories = dbCategoriesHelper.getAll();
+        MockDB.createFakeDatabese(getApplicationContext());
     }
 
     private void dropData() {

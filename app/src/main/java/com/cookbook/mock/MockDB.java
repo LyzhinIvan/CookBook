@@ -1,19 +1,27 @@
-package com.cookbook.dummy;
-
+package com.cookbook.mock;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import com.cookbook.R;
 import com.cookbook.helpers.BitmapHelper;
+import com.cookbook.helpers.DBCategoriesHelper;
 import com.cookbook.pojo.Category;
-import com.cookbook.pojo.Recipe;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class DummyCategories {
-    public static ArrayList<Category> getCategories(Context context, int count, int recipesPerCategory) {
+public class MockDB {
+    private static final String LOG_TAG = "CookBookMock";
+
+    public static void createFakeDatabese(Context context) {
+        DBCategoriesHelper dbCategoriesHelper = new DBCategoriesHelper(context);
+        dbCategoriesHelper.addOrUpdate(getCategories(context,10));
+        Log.w(LOG_TAG,"Создана фейковая база данных");
+    }
+
+    private static ArrayList<Category> getCategories(Context context, int count) {
         ArrayList<Category> categories = new ArrayList<>();
         String[] captions = context.getResources().getStringArray(R.array.dummy_categories);
         Random random = new Random();

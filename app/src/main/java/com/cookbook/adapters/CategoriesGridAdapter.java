@@ -12,14 +12,15 @@ import com.cookbook.R;
 import com.cookbook.pojo.Category;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CategoriesGridAdapter extends RecyclerView.Adapter<CategoriesGridAdapter.ViewHolder>{
 
-    private ArrayList<Category> categories;
+    private List<Category> categories;
     private Category.CategoryClickListener categoryClickListener;
     private Context context;
 
-    public CategoriesGridAdapter(Context context, ArrayList<Category> categories, Category.CategoryClickListener categoryClickListener) {
+    public CategoriesGridAdapter(Context context, List<Category> categories, Category.CategoryClickListener categoryClickListener) {
         this.context = context;
         this.categories = categories;
         this.categoryClickListener = categoryClickListener;

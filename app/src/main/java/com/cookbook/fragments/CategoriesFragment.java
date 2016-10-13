@@ -16,16 +16,17 @@ import android.view.ViewGroup;
 import com.cookbook.MainActivity;
 import com.cookbook.R;
 import com.cookbook.adapters.CategoriesGridAdapter;
-import com.cookbook.dummy.DummyCategories;
 import com.cookbook.dummy.DummyRecipes;
+import com.cookbook.helpers.DBCategoriesHelper;
 import com.cookbook.pojo.Category;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
 public class CategoriesFragment extends Fragment implements Category.CategoryClickListener {
 
     RecyclerView recyclerView;
+    List<Category> categories;
 
     public CategoriesFragment() {
         // Required empty public constructor
@@ -41,6 +42,8 @@ public class CategoriesFragment extends Fragment implements Category.CategoryCli
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        DBCategoriesHelper dbCategoriesHelper = new DBCategoriesHelper(getContext());
+        categories = dbCategoriesHelper.getAll();
     }
 
     @Override
@@ -72,7 +75,6 @@ public class CategoriesFragment extends Fragment implements Category.CategoryCli
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
 
-        ArrayList<Category> categories = DummyCategories.getCategories(getContext(), 10, 15);
         CategoriesGridAdapter adapter = new CategoriesGridAdapter(getContext(),categories,this);
         recyclerView.setAdapter(adapter);
     }
