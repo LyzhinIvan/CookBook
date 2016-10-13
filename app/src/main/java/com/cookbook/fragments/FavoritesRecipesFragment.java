@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.cookbook.R;
 import com.cookbook.adapters.RecipeListAdapter;
+import com.cookbook.helpers.FavoritesHelper;
 import com.cookbook.helpers.SearchHelper;
 import com.cookbook.pojo.Recipe;
 import com.google.gson.Gson;
@@ -28,34 +29,22 @@ import java.util.List;
 
 public class FavoritesRecipesFragment extends Fragment implements Recipe.RecipeClickListener {
 
-    private static final String ARG_RECIPES = "recipes";
-    private static final Gson gson = new Gson();
-    private static final Type type = new TypeToken<List<Recipe>>(){}.getType();
     private static final String LOG_TAG = "CookBook";
 
     List<Recipe> recipes;
     RecyclerView recyclerView;
     SearchView searchView = null;
 
-    public static FavoritesRecipesFragment newInstance(List<Recipe> recipes) {
-        FavoritesRecipesFragment fragment = new FavoritesRecipesFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_RECIPES, gson.toJson(recipes, type));
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     public FavoritesRecipesFragment() {
         // Required empty public constructor
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            recipes = gson.fromJson(getArguments().getString(ARG_RECIPES),type);
-        }
+
+        recipes = FavoritesHelper.getInstance(getContext()).getFavoriteRecipes();
+
         getActivity().setTitle("Любимые рецепты");
         setHasOptionsMenu(true);
     }
@@ -63,7 +52,6 @@ public class FavoritesRecipesFragment extends Fragment implements Recipe.RecipeC
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_favorites_recipes, container, false);
     }
 
@@ -102,7 +90,6 @@ public class FavoritesRecipesFragment extends Fragment implements Recipe.RecipeC
     @Override
     public void onStart() {
         super.onStart();
-        recipes = new ArrayList<>();
         initRecycleView();
     }
 

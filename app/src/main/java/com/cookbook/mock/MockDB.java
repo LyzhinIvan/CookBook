@@ -9,6 +9,7 @@ import com.cookbook.dummy.DummyIngredients;
 import com.cookbook.helpers.BitmapHelper;
 import com.cookbook.helpers.DBCategoriesHelper;
 import com.cookbook.helpers.DBRecipesHelper;
+import com.cookbook.helpers.FavoritesHelper;
 import com.cookbook.pojo.Category;
 import com.cookbook.pojo.Ingredient;
 import com.cookbook.pojo.Recipe;
@@ -22,6 +23,8 @@ public class MockDB {
     private static Random random = new Random();
 
     public static void createFakeDatabese(Context context) {
+
+        Log.w(LOG_TAG, "Начинается создание фейковой БД");
         DBCategoriesHelper dbCategoriesHelper = new DBCategoriesHelper(context);
         DBRecipesHelper dbRecipesHelper = new DBRecipesHelper(context);
 
@@ -30,6 +33,13 @@ public class MockDB {
             ArrayList<Recipe> recipes = getRecipes(context, 10, i);
             dbRecipesHelper.addOrUpdate(recipes);
         }
+
+        FavoritesHelper favHelper = FavoritesHelper.getInstance(context);
+        favHelper.addToFavorite(1);
+        favHelper.addToFavorite(101);
+        favHelper.addToFavorite(505);
+        favHelper.addToFavorite(908);
+
         Log.w(LOG_TAG, "Создана фейковая база данных");
     }
 
