@@ -5,15 +5,19 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.cookbook.R;
 import com.cookbook.adapters.RecipeListAdapter;
 import com.cookbook.dummy.DummyRecipes;
+import com.cookbook.helpers.SearchHelper;
 import com.cookbook.pojo.Recipe;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -27,9 +31,11 @@ public class FavoritesRecipesFragment extends Fragment implements Recipe.RecipeC
     private static final String ARG_RECIPES = "recipes";
     private static final Gson gson = new Gson();
     private static final Type type = new TypeToken<List<Recipe>>(){}.getType();
+    private static final String LOG_TAG = "CookBook";
 
     List<Recipe> recipes;
     RecyclerView recyclerView;
+    SearchView searchView = null;
 
     public static FavoritesRecipesFragment newInstance(List<Recipe> recipes) {
         FavoritesRecipesFragment fragment = new FavoritesRecipesFragment();
@@ -65,8 +71,32 @@ public class FavoritesRecipesFragment extends Fragment implements Recipe.RecipeC
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
-        inflater.inflate(R.menu.search_recipe_menu, menu);
-        super.onCreateOptionsMenu(menu,inflater);
+        inflater.inflate(R.menu.recipes_list_menu, menu);
+
+        try {
+            MenuItem searchItem = menu.findItem(R.id.action_search);
+            searchItem.collapseActionView();
+            searchView = SearchHelper.getSearchView(getActivity(), searchItem);
+            if (searchView!=null) {
+                searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        searchView.clearFocus();
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onQueryTextChange(String s) {
+                        List<Recipe> filterData = SearchHelper.filterData(FavoritesRecipesFragment.this.recipes, s);
+                        RecipeListAdapter adapter = new RecipeListAdapter(FavoritesRecipesFragment.this.getContext(), filterData, FavoritesRecipesFragment.this);
+                        recyclerView.setAdapter(adapter);
+                        return true;
+                    }
+                });
+            }
+        } catch (Exception ex) {
+            Log.e(LOG_TAG, "Не удалось произвести поиск",ex);
+        }
     }
 
     @Override
@@ -74,6 +104,12 @@ public class FavoritesRecipesFragment extends Fragment implements Recipe.RecipeC
         super.onStart();
         recipes = DummyRecipes.getRecipes(getContext(),20);
         initRecycleView();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (searchView!=null) searchView.clearFocus(); // закрываем поиск и прячем клавиатуру
     }
 
     private void initRecycleView() {

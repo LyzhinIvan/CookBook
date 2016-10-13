@@ -1,12 +1,23 @@
 package com.cookbook.fragments;
 
 
+import android.app.SearchManager;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.MatrixCursor;
 import android.os.Bundle;
+import android.provider.BaseColumns;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.CursorAdapter;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -14,11 +25,13 @@ import com.cookbook.MainActivity;
 import com.cookbook.R;
 import com.cookbook.adapters.RecipeListAdapter;
 import com.cookbook.dummy.DummyRecipes;
+import com.cookbook.helpers.SearchHelper;
 import com.cookbook.pojo.Recipe;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -26,10 +39,16 @@ public class RecipesListFragment extends Fragment implements Recipe.RecipeClickL
     private static final String ARG_CAT_NAME = "catName";
     private static final String ARG_RECIPES = "recipes";
     private static final Gson gson = new Gson();
-    private static final Type type = new TypeToken<List<Recipe>>(){}.getType();
+    private static final Type type = new TypeToken<List<Recipe>>() {
+    }.getType();
+
+    private static final String LOG_TAG = "CookBook";
 
     List<Recipe> recipes;
     RecyclerView recyclerView;
+
+    SearchView searchView = null;
+
 
     public RecipesListFragment() {
         // Required empty public constructor
@@ -39,7 +58,7 @@ public class RecipesListFragment extends Fragment implements Recipe.RecipeClickL
         RecipesListFragment fragment = new RecipesListFragment();
         Bundle args = new Bundle();
         args.putString(ARG_RECIPES, gson.toJson(recipes, type));
-        args.putString(ARG_CAT_NAME,categoryName);
+        args.putString(ARG_CAT_NAME, categoryName);
         fragment.setArguments(args);
         return fragment;
     }
@@ -48,7 +67,7 @@ public class RecipesListFragment extends Fragment implements Recipe.RecipeClickL
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            recipes = gson.fromJson(getArguments().getString(ARG_RECIPES),type);
+            recipes = gson.fromJson(getArguments().getString(ARG_RECIPES), type);
             String name = getArguments().getString(ARG_CAT_NAME);
             getActivity().setTitle(name);
         }
@@ -64,22 +83,50 @@ public class RecipesListFragment extends Fragment implements Recipe.RecipeClickL
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
-        inflater.inflate(R.menu.search_recipe_menu, menu);
-        super.onCreateOptionsMenu(menu,inflater);
+        inflater.inflate(R.menu.recipes_list_menu, menu);
+
+        try {
+            MenuItem searchItem = menu.findItem(R.id.action_search);
+            searchView = SearchHelper.getSearchView(getActivity(), searchItem);
+            if (searchView!=null) {
+                searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        searchView.clearFocus();
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onQueryTextChange(String s) {
+                        List<Recipe> filterData = SearchHelper.filterData(RecipesListFragment.this.recipes, s);
+                        RecipeListAdapter adapter = new RecipeListAdapter(RecipesListFragment.this.getContext(), filterData, RecipesListFragment.this);
+                        recyclerView.setAdapter(adapter);
+                        return true;
+                    }
+                });
+            }
+        } catch (Exception ex) {
+            Log.e(LOG_TAG, "Не удалось произвести поиск",ex);
+        }
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        recipes = DummyRecipes.getRecipes(getContext(),20);
         initRecycleView();
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (searchView!=null) searchView.clearFocus(); // закрываем поиск и прячем клавиатуру
+    }
+
     private void initRecycleView() {
-        recyclerView = (RecyclerView)getView().findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) getView().findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
 
-        RecipeListAdapter adapter = new RecipeListAdapter(getContext(),recipes,this);
+        RecipeListAdapter adapter = new RecipeListAdapter(getContext(), recipes, this);
         recyclerView.setAdapter(adapter);
     }
 
@@ -88,7 +135,7 @@ public class RecipesListFragment extends Fragment implements Recipe.RecipeClickL
     public void onClick(Recipe recipe) {
         RecipeFragment fragment = new RecipeFragment();
         MainActivity mainActivity = (MainActivity) getActivity();
-        mainActivity.setFragment(fragment,true);
+        mainActivity.setFragment(fragment, true);
         //Snackbar.make(getActivity().findViewById(R.id.root_layout),String.format("Click on %s",recipe.name),Snackbar.LENGTH_SHORT).show();
     }
 

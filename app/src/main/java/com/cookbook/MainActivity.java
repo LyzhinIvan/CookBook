@@ -45,12 +45,11 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         fragmentManager.addOnBackStackChangedListener(this);
 
         initDrawer(toolbar);
+        currentFragment = categoriesFragment;
         setFragment(categoriesFragment,false);
     }
 
     public void setFragment(Fragment fragment, boolean backEnabled) {
-        currentFragment = fragment;
-
         FragmentTransaction fTrans = fragmentManager.beginTransaction();
         fTrans = fTrans.replace(R.id.frame_layout,fragment);
         if (backEnabled) {
@@ -95,7 +94,6 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        Log.d("Cook book","onCreateOptionsMenu");
         currentFragment.onCreateOptionsMenu(menu,getMenuInflater());
         return true;
     }
@@ -129,6 +127,8 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
 
     @Override
     public void onBackStackChanged() {
+        //устанавливаем текущим верхий фрагмент из стека
+        currentFragment = fragmentManager.getFragments().get(fragmentManager.getBackStackEntryCount());
         if (fragmentManager.getBackStackEntryCount()!=0) {
             drawerToggle.setDrawerIndicatorEnabled(false);
             Drawable drawable =  getResources().getDrawable(R.drawable.ic_arrow_back);
