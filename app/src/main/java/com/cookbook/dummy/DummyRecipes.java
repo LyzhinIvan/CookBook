@@ -4,6 +4,7 @@ package com.cookbook.dummy;
 import android.content.Context;
 
 import com.cookbook.R;
+import com.cookbook.pojo.Ingredient;
 import com.cookbook.pojo.Recipe;
 import com.cookbook.pojo.Satiety;
 
@@ -19,7 +20,8 @@ public class DummyRecipes {
         String[] captions = context.getResources().getStringArray(R.array.dummy_categories);
 
         for (int i = 0; i < count; i++) {
-            categories.add(new Recipe(captions[random.nextInt(captions.length)],getRandomSatiety(),random.nextInt(90)+15));
+            ArrayList<Ingredient> ingredients = DummyIngredients.getIngredients(context, 3);
+            categories.add(new Recipe(captions[random.nextInt(captions.length)],getRandomSatiety(),(random.nextInt(6)+1)*15, ingredients));
         }
         return categories;
     }

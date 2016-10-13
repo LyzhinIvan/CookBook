@@ -13,16 +13,6 @@
         android:layout_alignParentStart="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvQuantity"
-        android:text="Сколько"
-        android:layout_marginRight="15dp"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@id/btnToShopList"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
     <ImageButton
         android:id="@+id/btnToShopList"
         android:layout_width="40dp"
@@ -33,4 +23,15 @@
         android:background="@android:color/transparent"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvQuantity"
+        android:text="Сколько"
+        android:layout_marginRight="15dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/btnToShopList"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
 </RelativeLayout>

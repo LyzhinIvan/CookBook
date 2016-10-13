@@ -3,7 +3,9 @@ package com.cookbook.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,12 +14,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cookbook.ButtonAddToShopingListClickListener;
 import com.cookbook.R;
+import com.cookbook.adapters.RecipeIngredientAdapter;
+import com.cookbook.dummy.DummyIngredients;
+import com.cookbook.dummy.DummyRecipes;
+import com.cookbook.pojo.Ingredient;
+
+import java.util.List;
 
 
-public class RecipeFragment extends Fragment {
+public class RecipeFragment extends Fragment implements ButtonAddToShopingListClickListener {
 
     private boolean isFavorite = false;
+    private List<Ingredient> ingredients;
 
     public RecipeFragment() {
     }
@@ -54,5 +64,25 @@ public class RecipeFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        ingredients = DummyIngredients.getIngredients(getContext(),3);
+        initRecycleView();
+    }
+
+    private void initRecycleView() {
+        RecyclerView recycler = (RecyclerView)getView().findViewById(R.id.recyclerView);
+        recycler.setHasFixedSize(true);
+
+        RecipeIngredientAdapter adapter = new RecipeIngredientAdapter(getContext(), ingredients, this);
+        recycler.setAdapter(adapter);
+    }
+
+    @Override
+    public void onClick(Ingredient i) {
+        Snackbar.make(getActivity().findViewById(R.id.root_layout),String.format("%s добавлен в список покупок",i.caption), Snackbar.LENGTH_SHORT).show();
     }
 }

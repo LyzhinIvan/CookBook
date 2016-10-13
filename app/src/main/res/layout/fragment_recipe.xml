@@ -1,8 +1,8 @@
-<android.support.v4.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -67,6 +67,7 @@
         android:layout_below="@id/tvIngredients"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layoutManager="LinearLayoutManager"
         tools:listitem="@layout/recipe_ingredient_item">
     </android.support.v7.widget.RecyclerView>
 
