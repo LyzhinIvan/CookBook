@@ -1,6 +1,7 @@
 package com.cookbook.adapters;
 
 import android.content.Context;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.cookbook.ButtonAddToShopingListClickListener;
 import com.cookbook.R;
 import com.cookbook.pojo.Ingredient;
 
@@ -16,11 +16,11 @@ import java.util.List;
 
 public class RecipeIngredientAdapter extends RecyclerView.Adapter<RecipeIngredientAdapter.ViewHolder> {
 
-    private List<Ingredient> ingredients;
-    private ButtonAddToShopingListClickListener listener;
+    private List<Pair<Ingredient,String>> ingredients;
+    private Ingredient.IngredientClickListener listener;
     private Context context;
 
-    public RecipeIngredientAdapter(Context context, List<Ingredient> ingredients, ButtonAddToShopingListClickListener listener) {
+    public RecipeIngredientAdapter(Context context, List<Pair<Ingredient,String>> ingredients, Ingredient.IngredientClickListener listener) {
         this.context = context;
         this.ingredients = ingredients;
         this.listener = listener;
@@ -36,10 +36,11 @@ public class RecipeIngredientAdapter extends RecyclerView.Adapter<RecipeIngredie
 
     @Override
     public void onBindViewHolder(RecipeIngredientAdapter.ViewHolder holder, int position) {
-        Ingredient i = ingredients.get(position);
+        String caption = ingredients.get(position).first.caption;
+        String quantity = ingredients.get(position).second;
 
-        holder.tvCaption.setText(i.caption);
-        holder.tvQuantity.setText(i.quantity);
+        holder.tvCaption.setText(caption);
+        holder.tvQuantity.setText(quantity);
     }
 
     @Override
@@ -63,7 +64,7 @@ public class RecipeIngredientAdapter extends RecyclerView.Adapter<RecipeIngredie
 
         @Override
         public void onClick(View v) {
-            listener.onClick(ingredients.get(getAdapterPosition()));
+            listener.onClick(ingredients.get(getAdapterPosition()).first);
         }
     }
 }

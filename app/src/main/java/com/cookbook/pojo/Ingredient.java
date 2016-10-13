@@ -1,11 +1,19 @@
 package com.cookbook.pojo;
 
-public class Ingredient {
-    public String caption;
-    public String quantity;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    public Ingredient(String caption, String quantity) {
-        this.quantity = quantity;
+public class Ingredient {
+    public long id;
+    public String caption;
+
+    @JsonCreator
+    public Ingredient(@JsonProperty("id") long id, @JsonProperty("name") String caption) {
+        this.id = id;
         this.caption = caption;
+    }
+
+    public interface IngredientClickListener {
+        void onClick(Ingredient i);
     }
 }

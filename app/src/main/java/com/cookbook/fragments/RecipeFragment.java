@@ -14,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.cookbook.ButtonAddToShopingListClickListener;
 import com.cookbook.R;
 import com.cookbook.adapters.RecipeIngredientAdapter;
 import com.cookbook.dummy.DummyIngredients;
@@ -23,7 +22,7 @@ import com.cookbook.pojo.Ingredient;
 import java.util.List;
 
 
-public class RecipeFragment extends Fragment implements ButtonAddToShopingListClickListener {
+public class RecipeFragment extends Fragment implements Ingredient.IngredientClickListener {
 
     private boolean isFavorite = false;
     private List<Ingredient> ingredients;
