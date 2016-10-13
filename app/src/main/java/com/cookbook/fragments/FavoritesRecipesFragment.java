@@ -16,13 +16,13 @@ import android.view.ViewGroup;
 
 import com.cookbook.R;
 import com.cookbook.adapters.RecipeListAdapter;
-import com.cookbook.dummy.DummyRecipes;
 import com.cookbook.helpers.SearchHelper;
 import com.cookbook.pojo.Recipe;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -102,7 +102,7 @@ public class FavoritesRecipesFragment extends Fragment implements Recipe.RecipeC
     @Override
     public void onStart() {
         super.onStart();
-        recipes = DummyRecipes.getRecipes(getContext(),20);
+        recipes = new ArrayList<>();
         initRecycleView();
     }
 

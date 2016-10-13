@@ -2,27 +2,48 @@ package com.cookbook.pojo;
 
 import android.graphics.Bitmap;
 
+import com.cookbook.helpers.BitmapHelper;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.util.List;
 
+@JsonPropertyOrder({
+        "id",
+        "categoryId",
+        "name",
+        "time",
+        "instruction",
+        "satiety",
+        "picture"
+})
 public class Recipe {
+
+    public long id;
     public String name;
-    public Bitmap icon;
-    public Satiety satiety;
     public int cookingTime;
-    public List<Ingredient> ingredients;
+    public Satiety satiety;
+    public long categoryId;
+    public String instruction;
 
-    public Recipe(String name, Satiety satiety, int cookingTime, Bitmap icon) {
+    @JsonIgnore
+    public Bitmap icon;
+
+    @JsonCreator
+    public Recipe(@JsonProperty("id") long id, @JsonProperty("name") String name,
+                  @JsonProperty("time") int cookingTime, @JsonProperty("satiety") Satiety satiety,
+                  @JsonProperty("categoryId") long categoryId, @JsonProperty("instruction") String instruction,
+                  @JsonProperty("picture") byte[] iconBytes) {
+        this.id = id;
         this.name = name;
         this.cookingTime = cookingTime;
-        this.icon = icon;
         this.satiety = satiety;
-    }
+        this.categoryId = categoryId;
+        this.instruction = instruction;
 
-    public Recipe(String name, Satiety satiety, int cookingTime, List<Ingredient> ingredients) {
-        this.name = name;
-        this.satiety = satiety;
-        this.cookingTime = cookingTime;
-        this.ingredients = ingredients;
+        this.icon = BitmapHelper.getImage(iconBytes);
     }
 
     public interface RecipeClickListener {

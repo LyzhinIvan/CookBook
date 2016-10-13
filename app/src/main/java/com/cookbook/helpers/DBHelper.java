@@ -29,6 +29,7 @@ public class DBHelper extends SQLiteOpenHelper {
         RECIPE_ID = "id",
         RECIPE_CAPTION = "caption",
         RECIPE_TIME = "time",
+        RECIPE_SATIETY = "satiety",
         RECIPE_CATEGORY_ID = "category_id",
         RECIPE_ICON = "icon",
         RECIPE_INSTRUCTION = "instruction",
@@ -59,6 +60,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     + RECIPE_ID +" INTEGER PRIMARY KEY,"
                     + RECIPE_CAPTION +" varchar(255) NOT NULL,"
                     + RECIPE_TIME +" INTEGER NOT NULL,"
+                    + RECIPE_SATIETY+" TINYINT,"
                     + RECIPE_CATEGORY_ID +" INTEGER NOT NULL,"
                     + RECIPE_ICON +" BLOB,"
                     + RECIPE_INSTRUCTION +" TEXT NOT NULL,"

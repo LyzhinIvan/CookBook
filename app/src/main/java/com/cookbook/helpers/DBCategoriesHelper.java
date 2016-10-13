@@ -22,7 +22,6 @@ public class DBCategoriesHelper extends DBHelper {
             return;
 
         SQLiteDatabase db = getWritableDatabase();
-
         String sql = "INSERT OR REPLACE INTO " + TABLE_CATEGORIES + " VALUES (?,?,?);";
         SQLiteStatement statement = db.compileStatement(sql);
 

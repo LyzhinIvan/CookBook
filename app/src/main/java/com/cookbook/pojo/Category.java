@@ -9,16 +9,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonPropertyOrder({
-        "id",
-        "name",
-        "icon"
-})
 public class Category {
 
-    @JsonProperty("id")
     public long id;
-    @JsonProperty("name")
     public String name;
 
     @JsonIgnore
@@ -26,10 +19,6 @@ public class Category {
 
     public interface CategoryClickListener {
         void onClick(Category category);
-    }
-
-    //Пустой конструктор для JsonConvertor'a
-    public Category() {
     }
 
     @JsonCreator

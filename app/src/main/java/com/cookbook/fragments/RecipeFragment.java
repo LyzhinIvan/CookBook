@@ -18,7 +18,6 @@ import com.cookbook.ButtonAddToShopingListClickListener;
 import com.cookbook.R;
 import com.cookbook.adapters.RecipeIngredientAdapter;
 import com.cookbook.dummy.DummyIngredients;
-import com.cookbook.dummy.DummyRecipes;
 import com.cookbook.pojo.Ingredient;
 
 import java.util.List;

@@ -31,14 +31,16 @@
         <item>Кетчуп</item>
     </string-array>
 
+    <string-array name="dummy_recipes">
+        <item>Макароны по-флотски</item>
+        <item>Борщ домашний</item>
+        <item>Макароны с сыром</item>
+        <item>Пельмени</item>
+        <item>Доширак с мазиком</item>
+        <item>Бутерброд с хлебом без масла</item>
+    </string-array>
+
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sapien lectus, vestibulum id metus eget, venenatis pellentesque nisi. Ut lacinia velit sit amet nulla vulputate tempus. Sed et finibus erat, eget gravida neque. Sed magna urna, laoreet vitae placerat a, faucibus sed nulla. Nam velit sapien, tincidunt in neque luctus, aliquet congue libero. Aenean blandit mauris at interdum dictum. Suspendisse pharetra tristique turpis, vel tempor nunc lacinia non. Proin at est vestibulum, rutrum tellus sit amet, bibendum mauris. Aenean vulputate risus eget dictum aliquam. Proin maximus eros a porta gravida. Suspendisse tincidunt suscipit enim, sit amet consequat libero blandit at. Nulla a ipsum nunc.
-
-Nulla aliquet dui sed rutrum rhoncus. Suspendisse enim magna, mollis quis nulla quis, posuere luctus nibh. Ut nisi odio, consequat gravida scelerisque eu, tincidunt sed diam. Aliquam scelerisque fermentum lectus quis tristique. Fusce convallis purus sit amet sapien ultricies bibendum. Curabitur elementum felis sed massa efficitur, eu pretium tellus convallis. Curabitur fermentum dui dui, et vulputate eros finibus id. Maecenas et massa eget dolor rhoncus dapibus quis at ante. Integer mattis nulla vel nunc fermentum, vel vulputate urna feugiat. Donec elit metus, commodo non eleifend at, consectetur nec purus. Cras maximus mattis posuere.
-
-Praesent eu congue urna. Donec porta nunc lorem, et vehicula est consectetur faucibus. Morbi arcu nunc, mollis facilisis iaculis eget, pretium nec neque. Etiam a est ac leo aliquam tincidunt. Nullam mattis augue nec tortor maximus dictum. Etiam ultrices quis dui vitae fermentum. Etiam vehicula mi eget ornare tincidunt. Mauris laoreet libero diam, nec placerat quam tempus porta. Pellentesque et elit a turpis ultrices hendrerit sit amet sed dui. Sed vel dui sit amet dui dapibus euismod et et odio. Maecenas quis eros ut elit luctus ornare feugiat quis nibh. Mauris sit amet velit urna.
-
-Duis ut quam auctor, viverra ex eu, fermentum ipsum. Morbi vel est est. Duis efficitur blandit nunc a dictum. Etiam efficitur risus ut nunc dictum, eget gravida purus molestie. Nunc in convallis arcu. Phasellus nec rhoncus mauris. Mauris ut massa vel ex semper dignissim.
-
 Nunc placerat nulla ut ante sagittis dictum. Pellentesque viverra eros consectetur laoreet hendrerit. Quisque sem augue, ultricies porta fringilla a, consectetur nec augue. Fusce eget odio ut purus fringilla eleifend. Ut eleifend pulvinar sollicitudin. Pellentesque ac convallis velit. Vivamus fermentum dignissim nunc sed sodales.</string>
     <string name="search">Поиск</string>
 </resources>

@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import com.cookbook.MainActivity;
 import com.cookbook.R;
 import com.cookbook.adapters.CategoriesGridAdapter;
-import com.cookbook.dummy.DummyRecipes;
 import com.cookbook.helpers.DBCategoriesHelper;
 import com.cookbook.pojo.Category;
 
@@ -83,7 +82,7 @@ public class CategoriesFragment extends Fragment implements Category.CategoryCli
     public void onClick(Category category) {
 
         MainActivity mainActivity = (MainActivity) getActivity();
-        RecipesListFragment fragment = RecipesListFragment.newInstance(DummyRecipes.getRecipes(getContext(),10), category.name);
+        RecipesListFragment fragment = RecipesListFragment.newInstance(category.id, category.name);
 
         mainActivity.setFragment(fragment, true);
     }

@@ -1,16 +1,8 @@
 package com.cookbook.fragments;
 
 
-import android.app.SearchManager;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.MatrixCursor;
 import android.os.Bundle;
-import android.provider.BaseColumns;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.CursorAdapter;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
@@ -24,23 +16,16 @@ import android.view.ViewGroup;
 import com.cookbook.MainActivity;
 import com.cookbook.R;
 import com.cookbook.adapters.RecipeListAdapter;
-import com.cookbook.dummy.DummyRecipes;
+import com.cookbook.helpers.DBRecipesHelper;
 import com.cookbook.helpers.SearchHelper;
 import com.cookbook.pojo.Recipe;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class RecipesListFragment extends Fragment implements Recipe.RecipeClickListener {
     private static final String ARG_CAT_NAME = "catName";
-    private static final String ARG_RECIPES = "recipes";
-    private static final Gson gson = new Gson();
-    private static final Type type = new TypeToken<List<Recipe>>() {
-    }.getType();
+    private static final String ARG_CATEGORY_ID = "category_id";
 
     private static final String LOG_TAG = "CookBook";
 
@@ -54,10 +39,10 @@ public class RecipesListFragment extends Fragment implements Recipe.RecipeClickL
         // Required empty public constructor
     }
 
-    public static RecipesListFragment newInstance(List<Recipe> recipes, String categoryName) {
+    public static RecipesListFragment newInstance(long catId, String categoryName) {
         RecipesListFragment fragment = new RecipesListFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_RECIPES, gson.toJson(recipes, type));
+        args.putLong(ARG_CATEGORY_ID, catId);
         args.putString(ARG_CAT_NAME, categoryName);
         fragment.setArguments(args);
         return fragment;
@@ -67,9 +52,16 @@ public class RecipesListFragment extends Fragment implements Recipe.RecipeClickL
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            recipes = gson.fromJson(getArguments().getString(ARG_RECIPES), type);
+            long catId = getArguments().getLong(ARG_CATEGORY_ID);
             String name = getArguments().getString(ARG_CAT_NAME);
+
+            DBRecipesHelper dbRecipesHelper = new DBRecipesHelper(getContext()); // получаем все рецепты данной категории из базы
+            recipes = dbRecipesHelper.getByCategory(catId);
+
             getActivity().setTitle(name);
+        }
+        else {
+            Log.e(LOG_TAG,"Создан фрагмент RecipesList без аргументов!");
         }
         setHasOptionsMenu(true);
     }
