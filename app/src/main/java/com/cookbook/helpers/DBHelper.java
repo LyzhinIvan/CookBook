@@ -3,6 +3,8 @@ package com.cookbook.helpers;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
+import android.graphics.Bitmap;
 import android.util.Log;
 
 public class DBHelper extends SQLiteOpenHelper {
@@ -94,6 +96,12 @@ public class DBHelper extends SQLiteOpenHelper {
         super(context, DB_NAME, null, 1);
     }
 
+    protected void bindBitmapOrNull(SQLiteStatement statement, int index, Bitmap img) {
+        if (img==null)
+            statement.bindNull(index);
+        else statement.bindBlob(index,BitmapHelper.getBytes(img));
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.d(LOG_TAG, "--- onCreate database ---");
@@ -103,7 +111,6 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_IR_TABLE);
         db.execSQL(CREATE_SHOP_LIST_TABLE);
     }
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + CREATE_CATEGORIES_TABLE);

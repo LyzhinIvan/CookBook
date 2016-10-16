@@ -18,6 +18,9 @@ public class BitmapHelper {
     }
 
     public static Bitmap getImage(byte[] bytes) {
+        if (bytes==null)
+            //return Bitmap.createBitmap(40,40, Bitmap.Config.ARGB_8888);
+            return null;
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
 

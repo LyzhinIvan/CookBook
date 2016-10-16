@@ -35,7 +35,7 @@ public class DBRecipesHelper extends DBHelper {
                 statement.bindLong(3, r.cookingTime);
                 statement.bindLong(4, r.satiety.getValue());
                 statement.bindLong(5, r.categoryId);
-                statement.bindBlob(6, BitmapHelper.getBytes(r.icon));
+                bindBitmapOrNull(statement,6,r.icon);
                 statement.bindString(7, r.instruction);
 
                 statement.execute();

@@ -12,7 +12,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -21,6 +20,7 @@ import com.cookbook.fragments.FavoritesRecipesFragment;
 import com.cookbook.fragments.SearchRecipeFragment;
 import com.cookbook.fragments.ShopingListFragment;
 import com.cookbook.helpers.DBHelper;
+import com.cookbook.helpers.FavoritesHelper;
 import com.cookbook.mock.MockDB;
 
 public class MainActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener, NavigationView.OnNavigationItemSelectedListener {
@@ -44,21 +44,23 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //TODO: не удалять базу!
+        dropData();
+        //MockDB.createFakeDatabase(getApplicationContext());
+        MockDB.createTestDatabase(getApplicationContext());
+
         fragmentManager = getSupportFragmentManager();
         fragmentManager.addOnBackStackChangedListener(this);
 
         initDrawer(toolbar);
         currentFragment = categoriesFragment;
         setFragment(categoriesFragment,false);
-
-        //TODO: не удалять базу!
-        //dropData();
-        //MockDB.createFakeDatabese(getApplicationContext());
     }
 
     private void dropData() {
         Log.w(LOG_TAG,"Удаление локальной базы");
         deleteDatabase(DBHelper.DB_NAME);
+        FavoritesHelper.getInstance(this).removeAll();
     }
 
     public void setFragment(Fragment fragment, boolean backEnabled) {
@@ -103,19 +105,6 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
             super.onBackPressed();
         }
     }
-
-/*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //currentFragment.onCreateOptionsMenu(menu,getMenuInflater());
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        //currentFragment.onOptionsItemSelected(item);
-        return super.onOptionsItemSelected(item);
-    }*/
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {

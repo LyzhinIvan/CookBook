@@ -128,7 +128,6 @@ public class RecipesListFragment extends Fragment implements Recipe.RecipeClickL
         RecipeFragment fragment = RecipeFragment.newInstance(recipe.id);
         MainActivity mainActivity = (MainActivity) getActivity();
         mainActivity.setFragment(fragment, true);
-        //Snackbar.make(getActivity().findViewById(R.id.root_layout),String.format("Click on %s",recipe.name),Snackbar.LENGTH_SHORT).show();
     }
 
 

@@ -47,6 +47,10 @@ public class FavoritesHelper {
         saveLongList(savedIds);
     }
 
+    public void removeAll() {
+        mPrefs.edit().putString(PREF_FAVORITES,"").apply();
+    }
+
     public List<Recipe> getFavoriteRecipes() {
         List<Recipe> recipes = new ArrayList<>();
         for (Long id : getSavedIds()) {

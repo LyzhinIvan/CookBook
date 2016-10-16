@@ -24,7 +24,7 @@ public class MockDB {
     private static final String LOG_TAG = "CookBookMock";
     private static Random random = new Random();
 
-    public static void createFakeDatabese(Context context) {
+    public static void createFakeDatabase(Context context) {
 
         Log.w(LOG_TAG, "Начинается создание фейковой БД");
         DBCategoriesHelper dbCategoriesHelper = new DBCategoriesHelper(context);
@@ -32,7 +32,7 @@ public class MockDB {
         DBIngredientsHelper dbIngredientsHelper = new DBIngredientsHelper(context);
 
         // создаем 10 ингредиентов
-        dbIngredientsHelper.addOrReplace(getIngredients(context,10));
+        dbIngredientsHelper.addOrReplace(getIngredients(context, 10));
 
         // создаем 10 категорий по 10 рецептов в каждой
         dbCategoriesHelper.addOrUpdate(getCategories(context, 10));
@@ -58,6 +58,63 @@ public class MockDB {
 
         Log.w(LOG_TAG, "Создана фейковая база данных");
     }
+
+    public static void createTestDatabase(Context context) {
+        Log.w(LOG_TAG, "Начинается создание тестовой БД");
+
+        DBCategoriesHelper dbCategoriesHelper = new DBCategoriesHelper(context);
+        DBRecipesHelper dbRecipesHelper = new DBRecipesHelper(context);
+        DBIngredientsHelper dbIngredientsHelper = new DBIngredientsHelper(context);
+
+
+        ArrayList<Category> cats = new ArrayList<Category>() {{
+            add(new Category(0, "Блюда из курицы", null));
+            add(new Category(1, "Закуски", null));
+        }};
+        dbCategoriesHelper.addOrUpdate(cats);
+
+        ArrayList<Ingredient> ings = new ArrayList<Ingredient>() {{
+            add(new Ingredient(0, "курица сырая"));
+            add(new Ingredient(1, "кабачок"));
+            add(new Ingredient(2, "острый перец"));
+            add(new Ingredient(3, "помидоры"));
+        }};
+        dbIngredientsHelper.addOrReplace(ings);
+
+        ArrayList<Recipe> recipes = new ArrayList<Recipe>() {{
+            add(new Recipe(0, "Острая курица с кабачками", 45, Satiety.Medium, 0, "", null));
+            add(new Recipe(1, "Курица по-кавказски", 30, Satiety.Medium, 0, "", null));
+            add(new Recipe(3, "Вареная курица", 45, Satiety.Medium, 0, "", null));
+            add(new Recipe(2, "Острые кабачки", 45, Satiety.Medium, 1, "", null));
+            add(new Recipe(4, "Кабачки, тушеные с томатами", 45, Satiety.Medium, 1, "", null));
+        }};
+        dbRecipesHelper.addOrUpdate(recipes);
+
+        ArrayList<IngRecPair> pairs = new ArrayList<IngRecPair>() {{
+            //Острая курица с кабачками
+            add(new IngRecPair(0, 0, 0, "1 шт"));
+            add(new IngRecPair(1, 0, 1, "500 г."));
+            add(new IngRecPair(2, 0, 2, "на кончике ножа"));
+
+            //Курица по-кавказски
+            add(new IngRecPair(3, 1, 0, "1 шт"));
+            add(new IngRecPair(4, 1, 2, "2 чайные ложки"));
+
+            //Острые кабачки
+            add(new IngRecPair(5, 2, 1, "1 кг."));
+            add(new IngRecPair(6, 2, 2, "по вкусу"));
+
+            //Вареная курица
+            add(new IngRecPair(7, 3, 0, "1 кг."));
+
+            //Кабачки, тушеные с томатами
+            add(new IngRecPair(8, 4, 1, "500 г."));
+            add(new IngRecPair(9, 4, 3, "3 шт."));
+        }};
+        dbIngredientsHelper.addOrReplacePairs(pairs);
+    }
+
+
 
     @NonNull
     private static List<IngRecPair> getIngRecPairs(int i, int j, int count) {
@@ -87,7 +144,7 @@ public class MockDB {
         for (int i = 0; i < count; i++) {
             String instruction = context.getResources().getString(R.string.lorem);
             Bitmap image = BitmapHelper.drawableToBitmap(context.getResources().getDrawable(R.drawable.ic_placeholder));
-            categories.add(new Recipe(catId*100+i, captions[random.nextInt(captions.length)],(random.nextInt(6) + 1) * 15, getRandomSatiety(), catId, instruction, BitmapHelper.getBytes(image)));
+            categories.add(new Recipe(catId * 100 + i, captions[random.nextInt(captions.length)], (random.nextInt(6) + 1) * 15, getRandomSatiety(), catId, instruction, BitmapHelper.getBytes(image)));
         }
         return categories;
     }
@@ -98,7 +155,7 @@ public class MockDB {
     }
 
     private static String getRandomQuantity() {
-        return ((random.nextInt(4)+1)*50)+" г.";
+        return ((random.nextInt(4) + 1) * 50) + " г.";
     }
 
     private static ArrayList<Ingredient> getIngredients(Context context, int count) {

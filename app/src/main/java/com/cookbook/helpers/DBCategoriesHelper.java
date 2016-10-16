@@ -31,8 +31,8 @@ public class DBCategoriesHelper extends DBHelper {
                 statement.clearBindings();
                 statement.bindLong(1, c.id);
                 statement.bindString(2, c.name);
-                statement.bindBlob(3, BitmapHelper.getBytes(c.icon));
-
+                //statement.bindBlob(3, BitmapHelper.getBytes(c.icon));
+                bindBitmapOrNull(statement,3,c.icon);
                 statement.execute();
             }
 

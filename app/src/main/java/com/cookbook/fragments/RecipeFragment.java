@@ -83,7 +83,8 @@ public class RecipeFragment extends Fragment implements Ingredient.IngredientCli
         TextView tvCookingTime = (TextView) view.findViewById(R.id.tvCookingTime);
         TextView tvRecipe = (TextView) view.findViewById(R.id.tvRecipe);
 
-        ivIcon.setImageBitmap(recipe.icon);
+        if (recipe.icon!=null)
+            ivIcon.setImageBitmap(recipe.icon);
         tvCaption.setText(recipe.name);
         tvSatiety.setText(recipe.satiety.toString());
         tvCookingTime.setText(recipe.cookingTime+" мин");
