@@ -49,8 +49,8 @@ public class DBSearchHelper extends DBRecipesHelper {
         for (Ingredient i : ings) {
             db.execSQL(String.format("insert into _ingFind(id) select %s ", i.id));
         }
-
-        Cursor c = db.rawQuery(String.format("select distinct * from %s", TABLE_RECIPES) +
+        final String RECIPE_FIELDS = String.format("%s, %s, %s, %s, %s, %s, %s", RECIPE_ID, RECIPE_CAPTION, RECIPE_CATEGORY_ID, RECIPE_ICON, RECIPE_INSTRUCTION, RECIPE_SATIETY, RECIPE_TIME);
+        Cursor c = db.rawQuery(String.format("select distinct %s from %s", RECIPE_FIELDS, TABLE_RECIPES) +
                 String.format(" join (select * from %s join _ingFind on (%s == _ingFind.id))", TABLE_IR, IR_ING_ID) +
                 String.format(" on (%s == %s)", RECIPE_ID, IR_REC_ID), null);
 
@@ -58,6 +58,18 @@ public class DBSearchHelper extends DBRecipesHelper {
 
         db.execSQL("DELETE FROM _ingFind");
         db.close();
+
+        return res;
+    }
+
+    public List<Recipe> findRecipes(String recipeCaption, List<Ingredient> ings) {
+
+        List<Recipe> list = findRecipes(ings);
+        List<Recipe> res = new ArrayList<>();
+        for (Recipe r : list) {
+            if (r.name.toLowerCase().contains(recipeCaption.toLowerCase()))
+                res.add(r);
+        }
 
         return res;
     }

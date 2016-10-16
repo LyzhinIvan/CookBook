@@ -61,8 +61,9 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         DBIngredientsHelper dbIngredientsHelper = new DBIngredientsHelper(this);
 
         List<Ingredient> ing = dbIngredientsHelper.getByName("курица сырая");
+        ing.addAll(dbIngredientsHelper.getByName("кабачок"));
 
-        List<Recipe> rec = dbSearchHelper.findRecipes(ing);
+        List<Recipe> rec = dbSearchHelper.findRecipes("курица", ing);
         for (Recipe r : rec) {
             Log.d(LOG_TAG, r.name);
         }

@@ -115,7 +115,6 @@ public class MockDB {
     }
 
 
-
     @NonNull
     private static List<IngRecPair> getIngRecPairs(int i, int j, int count) {
         List<IngRecPair> pairs = new ArrayList<>();
