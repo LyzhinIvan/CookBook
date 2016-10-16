@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="9">
 
-            <EditText
+            <android.support.v7.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/etIngredient"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

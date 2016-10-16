@@ -12,12 +12,16 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.cookbook.ButtonRemoveClickListener;
 import com.cookbook.R;
+import com.cookbook.adapters.IngAutoCompleteAdapter;
 import com.cookbook.adapters.IngredientListAdapter;
+import com.cookbook.pojo.Ingredient;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -27,7 +31,7 @@ public class ShopingListFragment extends Fragment implements View.OnClickListene
 
     RecyclerView recyclerView;
     Button btnAdd;
-    EditText etIng;
+    AutoCompleteTextView etIng;
 
     IngredientListAdapter adapter;
 
@@ -48,7 +52,18 @@ public class ShopingListFragment extends Fragment implements View.OnClickListene
         super.onStart();
         recyclerView = (RecyclerView)getView().findViewById(R.id.recyclerView);
         btnAdd = (Button)getView().findViewById(R.id.btnAdd);
-        etIng = (EditText)getView().findViewById(R.id.etIngredient);
+
+        etIng = (AutoCompleteTextView)getView().findViewById(R.id.etIngredient);
+        etIng.setAdapter(new IngAutoCompleteAdapter(getContext()));
+        etIng.setThreshold(3);
+        etIng.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Ingredient i = (Ingredient) adapterView.getItemAtPosition(position);
+                etIng.setText(i.caption);
+                addToList();
+            }
+        });
 
         adapter = new IngredientListAdapter(getContext(),new ArrayList<String>(), this);
         recyclerView.setAdapter(adapter);
@@ -73,8 +88,12 @@ public class ShopingListFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
+        addToList();
+    }
+
+    private void addToList() {
         String ing = etIng.getText().toString();
-        if (!Objects.equals(ing, "")) {
+        if (!Objects.equals(ing.trim(), "")) {
             if (adapter.contains(ing)) {
                 new AlertDialog.Builder(getContext())
                         .setMessage("Такой ингредиент уже есть в списке!")
@@ -88,6 +107,7 @@ public class ShopingListFragment extends Fragment implements View.OnClickListene
             else
                 adapter.add(ing);
         }
+        etIng.setText("");
     }
 
     @Override
