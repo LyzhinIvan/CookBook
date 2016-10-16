@@ -4,42 +4,51 @@
 import tornado.ioloop
 import tornado.web
 import models
+import json
 
 
 class MainHandler(tornado.web.RequestHandler):
-	def get(self):
-		self.write("Hello, world\n")
+    def data_received(self, chunk):
+        pass
+
+    def get(self):
+        self.write("Hello, world\n")
 
 
-class RecipesHandler(tornado.web.RequestHandler):
-	def get(self):
-		response = { 'recipes': [
-			{'id':			1,
-			 'name':		'Макарошки',
-			 'instruction': '1) Вскипятить воду\n2) Посолить\n3) Закинуть макарошки\n4) Варить до готовности'},
-			{'id':			2,
-			 'name':		'Пельмешки',
-			 'instruction': '1) Вскипятить воду\n2) Посолить\n3) Закинуть пельмешки\n4) Варить до готовности'}
-		]}
-		self.write(response)
+class DeltaHandler(tornado.web.RequestHandler):
+    def data_received(self, chunk):
+        pass
+
+    def get(self):
+        last_updated = self.get_argument('lastUpdated', None)  # TODO: does not work (returns None every time) Fix it
+        if not last_updated or not isinstance(last_updated, int):
+            self.write('Invalid arguments')
+        else:
+            self.write('<result (delta in Mb) will be there>')
 
 
-class RecipeHandler(tornado.web.RequestHandler):
-	def get(self, id):
-		response = { 'id':			int(id),
-					 'name':		'Макарошки',
-					 'instruction': '1) Вскипятить воду\n2) Посолить\n3) Закинуть макарошки\n4) Варить до готовности'}
-		self.write(response)
+class UpdateHandler(tornado.web.RequestHandler):
+    def data_received(self, chunk):
+        pass
+
+    def get(self):
+        last_updated = self.get_argument('lastUpdated', None)  # TODO: does not work (returns None every time) Fix it
+        if not last_updated or not isinstance(last_updated, int):
+            self.write('Invalid arguments')
+        else:
+            self.write('<select result will be there>')
 
 
 def make_app():
-	return tornado.web.Application([
-		(r'/', MainHandler),
-		(r'/api/recipes/?', RecipesHandler),
-		(r'/api/recipes/([0-9]+)/?', RecipeHandler),
-	])
+    return tornado.web.Application([
+        (r'/', MainHandler),
+        (r'/api/delta/?', DeltaHandler),
+        (r'/api/update/?', UpdateHandler)
+    ])
+
 
 if __name__ == '__main__':
-	app = make_app()
-	app.listen(8888)
-	tornado.ioloop.IOLoop.current().start()
+    print("Tornado works")
+    app = make_app()
+    app.listen(8888)
+    tornado.ioloop.IOLoop.current().start()
