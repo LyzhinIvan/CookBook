@@ -20,8 +20,16 @@ import com.cookbook.fragments.FavoritesRecipesFragment;
 import com.cookbook.fragments.SearchRecipeFragment;
 import com.cookbook.fragments.ShopingListFragment;
 import com.cookbook.helpers.DBHelper;
+import com.cookbook.helpers.DBIngredientsHelper;
+import com.cookbook.helpers.DBRecipesHelper;
+import com.cookbook.helpers.DBSearchHelper;
 import com.cookbook.helpers.FavoritesHelper;
 import com.cookbook.mock.MockDB;
+import com.cookbook.pojo.Ingredient;
+import com.cookbook.pojo.Recipe;
+
+import java.util.Collections;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener, NavigationView.OnNavigationItemSelectedListener {
 
@@ -49,27 +57,36 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         //MockDB.createFakeDatabase(getApplicationContext());
         MockDB.createTestDatabase(getApplicationContext());
 
+        DBSearchHelper dbSearchHelper = new DBSearchHelper(this);
+        DBIngredientsHelper dbIngredientsHelper = new DBIngredientsHelper(this);
+
+        List<Ingredient> ing = dbIngredientsHelper.getByName("курица сырая");
+
+        List<Recipe> rec = dbSearchHelper.findRecipes(ing);
+        for (Recipe r : rec) {
+            Log.d(LOG_TAG, r.name);
+        }
+
         fragmentManager = getSupportFragmentManager();
         fragmentManager.addOnBackStackChangedListener(this);
 
         initDrawer(toolbar);
         currentFragment = categoriesFragment;
-        setFragment(categoriesFragment,false);
+        setFragment(categoriesFragment, false);
     }
 
     private void dropData() {
-        Log.w(LOG_TAG,"Удаление локальной базы");
+        Log.w(LOG_TAG, "Удаление локальной базы");
         deleteDatabase(DBHelper.DB_NAME);
         FavoritesHelper.getInstance(this).removeAll();
     }
 
     public void setFragment(Fragment fragment, boolean backEnabled) {
         FragmentTransaction fTrans = fragmentManager.beginTransaction();
-        fTrans = fTrans.replace(R.id.frame_layout,fragment);
+        fTrans = fTrans.replace(R.id.frame_layout, fragment);
         if (backEnabled) {
             fTrans = fTrans.addToBackStack(null);
-        }
-        else {
+        } else {
             clearBackStack();
         }
         fTrans.commit();
@@ -110,17 +127,14 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id==R.id.nav_serach) {
-            setFragment(searchRecipeFragment,false);
-        }
-        else if (id == R.id.nav_categories) {
-            setFragment(categoriesFragment,false);
-        }
-        else if (id == R.id.nav_favorite) {
-            setFragment(favoritesRecipesFragment,false);
-        }
-        else if (id == R.id.nav_shop_list) {
-            setFragment(shopingListFragment,false);
+        if (id == R.id.nav_serach) {
+            setFragment(searchRecipeFragment, false);
+        } else if (id == R.id.nav_categories) {
+            setFragment(categoriesFragment, false);
+        } else if (id == R.id.nav_favorite) {
+            setFragment(favoritesRecipesFragment, false);
+        } else if (id == R.id.nav_shop_list) {
+            setFragment(shopingListFragment, false);
         }
 
         mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -131,9 +145,9 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
     public void onBackStackChanged() {
         //устанавливаем текущим верхий фрагмент из стека
         currentFragment = fragmentManager.getFragments().get(fragmentManager.getBackStackEntryCount());
-        if (fragmentManager.getBackStackEntryCount()!=0) {
+        if (fragmentManager.getBackStackEntryCount() != 0) {
             drawerToggle.setDrawerIndicatorEnabled(false);
-            Drawable drawable =  getResources().getDrawable(R.drawable.ic_arrow_back);
+            Drawable drawable = getResources().getDrawable(R.drawable.ic_arrow_back);
             drawerToggle.setHomeAsUpIndicator(drawable);
             drawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
                 @Override
@@ -141,8 +155,7 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
                     onBackPressed();
                 }
             });
-        }
-        else {
+        } else {
             drawerToggle.setDrawerIndicatorEnabled(true);
             drawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
                 @Override

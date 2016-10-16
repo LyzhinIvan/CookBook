@@ -93,7 +93,7 @@ public class DBRecipesHelper extends DBHelper {
         }});
     }
 
-    private void bindRecipes(Cursor c, ArrayList<Recipe> recipes) {
+    protected void bindRecipes(Cursor c, ArrayList<Recipe> recipes) {
         try {
             if (c.moveToFirst()) {
                 do {
@@ -103,7 +103,7 @@ public class DBRecipesHelper extends DBHelper {
                     Satiety satiety = Satiety.fromInt(c.getInt(c.getColumnIndex(RECIPE_SATIETY)));
                     long catId = c.getLong(c.getColumnIndex(RECIPE_CATEGORY_ID));
                     String instruction = c.getString(c.getColumnIndex(RECIPE_INSTRUCTION));
-                    byte[] iconBytes = c.getBlob(c.getColumnIndex(CATEGORY_ICON));
+                    byte[] iconBytes = c.getBlob(c.getColumnIndex(RECIPE_ICON));
 
                     recipes.add(new Recipe(id, name, time, satiety, catId, instruction, iconBytes));
 

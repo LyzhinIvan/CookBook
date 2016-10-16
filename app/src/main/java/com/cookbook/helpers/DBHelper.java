@@ -14,37 +14,37 @@ public class DBHelper extends SQLiteOpenHelper {
         TABLE_CATEGORIES = "Categories",
         TABLE_INGREDIENTS = "Ingredients",
         TABLE_RECIPES = "Recipes",
-        TABLE_IR = "ingredientsToRecipes",
+        TABLE_IR = "IngRec",
         TABLE_SHOP_LIST = "ShopList";
 
     // Заголовки полей таблиц
     protected static final String
         //Категории
-        CATEGORY_ID = "id",
+        CATEGORY_ID = "cat_id",
         CATEGORY_CAPTION = "caption",
         CATEGORY_ICON = "icon",
 
         //Ингредиенты
-        ING_ID = "id",
-        ING_CAPTION = "caption",
+        ING_ID = "ing_id",
+        ING_CAPTION = "ing_caption",
 
         //Рецепты
-        RECIPE_ID = "id",
-        RECIPE_CAPTION = "caption",
-        RECIPE_TIME = "time",
-        RECIPE_SATIETY = "satiety",
-        RECIPE_CATEGORY_ID = "category_id",
-        RECIPE_ICON = "icon",
-        RECIPE_INSTRUCTION = "instruction",
+        RECIPE_ID = "rec_id",
+        RECIPE_CAPTION = "rec_caption",
+        RECIPE_TIME = "rec_time",
+        RECIPE_SATIETY = "rec_satiety",
+        RECIPE_CATEGORY_ID = "rec_category_id",
+        RECIPE_ICON = "rec_icon",
+        RECIPE_INSTRUCTION = "rec_instruction",
 
         //Связь Ингредиент - рецепт
-        IR_ID = "id",
-        IR_ING_ID = "ing_id",
-        IR_REC_ID = "rec_id",
-        IR_QUANTITY = "quantity",
+        IR_ID = "ir_id",
+        IR_ING_ID = "ir_ing_id",
+        IR_REC_ID = "ir_rec_id",
+        IR_QUANTITY = "ir_quantity",
 
         //Список покупок
-        SHOP_LIST_NAME = "name";
+        SHOP_LIST_NAME = "sl_name";
 
     // Создание таблиц
     protected static final String
@@ -88,7 +88,6 @@ public class DBHelper extends SQLiteOpenHelper {
                             + SHOP_LIST_NAME +" varchar(255) PRIMARY KEY );";
 
     protected static final String LOG_TAG = "dbCookbook";
-
     public static final String DB_NAME = "CookBook";
 
 
@@ -128,7 +127,7 @@ public class DBHelper extends SQLiteOpenHelper {
         clearTable(TABLE_SHOP_LIST);
     }
 
-    private void clearTable(String tableName) {
+    protected void clearTable(String tableName) {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("delete from " + tableName);
     }
