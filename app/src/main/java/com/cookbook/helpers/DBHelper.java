@@ -12,7 +12,8 @@ public class DBHelper extends SQLiteOpenHelper {
         TABLE_CATEGORIES = "Categories",
         TABLE_INGREDIENTS = "Ingredients",
         TABLE_RECIPES = "Recipes",
-        TABLE_IR = "ingredientsToRecipes";
+        TABLE_IR = "ingredientsToRecipes",
+        TABLE_SHOP_LIST = "ShopList";
 
     // Заголовки полей таблиц
     protected static final String
@@ -38,7 +39,10 @@ public class DBHelper extends SQLiteOpenHelper {
         IR_ID = "id",
         IR_ING_ID = "ing_id",
         IR_REC_ID = "rec_id",
-        IR_QUANTITY = "quantity";
+        IR_QUANTITY = "quantity",
+
+        //Список покупок
+        SHOP_LIST_NAME = "name";
 
     // Создание таблиц
     protected static final String
@@ -75,7 +79,11 @@ public class DBHelper extends SQLiteOpenHelper {
                     + IR_QUANTITY +" TEXT NOT NULL,"
                     + "FOREIGN KEY ("+IR_ING_ID+") REFERENCES "+TABLE_INGREDIENTS + "("+ING_ID+"),"
                     + "FOREIGN KEY ("+IR_REC_ID+") REFERENCES "+TABLE_RECIPES + "("+RECIPE_ID+")"
-                    + ");";
+                    + ");",
+
+            CREATE_SHOP_LIST_TABLE =
+                    "create table "+ TABLE_SHOP_LIST +" ("
+                            + SHOP_LIST_NAME +" varchar(255) PRIMARY KEY );";
 
     protected static final String LOG_TAG = "dbCookbook";
 
@@ -93,6 +101,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_INGREDIENTS_TABLE);
         db.execSQL(CREATE_RECIPES_TABLE);
         db.execSQL(CREATE_IR_TABLE);
+        db.execSQL(CREATE_SHOP_LIST_TABLE);
     }
 
     @Override
@@ -101,6 +110,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + CREATE_INGREDIENTS_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + CREATE_RECIPES_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + CREATE_IR_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + CREATE_SHOP_LIST_TABLE);
     }
 
     public void clearAll() {
@@ -108,6 +118,7 @@ public class DBHelper extends SQLiteOpenHelper {
         clearTable(TABLE_RECIPES);
         clearTable(TABLE_INGREDIENTS);
         clearTable(TABLE_CATEGORIES);
+        clearTable(TABLE_SHOP_LIST);
     }
 
     private void clearTable(String tableName) {

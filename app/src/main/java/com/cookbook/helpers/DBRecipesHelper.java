@@ -43,7 +43,7 @@ public class DBRecipesHelper extends DBHelper {
 
             db.setTransactionSuccessful();
         } catch (Exception ex) {
-            Log.e(LOG_TAG, "Ошибка при обновлении категории");
+            Log.e(LOG_TAG, "Ошибка при обновлении рецептов");
         } finally {
             db.endTransaction();
             db.close();
