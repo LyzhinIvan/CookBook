@@ -54,7 +54,6 @@ public class SearchRecipeFragment extends Fragment implements View.OnClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_search_recipe, container, false);
     }
 
@@ -62,6 +61,41 @@ public class SearchRecipeFragment extends Fragment implements View.OnClickListen
     public void onStart() {
         super.onStart();
         initControls();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId()== R.id.additionalParamsLayout || v.getId()== R.id.ivChevron) {
+            toggleAdditionalParams();
+        }
+    }
+
+    private void toggleAdditionalParams() {
+        if (expandableLayout.isExpanded()) {
+            expandableLayout.collapse();
+            imgChevron.setImageResource(R.drawable.ic_expand_more);
+        }
+        else {
+            expandableLayout.expand();
+            imgChevron.setImageResource(R.drawable.ic_expand_less);
+        }
+    }
+
+    private void addIngredientToList(String ing) {
+        if (adapter.contains(ing)) {
+            new AlertDialog.Builder(getContext())
+                    .setMessage(ing+" уже есть в списке!")
+                    .setPositiveButton("Ок", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).show();
+        } else {
+            adapter.add(ing);
+        }
+        etIng.setText("");
+        tvSelectedIng.setVisibility(View.VISIBLE);
 
     }
 
@@ -76,7 +110,7 @@ public class SearchRecipeFragment extends Fragment implements View.OnClickListen
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Ingredient i = (Ingredient) adapterView.getItemAtPosition(position);
                 etIng.setText(i.caption);
-                addIngredientToList();
+                addIngredientToList(i.caption);
             }
         });
 
@@ -103,6 +137,22 @@ public class SearchRecipeFragment extends Fragment implements View.OnClickListen
         rg2.check(R.id.rbAny);
     }
 
+    @Override
+    public void onClick(int position) {
+        adapter.remove(position);
+        if (adapter.getItemCount()==0) {
+            tvSelectedIng.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.empty_menu, menu);
+        super.onCreateOptionsMenu(menu,inflater);
+    }
+
+    //region Radio buttons
     private RadioGroup.OnCheckedChangeListener listener1 = new RadioGroup.OnCheckedChangeListener() {
 
         @Override
@@ -126,62 +176,5 @@ public class SearchRecipeFragment extends Fragment implements View.OnClickListen
             }
         }
     };
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.clear();
-        inflater.inflate(R.menu.empty_menu, menu);
-        super.onCreateOptionsMenu(menu,inflater);
-    }
-
-
-    @Override
-    public void onClick(View v) {
-        if (v.getId()== R.id.btnAdd) {
-            addIngredientToList();
-        }
-        else if (v.getId()== R.id.additionalParamsLayout || v.getId()== R.id.ivChevron) {
-            toggleAdditionalParams();
-        }
-
-    }
-
-    private void toggleAdditionalParams() {
-        if (expandableLayout.isExpanded()) {
-            expandableLayout.collapse();
-            imgChevron.setImageResource(R.drawable.ic_expand_more);
-        }
-        else {
-            expandableLayout.expand();
-            imgChevron.setImageResource(R.drawable.ic_expand_less);
-        }
-    }
-
-    private void addIngredientToList() {
-        String ing = etIng.getText().toString();
-        if (!Objects.equals(ing, "")) {
-            if (adapter.contains(ing)) {
-                new AlertDialog.Builder(getContext())
-                        .setMessage("Такой ингредиент уже есть в списке!")
-                        .setPositiveButton("Ок", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        }).show();
-            } else {
-                adapter.add(ing);
-                etIng.setText("");
-                tvSelectedIng.setVisibility(View.VISIBLE);
-            }
-        }
-    }
-
-    @Override
-    public void onClick(int position) {
-        adapter.remove(position);
-        if (adapter.getItemCount()==0) {
-            tvSelectedIng.setVisibility(View.GONE);
-        }
-    }
+    //endregion
 }
