@@ -12,8 +12,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -21,7 +22,9 @@ import android.widget.TextView;
 
 import com.cookbook.ButtonRemoveClickListener;
 import com.cookbook.R;
+import com.cookbook.adapters.IngAutoCompleteAdapter;
 import com.cookbook.adapters.IngredientListAdapter;
+import com.cookbook.pojo.Ingredient;
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 
 import java.util.ArrayList;
@@ -31,7 +34,7 @@ import java.util.Objects;
 public class SearchRecipeFragment extends Fragment implements View.OnClickListener, ButtonRemoveClickListener {
 
     IngredientListAdapter adapter;
-    EditText etIng;
+    AutoCompleteTextView etIng;
     ExpandableRelativeLayout expandableLayout;
     ImageView imgChevron;
     RadioGroup rg1, rg2;
@@ -58,10 +61,26 @@ public class SearchRecipeFragment extends Fragment implements View.OnClickListen
     @Override
     public void onStart() {
         super.onStart();
+        initControls();
 
-        RecyclerView recyclerView = (RecyclerView)getView().findViewById(R.id.recyclerView);
-        Button btnAdd = (Button)getView().findViewById(R.id.btnAdd);
-        etIng = (EditText)getView().findViewById(R.id.etIngredient);
+    }
+
+    private void initControls() {
+
+        //Инициализация автодополнения по ингредиентам
+        etIng = (AutoCompleteTextView)getView().findViewById(R.id.etIngredient);
+        etIng.setAdapter(new IngAutoCompleteAdapter(getContext()));
+        etIng.setThreshold(3);
+        etIng.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Ingredient i = (Ingredient) adapterView.getItemAtPosition(position);
+                etIng.setText(i.caption);
+                addIngredientToList();
+            }
+        });
+
+        //Инициализация экспандера с доп. параметрами поиска
         RelativeLayout additParams = (RelativeLayout)getView().findViewById(R.id.additionalParamsLayout);
         expandableLayout = (ExpandableRelativeLayout)getView().findViewById(R.id.expandableLayout);
         expandableLayout.collapse();
@@ -70,10 +89,10 @@ public class SearchRecipeFragment extends Fragment implements View.OnClickListen
         tvSelectedIng = (TextView) getView().findViewById(R.id.tvSelectedIng);
 
         adapter = new IngredientListAdapter(getContext(),new ArrayList<String>(),this);
+        RecyclerView recyclerView = (RecyclerView)getView().findViewById(R.id.recyclerView);
         recyclerView.setAdapter(adapter);
 
         additParams.setOnClickListener(this);
-        btnAdd.setOnClickListener(this);
 
         rg1 = (RadioGroup) getView().findViewById(R.id.rg1);
         rg2 = (RadioGroup) getView().findViewById(R.id.rg2);
@@ -82,7 +101,6 @@ public class SearchRecipeFragment extends Fragment implements View.OnClickListen
         rg1.setOnCheckedChangeListener(listener1);
         rg2.setOnCheckedChangeListener(listener2);
         rg2.check(R.id.rbAny);
-
     }
 
     private RadioGroup.OnCheckedChangeListener listener1 = new RadioGroup.OnCheckedChangeListener() {
@@ -120,35 +138,43 @@ public class SearchRecipeFragment extends Fragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
         if (v.getId()== R.id.btnAdd) {
-            String ing = etIng.getText().toString();
-            if (!Objects.equals(ing, "")) {
-                if (adapter.contains(ing)) {
-                    new AlertDialog.Builder(getContext())
-                            .setMessage("Такой ингредиент уже есть в списке!")
-                            .setPositiveButton("Ок", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            }).show();
-                } else {
-                    adapter.add(ing);
-                    etIng.setText("");
-                    tvSelectedIng.setVisibility(View.VISIBLE);
-                }
-            }
+            addIngredientToList();
         }
         else if (v.getId()== R.id.additionalParamsLayout || v.getId()== R.id.ivChevron) {
-            if (expandableLayout.isExpanded()) {
-                expandableLayout.collapse();
-                imgChevron.setImageResource(R.drawable.ic_expand_more);
-            }
-            else {
-                expandableLayout.expand();
-                imgChevron.setImageResource(R.drawable.ic_expand_less);
-            }
+            toggleAdditionalParams();
         }
 
+    }
+
+    private void toggleAdditionalParams() {
+        if (expandableLayout.isExpanded()) {
+            expandableLayout.collapse();
+            imgChevron.setImageResource(R.drawable.ic_expand_more);
+        }
+        else {
+            expandableLayout.expand();
+            imgChevron.setImageResource(R.drawable.ic_expand_less);
+        }
+    }
+
+    private void addIngredientToList() {
+        String ing = etIng.getText().toString();
+        if (!Objects.equals(ing, "")) {
+            if (adapter.contains(ing)) {
+                new AlertDialog.Builder(getContext())
+                        .setMessage("Такой ингредиент уже есть в списке!")
+                        .setPositiveButton("Ок", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).show();
+            } else {
+                adapter.add(ing);
+                etIng.setText("");
+                tvSelectedIng.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     @Override
