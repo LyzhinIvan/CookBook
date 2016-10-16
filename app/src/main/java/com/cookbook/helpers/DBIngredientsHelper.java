@@ -12,6 +12,7 @@ import com.cookbook.pojo.Ingredient;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class DBIngredientsHelper extends DBHelper {
 
@@ -22,6 +23,9 @@ public class DBIngredientsHelper extends DBHelper {
         this.dbRecipesHelper = new DBRecipesHelper(context);
     }
 
+    /**
+     * Возвращает список пар: ингредиент - его количество для указанного рецепта
+     */
     public List<Pair<Ingredient,String>> getByRecipeId(long recId) {
         if (recId < 0)
             return null;
@@ -54,6 +58,22 @@ public class DBIngredientsHelper extends DBHelper {
         return ings.get(0);
     }
 
+    public List<Ingredient> getByName(String name) {
+        if (Objects.equals(name, ""))
+            return new ArrayList<>();
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        String FIND_QUERY = String.format("SELECT * FROM %s WHERE %s like '%s%%'", TABLE_INGREDIENTS, ING_CAPTION, name.toLowerCase());
+        Cursor c = db.rawQuery(FIND_QUERY, null);
+
+        ArrayList<Ingredient> ings = new ArrayList<>();
+        bindIng(c, ings);
+
+        db.close();
+        return ings;
+    }
+
     public void addOrReplace(final Ingredient i) {
         addOrReplace(new ArrayList<Ingredient>(){{add(i);}});
     }
@@ -71,7 +91,7 @@ public class DBIngredientsHelper extends DBHelper {
             for (Ingredient i : ingredients) {
                 statement.clearBindings();
                 statement.bindLong(1, i.id);
-                statement.bindString(2, i.caption);
+                statement.bindString(2, i.caption.toLowerCase());
 
                 statement.execute();
             }

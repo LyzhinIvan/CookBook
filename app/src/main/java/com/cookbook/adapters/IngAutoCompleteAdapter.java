@@ -11,6 +11,7 @@ import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.cookbook.R;
+import com.cookbook.helpers.DBIngredientsHelper;
 import com.cookbook.pojo.Ingredient;
 
 import java.util.ArrayList;
@@ -20,10 +21,12 @@ public class IngAutoCompleteAdapter extends BaseAdapter implements Filterable {
 
     private List<Ingredient> mResults;
     private Context context;
+    private DBIngredientsHelper dbIngredientsHelper;
 
     public IngAutoCompleteAdapter(Context context) {
         this.context = context;
         mResults = new ArrayList<>();
+        dbIngredientsHelper = new DBIngredientsHelper(context);
     }
 
     @Override
@@ -82,10 +85,9 @@ public class IngAutoCompleteAdapter extends BaseAdapter implements Filterable {
     }
 
     private List<Ingredient> findIngredients(String query) {
-        List<Ingredient> mock = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            mock.add(new Ingredient(i, query + (i + 1)));
-        }
-        return mock;
+        List<Ingredient> ingredients = dbIngredientsHelper.getByName(query);
+        if (ingredients==null)
+            ingredients = new ArrayList<>();
+        return ingredients;
     }
 }
