@@ -63,6 +63,10 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
         return ingredients.size();
     }
 
+    public String get(int position) {
+        return ingredients.get(position);
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvCaption;
         ImageButton btnRemove;

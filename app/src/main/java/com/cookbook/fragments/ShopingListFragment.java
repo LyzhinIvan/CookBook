@@ -21,6 +21,7 @@ import com.cookbook.ButtonRemoveClickListener;
 import com.cookbook.R;
 import com.cookbook.adapters.IngAutoCompleteAdapter;
 import com.cookbook.adapters.IngredientListAdapter;
+import com.cookbook.helpers.DBShopListHelper;
 import com.cookbook.pojo.Ingredient;
 
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class ShopingListFragment extends Fragment implements View.OnClickListene
     AutoCompleteTextView etIng;
 
     IngredientListAdapter adapter;
+    DBShopListHelper dbShopListHelper;
 
     public ShopingListFragment() {
         // Required empty public constructor
@@ -45,15 +47,18 @@ public class ShopingListFragment extends Fragment implements View.OnClickListene
         super.onCreate(savedInstanceState);
         getActivity().setTitle("Список покупок");
         setHasOptionsMenu(true);
+
+        dbShopListHelper = new DBShopListHelper(getContext());
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        recyclerView = (RecyclerView)getView().findViewById(R.id.recyclerView);
-        btnAdd = (Button)getView().findViewById(R.id.btnAdd);
+        recyclerView = (RecyclerView) getView().findViewById(R.id.recyclerView);
+        btnAdd = (Button) getView().findViewById(R.id.btnAdd);
 
-        etIng = (AutoCompleteTextView)getView().findViewById(R.id.etIngredient);
+        //Инициализация автодополнения по списку ингредиентов
+        etIng = (AutoCompleteTextView) getView().findViewById(R.id.etIngredient);
         etIng.setAdapter(new IngAutoCompleteAdapter(getContext()));
         etIng.setThreshold(3);
         etIng.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -65,7 +70,7 @@ public class ShopingListFragment extends Fragment implements View.OnClickListene
             }
         });
 
-        adapter = new IngredientListAdapter(getContext(),new ArrayList<String>(), this);
+        adapter = new IngredientListAdapter(getContext(), dbShopListHelper.getAll(), this);
         recyclerView.setAdapter(adapter);
 
         btnAdd.setOnClickListener(this);
@@ -75,14 +80,13 @@ public class ShopingListFragment extends Fragment implements View.OnClickListene
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.empty_menu, menu);
-        super.onCreateOptionsMenu(menu,inflater);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_shoping_list, container, false);
     }
 
@@ -96,22 +100,24 @@ public class ShopingListFragment extends Fragment implements View.OnClickListene
         if (!Objects.equals(ing.trim(), "")) {
             if (adapter.contains(ing)) {
                 new AlertDialog.Builder(getContext())
-                        .setMessage("Такой ингредиент уже есть в списке!")
+                        .setMessage(ing + " уже есть в списке!")
                         .setPositiveButton("Ок", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
                             }
                         }).show();
-            }
-            else
+            } else {
                 adapter.add(ing);
+                dbShopListHelper.add(ing);
+            }
         }
         etIng.setText("");
     }
 
     @Override
     public void onClick(int position) {
+        dbShopListHelper.remove(adapter.get(position));
         adapter.remove(position);
     }
 }
