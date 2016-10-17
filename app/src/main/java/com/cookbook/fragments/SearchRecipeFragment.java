@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -24,21 +26,27 @@ import com.cookbook.ButtonRemoveClickListener;
 import com.cookbook.R;
 import com.cookbook.adapters.IngAutoCompleteAdapter;
 import com.cookbook.adapters.IngredientListAdapter;
+import com.cookbook.helpers.DBSearchHelper;
 import com.cookbook.pojo.Ingredient;
+import com.cookbook.pojo.Recipe;
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.List;
 
 
 public class SearchRecipeFragment extends Fragment implements View.OnClickListener, ButtonRemoveClickListener {
 
+    private static final String LOG_TAG = SearchRecipeFragment.class.getName();
     IngredientListAdapter adapter;
     AutoCompleteTextView etIng;
     ExpandableRelativeLayout expandableLayout;
     ImageView imgChevron;
     RadioGroup rg1, rg2;
     TextView tvSelectedIng;
+    EditText etDish;
+
+    DBSearchHelper searchHelper;
 
     public SearchRecipeFragment() {
         // Required empty public constructor
@@ -48,6 +56,7 @@ public class SearchRecipeFragment extends Fragment implements View.OnClickListen
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().setTitle("Найти рецепт");
+        searchHelper = new DBSearchHelper(getContext());
         setHasOptionsMenu(true);
     }
 
@@ -65,26 +74,26 @@ public class SearchRecipeFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        if (v.getId()== R.id.additionalParamsLayout || v.getId()== R.id.ivChevron) {
+        if (v.getId() == R.id.additionalParamsLayout || v.getId() == R.id.ivChevron) {
             toggleAdditionalParams();
-        }
+        } else if (v.getId() == R.id.btnSearch)
+            performSearch();
     }
 
     private void toggleAdditionalParams() {
         if (expandableLayout.isExpanded()) {
             expandableLayout.collapse();
             imgChevron.setImageResource(R.drawable.ic_expand_more);
-        }
-        else {
+        } else {
             expandableLayout.expand();
             imgChevron.setImageResource(R.drawable.ic_expand_less);
         }
     }
 
-    private void addIngredientToList(String ing) {
+    private void addIngredientToList(Ingredient ing) {
         if (adapter.contains(ing)) {
             new AlertDialog.Builder(getContext())
-                    .setMessage(ing+" уже есть в списке!")
+                    .setMessage(ing + " уже есть в списке!")
                     .setPositiveButton("Ок", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -102,7 +111,7 @@ public class SearchRecipeFragment extends Fragment implements View.OnClickListen
     private void initControls() {
 
         //Инициализация автодополнения по ингредиентам
-        etIng = (AutoCompleteTextView)getView().findViewById(R.id.etIngredient);
+        etIng = (AutoCompleteTextView) getView().findViewById(R.id.etIngredient);
         etIng.setAdapter(new IngAutoCompleteAdapter(getContext()));
         etIng.setThreshold(3);
         etIng.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -110,21 +119,26 @@ public class SearchRecipeFragment extends Fragment implements View.OnClickListen
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Ingredient i = (Ingredient) adapterView.getItemAtPosition(position);
                 etIng.setText(i.caption);
-                addIngredientToList(i.caption);
+                addIngredientToList(i);
             }
         });
 
+        etDish = (EditText) getView().findViewById(R.id.etDish);
+
         //Инициализация экспандера с доп. параметрами поиска
-        RelativeLayout additParams = (RelativeLayout)getView().findViewById(R.id.additionalParamsLayout);
-        expandableLayout = (ExpandableRelativeLayout)getView().findViewById(R.id.expandableLayout);
+        RelativeLayout additParams = (RelativeLayout) getView().findViewById(R.id.additionalParamsLayout);
+        expandableLayout = (ExpandableRelativeLayout) getView().findViewById(R.id.expandableLayout);
         expandableLayout.collapse();
-        imgChevron = (ImageView)getView().findViewById(R.id.ivChevron);
+        imgChevron = (ImageView) getView().findViewById(R.id.ivChevron);
         imgChevron.setOnClickListener(this);
         tvSelectedIng = (TextView) getView().findViewById(R.id.tvSelectedIng);
 
-        adapter = new IngredientListAdapter(getContext(),new ArrayList<String>(),this);
-        RecyclerView recyclerView = (RecyclerView)getView().findViewById(R.id.recyclerView);
+        adapter = new IngredientListAdapter(new ArrayList<Ingredient>(), this);
+        RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.recyclerView);
         recyclerView.setAdapter(adapter);
+
+        Button btnSearch = (Button) getView().findViewById(R.id.btnSearch);
+        btnSearch.setOnClickListener(this);
 
         additParams.setOnClickListener(this);
 
@@ -137,10 +151,36 @@ public class SearchRecipeFragment extends Fragment implements View.OnClickListen
         rg2.check(R.id.rbAny);
     }
 
+    private void performSearch() {
+        List<Ingredient> ingredients = adapter.getIngredients();
+        String dish = etDish.getText().toString().trim();
+
+        List<Recipe> recipes = new ArrayList<>();
+        if (dish.isEmpty() && ingredients.isEmpty()) {
+            showErrorDialog();
+            return;
+        } else if (ingredients.isEmpty()) {
+            recipes = searchHelper.findRecipes(dish);
+        } else if (dish.isEmpty()) {
+            recipes = searchHelper.findRecipes(ingredients);
+        } else {
+            recipes = searchHelper.findRecipes(dish, ingredients);
+        }
+        Log.d(LOG_TAG, String.format("Найдено %d рецептов", recipes.size()));
+    }
+
+    private void showErrorDialog() {
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Невозможно начать поиск")
+                .setMessage("Введите название блюда, которое хотите найти, либо выбирите ингредиенты, по которым хотите подобрать блюдо")
+                .setPositiveButton("Ok", null)
+                .show();
+    }
+
     @Override
     public void onClick(int position) {
         adapter.remove(position);
-        if (adapter.getItemCount()==0) {
+        if (adapter.getItemCount() == 0) {
             tvSelectedIng.setVisibility(View.GONE);
         }
     }
@@ -149,7 +189,7 @@ public class SearchRecipeFragment extends Fragment implements View.OnClickListen
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.empty_menu, menu);
-        super.onCreateOptionsMenu(menu,inflater);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     //region Radio buttons

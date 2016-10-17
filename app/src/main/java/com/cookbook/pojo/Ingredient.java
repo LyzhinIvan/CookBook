@@ -13,6 +13,15 @@ public class Ingredient {
         this.caption = caption;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Ingredient) {
+            Ingredient i = (Ingredient)obj;
+            return i.caption.equals(this.caption);
+        }
+        return false;
+    }
+
     public interface IngredientClickListener {
         void onClick(Ingredient i);
     }

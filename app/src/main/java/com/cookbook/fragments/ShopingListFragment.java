@@ -15,16 +15,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.cookbook.ButtonRemoveClickListener;
 import com.cookbook.R;
 import com.cookbook.adapters.IngAutoCompleteAdapter;
 import com.cookbook.adapters.IngredientListAdapter;
+import com.cookbook.adapters.ShopListAdapter;
 import com.cookbook.helpers.DBShopListHelper;
 import com.cookbook.pojo.Ingredient;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 
@@ -34,7 +33,7 @@ public class ShopingListFragment extends Fragment implements View.OnClickListene
     Button btnAdd;
     AutoCompleteTextView etIng;
 
-    IngredientListAdapter adapter;
+    ShopListAdapter adapter;
     DBShopListHelper dbShopListHelper;
 
     public ShopingListFragment() {
@@ -70,7 +69,7 @@ public class ShopingListFragment extends Fragment implements View.OnClickListene
             }
         });
 
-        adapter = new IngredientListAdapter(getContext(), dbShopListHelper.getAll(), this);
+        adapter = new ShopListAdapter(dbShopListHelper.getAll());
         recyclerView.setAdapter(adapter);
 
         btnAdd.setOnClickListener(this);
@@ -117,7 +116,7 @@ public class ShopingListFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(int position) {
-        dbShopListHelper.remove(adapter.get(position));
+        //dbShopListHelper.remove(adapter.get(position));
         adapter.remove(position);
     }
 }

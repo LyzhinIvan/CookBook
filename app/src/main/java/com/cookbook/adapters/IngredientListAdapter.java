@@ -11,23 +11,24 @@ import android.widget.TextView;
 
 import com.cookbook.ButtonRemoveClickListener;
 import com.cookbook.R;
+import com.cookbook.pojo.Ingredient;
 
 import java.util.List;
 import java.util.Objects;
 
 public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAdapter.ViewHolder> {
 
-    private List<String> ingredients;
+    private List<Ingredient> ingredients;
     private ButtonRemoveClickListener removeButtonClickListener;
-    private Context context;
 
-    public IngredientListAdapter(Context context, List<String> ingredients, ButtonRemoveClickListener removeButtonClickListener) {
-        this.context = context;
+    public IngredientListAdapter(List<Ingredient> ingredients, ButtonRemoveClickListener removeButtonClickListener) {
         this.ingredients = ingredients;
         this.removeButtonClickListener = removeButtonClickListener;
     }
 
-    public void add(String ingredient) {
+    public List<Ingredient> getIngredients() {return ingredients;}
+
+    public void add(Ingredient ingredient) {
         ingredients.add(ingredient);
         notifyDataSetChanged();
     }
@@ -37,9 +38,9 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
         notifyDataSetChanged();
     }
 
-    public boolean contains(String ing) {
-        for (String i : ingredients) {
-            if (Objects.equals(ing, i)) return true;
+    public boolean contains(Ingredient ing) {
+        for (Ingredient i : ingredients) {
+            if (i.equals(ing)) return true;
         }
         return false;
     }
@@ -55,7 +56,7 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        holder.tvCaption.setText(ingredients.get(position));
+        holder.tvCaption.setText(ingredients.get(position).caption);
     }
 
     @Override
@@ -63,7 +64,7 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
         return ingredients.size();
     }
 
-    public String get(int position) {
+    public Ingredient get(int position) {
         return ingredients.get(position);
     }
 
