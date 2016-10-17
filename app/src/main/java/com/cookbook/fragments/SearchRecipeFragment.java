@@ -23,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cookbook.ButtonRemoveClickListener;
+import com.cookbook.MainActivity;
 import com.cookbook.R;
 import com.cookbook.adapters.IngAutoCompleteAdapter;
 import com.cookbook.adapters.IngredientListAdapter;
@@ -46,7 +47,7 @@ public class SearchRecipeFragment extends Fragment implements View.OnClickListen
     TextView tvSelectedIng;
     EditText etDish;
 
-    DBSearchHelper searchHelper;
+    //DBSearchHelper searchHelper;
 
     public SearchRecipeFragment() {
         // Required empty public constructor
@@ -56,7 +57,6 @@ public class SearchRecipeFragment extends Fragment implements View.OnClickListen
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().setTitle("Найти рецепт");
-        searchHelper = new DBSearchHelper(getContext());
         setHasOptionsMenu(true);
     }
 
@@ -155,18 +155,26 @@ public class SearchRecipeFragment extends Fragment implements View.OnClickListen
         List<Ingredient> ingredients = adapter.getIngredients();
         String dish = etDish.getText().toString().trim();
 
-        List<Recipe> recipes = new ArrayList<>();
         if (dish.isEmpty() && ingredients.isEmpty()) {
             showErrorDialog();
             return;
-        } else if (ingredients.isEmpty()) {
-            recipes = searchHelper.findRecipes(dish);
-        } else if (dish.isEmpty()) {
-            recipes = searchHelper.findRecipes(ingredients);
-        } else {
-            recipes = searchHelper.findRecipes(dish, ingredients);
         }
-        Log.d(LOG_TAG, String.format("Найдено %d рецептов", recipes.size()));
+
+        DBSearchHelper.Builder builder = new DBSearchHelper.Builder(getContext());
+
+        if (!ingredients.isEmpty()) {
+            builder.withIngredients(ingredients);
+        }
+        if (!dish.isEmpty()) {
+            builder.withCaption(dish);
+        }
+
+        List<Long> recipesIds = builder.search();
+        Log.d(LOG_TAG, String.format("Найдено %d рецептов", recipesIds.size()));
+
+        RecipesListFragment recList = RecipesListFragment.newInstance("Результаты поиска", recipesIds);
+        MainActivity activity = (MainActivity) getActivity();
+        activity.setFragment(recList, true);
     }
 
     private void showErrorDialog() {

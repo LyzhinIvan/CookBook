@@ -3,43 +3,111 @@ package com.cookbook.helpers;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
 import com.cookbook.pojo.Ingredient;
 import com.cookbook.pojo.Recipe;
+import com.cookbook.pojo.Satiety;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DBSearchHelper extends DBRecipesHelper {
 
+    public static class Builder {
+
+        private DBSearchHelper instance;
+        private String caption;
+        private List<Ingredient> ingredients;
+        private String category;
+        private Satiety satiety;
+
+        public Builder(Context context) {
+            instance = new DBSearchHelper(context);
+        }
+
+        public Builder withCaption(String caption) {
+            this.caption = caption;
+            return this;
+        }
+
+        public Builder withIngredients(List<Ingredient> ingredients) {
+            this.ingredients = ingredients;
+            return this;
+        }
+
+        public Builder inCategory(String category) {
+            this.category = category;
+            return this;
+        }
+
+        public Builder withSatiety(Satiety satiety) {
+            this.satiety = satiety;
+            return this;
+        }
+
+        public List<Long> search() {
+            if (caption != null && ingredients != null)
+                return instance.findRecipes(caption, ingredients);
+            else if (caption!=null)
+                return instance.findRecipes(caption);
+            else if (ingredients!=null)
+                return instance.findRecipes(ingredients);
+            else return null;
+        }
+    }
+
     public DBSearchHelper(Context context) {
         super(context);
     }
 
     /**
-     * поиск рецептов по названию и с любыми ингредиентами
+     * поиск id рецептов по названию и с любыми ингредиентами
      */
-    public List<Recipe> findRecipes(String recipeName) {
+    public List<Long> findRecipes(String recipeName) {
         if (recipeName.isEmpty())
             return new ArrayList<>();
 
-        final String query = String.format("select * from %1$s where %2$s like '%%%3$s%%' ORDER BY %2$s", TABLE_RECIPES, RECIPE_CAPTION, recipeName);
+        final String query = String.format("select %4$s from %1$s where %2$s like '%%%3$s%%' ORDER BY %2$s", TABLE_RECIPES, RECIPE_CAPTION, recipeName, RECIPE_ID);
         SQLiteDatabase db = getReadableDatabase();
 
         Cursor c = db.rawQuery(query, null);
 
-        ArrayList<Recipe> recipes = new ArrayList<>();
-        bindRecipes(c, recipes);
+        ArrayList<Long> recipes = new ArrayList<>();
+        bindLongs(c, recipes);
 
         db.close();
         return recipes;
     }
 
     /**
-     * поиск рецептов с любым названием, но определенным списком ингредиентов
+     * поиск id рецептов с определенными компонентами
      */
-    public List<Recipe> findRecipes(List<Ingredient> ings) {
+    public List<Long> findRecipes(List<Ingredient> ings) {
+        List<Recipe> recipes = getRecipes(ings);
+        List<Long> rec = new ArrayList<>();
+        for (Recipe r : recipes)
+            rec.add(r.id);
+        return rec;
+    }
+
+    /**
+     * поиска id рецептов по названию и с определенными ингредиентвми
+     */
+    public List<Long> findRecipes(String recipeCaption, List<Ingredient> ings) {
+
+        List<Recipe> list = getRecipes(ings);
+        List<Long> res = new ArrayList<>();
+        for (Recipe r : list) {
+            if (r.name.toLowerCase().contains(recipeCaption.toLowerCase()))
+                res.add(r.id);
+        }
+        return res;
+    }
+
+    // поиск рецептов с любым названием, но определенным списком ингредиентов
+    private List<Recipe> getRecipes(List<Ingredient> ings) {
 
         ArrayList<Recipe> res = new ArrayList<>();
 
@@ -62,17 +130,19 @@ public class DBSearchHelper extends DBRecipesHelper {
         return res;
     }
 
-    public List<Recipe> findRecipes(String recipeCaption, List<Ingredient> ings) {
+    private void bindLongs(Cursor c, ArrayList<Long> recipes) {
+        try {
+            if (c.moveToFirst()) {
+                do {
+                    long id = c.getLong(c.getColumnIndex(RECIPE_ID));
+                    recipes.add(id);
 
-        List<Recipe> list = findRecipes(ings);
-        List<Recipe> res = new ArrayList<>();
-        for (Recipe r : list) {
-            if (r.name.toLowerCase().contains(recipeCaption.toLowerCase()))
-                res.add(r);
+                } while (c.moveToNext());
+            }
+        } catch (Exception ex) {
+            Log.e(LOG_TAG, "bindLongs error!");
+        } finally {
+            c.close();
         }
-
-        return res;
     }
-
-
 }
