@@ -37,6 +37,7 @@ dependencies {
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.github.aakira:expandable-layout:1.6.0@aar'
+    compile 'com.google.guava:guava:19.0'
     testCompile 'junit:junit:4.12'
 
     compile 'com.squareup.retrofit2:retrofit:2.1.0'

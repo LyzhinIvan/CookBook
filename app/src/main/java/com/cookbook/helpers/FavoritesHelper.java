@@ -13,7 +13,6 @@ public class FavoritesHelper {
 
     private static final String APP_PREFS = "CookBook_Prefs", PREF_FAVORITES = "favorites";
     private final SharedPreferences mPrefs;
-    private final DBRecipesHelper dbRecipesHelper;
 
     //region Singleton
     private static FavoritesHelper instance = null;
@@ -26,13 +25,12 @@ public class FavoritesHelper {
 
     private FavoritesHelper(Context context) {
         mPrefs = context.getSharedPreferences(APP_PREFS, Context.MODE_PRIVATE);
-        dbRecipesHelper = new DBRecipesHelper(context);
     }
     //endregion
 
 
     public void addToFavorite(long id) {
-        List<Long> savedIds = getSavedIds();
+        List<Long> savedIds = getFavoriteRecipeIds();
         if (savedIds.contains(id)) return;
 
         savedIds.add(id);
@@ -40,7 +38,7 @@ public class FavoritesHelper {
     }
 
     public void removeFromFavorites(long id) {
-        List<Long> savedIds = getSavedIds();
+        List<Long> savedIds = getFavoriteRecipeIds();
         if (!savedIds.contains(id)) return;
 
         savedIds.remove(id);
@@ -51,16 +49,17 @@ public class FavoritesHelper {
         mPrefs.edit().putString(PREF_FAVORITES,"").apply();
     }
 
+    /*
     public List<Recipe> getFavoriteRecipes() {
         List<Recipe> recipes = new ArrayList<>();
-        for (Long id : getSavedIds()) {
+        for (Long id : getFavoriteRecipeIds()) {
             recipes.add(dbRecipesHelper.getById(id));
         }
         return recipes;
-    }
+    }*/
 
     public boolean isFavorite(long id) {
-        return getSavedIds().contains(id);
+        return getFavoriteRecipeIds().contains(id);
     }
 
     private void saveLongList(List<Long> savedIds) {
@@ -71,7 +70,7 @@ public class FavoritesHelper {
         mPrefs.edit().putString(PREF_FAVORITES,sb.toString()).apply();
     }
 
-    private List<Long> getSavedIds() {
+    public List<Long> getFavoriteRecipeIds() {
         String[] savedIds = mPrefs.getString(PREF_FAVORITES, "").split(" ");
         ArrayList<Long> res = new ArrayList<>();
         for (String id : savedIds) {

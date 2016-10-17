@@ -82,7 +82,7 @@ public class CategoriesFragment extends Fragment implements Category.CategoryCli
     public void onClick(Category category) {
 
         MainActivity mainActivity = (MainActivity) getActivity();
-        RecipesListFragment fragment = RecipesListFragment.newInstance(category.id, category.name);
+        RecipesListFragment fragment = RecipesListFragment.newInstance(category.name, category.id);
 
         mainActivity.setFragment(fragment, true);
     }

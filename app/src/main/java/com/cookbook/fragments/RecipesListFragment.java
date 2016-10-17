@@ -1,6 +1,7 @@
 package com.cookbook.fragments;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -17,15 +18,18 @@ import com.cookbook.MainActivity;
 import com.cookbook.R;
 import com.cookbook.adapters.RecipeListAdapter;
 import com.cookbook.helpers.DBRecipesHelper;
+import com.cookbook.helpers.FavoritesHelper;
 import com.cookbook.helpers.SearchHelper;
 import com.cookbook.pojo.Recipe;
+import com.google.common.primitives.Longs;
 
 import java.util.List;
 
 
 public class RecipesListFragment extends Fragment implements Recipe.RecipeClickListener {
-    private static final String ARG_CAT_NAME = "catName";
-    private static final String ARG_CATEGORY_ID = "category_id";
+    private static final String ARG_SCREEN_NAME = "screenName";
+    private static final String ARG_RECIPES_ID = "recs_id";
+    private static final String ARG_CATEGORY_ID = "cat_id";
 
     private static final String LOG_TAG = "CookBook";
 
@@ -33,17 +37,54 @@ public class RecipesListFragment extends Fragment implements Recipe.RecipeClickL
     RecyclerView recyclerView;
 
     SearchView searchView = null;
+    String screenName;
 
 
     public RecipesListFragment() {
         // Required empty public constructor
     }
 
-    public static RecipesListFragment newInstance(long catId, String categoryName) {
+    /**
+     * Создать фрагмент, отображающий рецепты определенной категории
+     * @param screenCapture заголовок экрана
+     * @param catId id категории, рецепты которой будут отображены
+     */
+    public static RecipesListFragment newInstance(String screenCapture, long catId) {
         RecipesListFragment fragment = new RecipesListFragment();
         Bundle args = new Bundle();
         args.putLong(ARG_CATEGORY_ID, catId);
-        args.putString(ARG_CAT_NAME, categoryName);
+        args.putString(ARG_SCREEN_NAME, screenCapture);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    /**
+     * Создать фрагмент, отображающий избранные рецепты
+     * @param screenCapture заголовок экрана
+     */
+    public static RecipesListFragment newInstance(String screenCapture, Context context) {
+        RecipesListFragment fragment = new RecipesListFragment();
+        Bundle args = new Bundle();
+
+        FavoritesHelper favHelper = FavoritesHelper.getInstance(context);
+        long[] recIds = Longs.toArray(favHelper.getFavoriteRecipeIds());
+
+        args.putString(ARG_SCREEN_NAME, screenCapture);
+        args.putLongArray(ARG_RECIPES_ID,recIds);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    /**
+     * Создать фрагмент, отображающий набор произвольныех рецептов
+     * @param screenCapture заголовок экрана
+     * @param recIds id рецептов, которые необходимо отобразить
+     */
+    public static RecipesListFragment newInstance(String screenCapture, List<Long> recIds) {
+        RecipesListFragment fragment = new RecipesListFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_SCREEN_NAME, screenCapture);
+        args.putLongArray(ARG_RECIPES_ID, Longs.toArray(recIds));
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,16 +93,20 @@ public class RecipesListFragment extends Fragment implements Recipe.RecipeClickL
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            long catId = getArguments().getLong(ARG_CATEGORY_ID);
-            String name = getArguments().getString(ARG_CAT_NAME);
+            screenName = getArguments().getString(ARG_SCREEN_NAME);
 
-            DBRecipesHelper dbRecipesHelper = new DBRecipesHelper(getContext()); // получаем все рецепты данной категории из базы
-            recipes = dbRecipesHelper.getByCategory(catId);
+            DBRecipesHelper dbRecipesHelper = new DBRecipesHelper(getContext());
+            long catId = getArguments().getLong(ARG_CATEGORY_ID, -1);
+            if (catId !=-1) {
+                recipes = dbRecipesHelper.getByCategory(catId);
+            }
+            else {
+                List<Long> recIds = Longs.asList(getArguments().getLongArray(ARG_RECIPES_ID));
+                recipes = dbRecipesHelper.getById(recIds);
+            }
 
-            getActivity().setTitle(name);
-        }
-        else {
-            Log.e(LOG_TAG,"Создан фрагмент RecipesList без аргументов!");
+        } else {
+            Log.e(LOG_TAG, "Создан фрагмент RecipesList без аргументов!");
         }
         setHasOptionsMenu(true);
     }
@@ -80,7 +125,7 @@ public class RecipesListFragment extends Fragment implements Recipe.RecipeClickL
         try {
             MenuItem searchItem = menu.findItem(R.id.action_search);
             searchView = SearchHelper.getSearchView(getActivity(), searchItem);
-            if (searchView!=null) {
+            if (searchView != null) {
                 searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                     @Override
                     public boolean onQueryTextSubmit(String query) {
@@ -98,20 +143,21 @@ public class RecipesListFragment extends Fragment implements Recipe.RecipeClickL
                 });
             }
         } catch (Exception ex) {
-            Log.e(LOG_TAG, "Не удалось произвести поиск",ex);
+            Log.e(LOG_TAG, "Не удалось произвести поиск", ex);
         }
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        getActivity().setTitle(screenName);
         initRecycleView();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        if (searchView!=null) searchView.clearFocus(); // закрываем поиск и прячем клавиатуру
+        if (searchView != null) searchView.clearFocus(); // закрываем поиск и прячем клавиатуру
     }
 
     private void initRecycleView() {

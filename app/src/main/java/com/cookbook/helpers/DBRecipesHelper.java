@@ -4,13 +4,16 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.cookbook.pojo.Category;
 import com.cookbook.pojo.Recipe;
 import com.cookbook.pojo.Satiety;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DBRecipesHelper extends DBHelper {
@@ -35,7 +38,7 @@ public class DBRecipesHelper extends DBHelper {
                 statement.bindLong(3, r.cookingTime);
                 statement.bindLong(4, r.satiety.getValue());
                 statement.bindLong(5, r.categoryId);
-                bindBitmapOrNull(statement,6,r.icon);
+                bindBitmapOrNull(statement, 6, r.icon);
                 statement.bindString(7, r.instruction);
 
                 statement.execute();
@@ -78,12 +81,30 @@ public class DBRecipesHelper extends DBHelper {
         ArrayList<Recipe> recipes = new ArrayList<>();
         bindRecipes(c, recipes);
 
-        if (recipes.size()!=1) {
-            Log.e(LOG_TAG,String.format("В базе найдено %d рецептов с id = %d",recipes.size(),recipeId));
+        if (recipes.size() != 1) {
+            Log.e(LOG_TAG, String.format("В базе найдено %d рецептов с id = %d", recipes.size(), recipeId));
         }
 
         db.close();
         return recipes.get(0);
+    }
+
+    public List<Recipe> getById(List<Long> ids) {
+        if (ids == null)
+            return null;
+
+        String idsLine = TextUtils.join(", ", ids);
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        String FIND_QUERY = String.format("SELECT * FROM %s WHERE %s IN (%s)", TABLE_RECIPES, RECIPE_ID, idsLine);
+        Cursor c = db.rawQuery(FIND_QUERY, null);
+
+        ArrayList<Recipe> recipes = new ArrayList<>();
+        bindRecipes(c, recipes);
+
+        db.close();
+        return recipes;
     }
 
 

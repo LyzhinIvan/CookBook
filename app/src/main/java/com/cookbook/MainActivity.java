@@ -16,27 +16,17 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.cookbook.fragments.CategoriesFragment;
-import com.cookbook.fragments.FavoritesRecipesFragment;
+import com.cookbook.fragments.RecipesListFragment;
 import com.cookbook.fragments.SearchRecipeFragment;
 import com.cookbook.fragments.ShopingListFragment;
 import com.cookbook.helpers.DBHelper;
-import com.cookbook.helpers.DBIngredientsHelper;
-import com.cookbook.helpers.DBRecipesHelper;
-import com.cookbook.helpers.DBSearchHelper;
 import com.cookbook.helpers.FavoritesHelper;
-import com.cookbook.mock.MockDB;
-import com.cookbook.pojo.Ingredient;
-import com.cookbook.pojo.Recipe;
-
-import java.util.Collections;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener, NavigationView.OnNavigationItemSelectedListener {
 
     private static final String LOG_TAG = "CookBook";
     CategoriesFragment categoriesFragment = new CategoriesFragment();
     SearchRecipeFragment searchRecipeFragment = new SearchRecipeFragment();
-    FavoritesRecipesFragment favoritesRecipesFragment = new FavoritesRecipesFragment();
     ShopingListFragment shopingListFragment = new ShopingListFragment();
 
     Fragment currentFragment;
@@ -53,11 +43,11 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         setSupportActionBar(toolbar);
 
         //TODO: не удалять базу!
-        dropData();
+        //dropData();
         //MockDB.createFakeDatabase(getApplicationContext());
-        MockDB.createTestDatabase(getApplicationContext());
+        //MockDB.createTestDatabase(getApplicationContext());
 
-        DBSearchHelper dbSearchHelper = new DBSearchHelper(this);
+        /*DBSearchHelper dbSearchHelper = new DBSearchHelper(this);
         DBIngredientsHelper dbIngredientsHelper = new DBIngredientsHelper(this);
 
         List<Ingredient> ing = dbIngredientsHelper.getByName("курица сырая");
@@ -66,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         List<Recipe> rec = dbSearchHelper.findRecipes("курица", ing);
         for (Recipe r : rec) {
             Log.d(LOG_TAG, r.name);
-        }
+        }*/
 
         fragmentManager = getSupportFragmentManager();
         fragmentManager.addOnBackStackChangedListener(this);
@@ -133,7 +123,9 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         } else if (id == R.id.nav_categories) {
             setFragment(categoriesFragment, false);
         } else if (id == R.id.nav_favorite) {
-            setFragment(favoritesRecipesFragment, false);
+            FavoritesHelper favHelper = FavoritesHelper.getInstance(this);
+            RecipesListFragment favRecipes = RecipesListFragment.newInstance("Любимые рецепты",this);
+            setFragment(favRecipes, false);
         } else if (id == R.id.nav_shop_list) {
             setFragment(shopingListFragment, false);
         }
