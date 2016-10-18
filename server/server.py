@@ -4,9 +4,10 @@
 import tornado.ioloop
 import tornado.web
 import models
+# from server import models
 import json
-from datetime import datetime  # перевод из timestamp - datetime.fromtimestamp
 import peewee
+import sys
 
 
 class MainHandler(tornado.web.RequestHandler):
@@ -33,8 +34,14 @@ class DeltaHandler(tornado.web.RequestHandler):
         except ValueError:
             self.write('Invalid arguments')
             return
+        try:
+            new_recipes = models.TimeAdded.get(models.TimeAdded.time_added > last_updated)
+            result_size = sys.getsizeof(json.dumps(new_recipes))
+            result = {'delta': result_size / 1024}  # result in MB
+        except peewee.DoesNotExist:
+            result = {'delta': -1}
 
-        self.write('result (delta in Mb) will be there')
+        self.write(json.dumps(result))
 
 
 class UpdateHandler(tornado.web.RequestHandler):
@@ -52,8 +59,14 @@ class UpdateHandler(tornado.web.RequestHandler):
         except ValueError:
             self.write('Invalid arguments')
             return
-        
-        self.write('select result will be there')
+
+        try:
+            new_recipes = models.TimeAdded.get(models.TimeAdded.time_added > last_updated)
+            result = json.dumps(new_recipes)
+        except peewee.DoesNotExist:
+            result = {}
+
+        self.write(result)
 
 
 def make_app():
