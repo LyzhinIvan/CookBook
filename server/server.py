@@ -3,8 +3,8 @@
 
 import tornado.ioloop
 import tornado.web
-# import models
-from server import models
+import models
+# from server import models
 import json
 import peewee
 import sys
@@ -36,7 +36,7 @@ class DeltaHandler(tornado.web.RequestHandler):
             self.write('Invalid arguments')
             return
         try:
-            new_recipes = models.TimeAdded.get(models.TimeAdded.time_added > last_updated)
+            new_recipes = models.Recipe.get(models.Recipe.timestamp_added > last_updated)
             result_size = sys.getsizeof(json.dumps(new_recipes))
             result = {'delta': result_size / 1024}  # result in MB
         except peewee.DoesNotExist:
