@@ -5,6 +5,8 @@ import tornado.ioloop
 import tornado.web
 import models
 import json
+from datetime import datetime  # перевод из timestamp - datetime.fromtimestamp
+import peewee
 
 
 class MainHandler(tornado.web.RequestHandler):
@@ -20,11 +22,19 @@ class DeltaHandler(tornado.web.RequestHandler):
         pass
 
     def get(self):
-        last_updated = self.get_argument('lastUpdated', None)  # TODO: does not work (returns None every time) Fix it
-        if not last_updated or not isinstance(last_updated, int):
+        last_updated = self.get_argument('lastUpdated', None)
+
+        if not last_updated:
             self.write('Invalid arguments')
-        else:
-            self.write('<result (delta in Mb) will be there>')
+            return
+
+        try:
+            last_updated = int(last_updated)
+        except ValueError:
+            self.write('Invalid arguments')
+            return
+
+        self.write('result (delta in Mb) will be there')
 
 
 class UpdateHandler(tornado.web.RequestHandler):
@@ -32,11 +42,18 @@ class UpdateHandler(tornado.web.RequestHandler):
         pass
 
     def get(self):
-        last_updated = self.get_argument('lastUpdated', None)  # TODO: does not work (returns None every time) Fix it
-        if not last_updated or not isinstance(last_updated, int):
+        last_updated = self.get_argument('lastUpdated', None)
+        if not last_updated:
             self.write('Invalid arguments')
-        else:
-            self.write('<select result will be there>')
+            return
+
+        try:
+            last_updated = int(last_updated)
+        except ValueError:
+            self.write('Invalid arguments')
+            return
+        
+        self.write('select result will be there')
 
 
 def make_app():
