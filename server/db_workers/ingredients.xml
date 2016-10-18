@@ -1,0 +1,65 @@
+<!-- List of ingredients for cookbook.db, Ingredients table
+	Simple ingredient: <ingredient> ingredientName </ingredient>
+	Redundant spaces will be dropped.
+
+	Rename ingredient: <ingredient replaces="oldName">newName</ingredient>
+
+	Delete ingredient: remove it from the list 
+	(sic!) Now deletion is still not implemented. All of the ingredients once inserted in database are kept there.
+
+	Keep it in alphabetical order for better readability!
+ -->
+<ingredient_list>
+
+<ingredient>авокадо</ingredient>
+<ingredient>аджика</ingredient>
+<ingredient>айва</ingredient>
+<ingredient>ананас</ingredient>
+<ingredient>апельсин</ingredient>
+<ingredient>ананас консервированный</ingredient>
+<ingredient>арбуз</ingredient>
+<ingredient>базилик</ingredient>
+<ingredient>баклажаны</ingredient>
+<ingredient>бальзамический уксус</ingredient>
+<ingredient>банан</ingredient>
+<ingredient>баранина</ingredient>
+<ingredient>бараньи ребрышки</ingredient>
+<ingredient>батон</ingredient>
+<ingredient>бекон копченый</ingredient>
+<ingredient>блины</ingredient>
+<ingredient>болгарский перец</ingredient>
+<ingredient>брокколи</ingredient>
+<ingredient>брынза</ingredient>
+<ingredient>булочки для гамбургеров</ingredient>
+<ingredient>булочки для хот-догов</ingredient>
+<ingredient>бульон мясной</ingredient>
+<ingredient>ванилин</ingredient>
+<ingredient>ванильный сахар</ingredient>
+<ingredient>вареный картофель</ingredient>
+<ingredient>вермишель</ingredient>
+<ingredient>ветчина</ingredient>
+<ingredient>взбитые сливки</ingredient>
+<ingredient>винный уксус</ingredient>
+<ingredient>вино</ingredient>
+<ingredient>вино белое сухое</ingredient>
+<ingredient>виноград</ingredient>
+<ingredient>вишня</ingredient>
+<ingredient>вишня консервированная</ingredient>
+<ingredient>гвоздика</ingredient>
+<ingredient>говядина</ingredient>
+<ingredient>говядина тушеная</ingredient>
+<ingredient>горох</ingredient>
+<ingredient>горчица</ingredient>
+<ingredient></ingredient>
+<ingredient></ingredient>
+<ingredient>кабачок</ingredient>
+<ingredient>курица копченая</ingredient>
+<ingredient>курица сырая</ingredient>
+<ingredient></ingredient>
+<ingredient>перец острый</ingredient>
+<ingredient>перец болгарский</ingredient>
+<ingredient>томаты</ingredient>
+<ingredient></ingredient>
+<ingredient></ingredient>
+
+</ingredient_list>
