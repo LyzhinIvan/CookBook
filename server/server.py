@@ -3,11 +3,12 @@
 
 import tornado.ioloop
 import tornado.web
-import models
-# from server import models
+# import models
+from server import models
 import json
 import peewee
 import sys
+from datetime import datetime
 
 
 class MainHandler(tornado.web.RequestHandler):
@@ -43,6 +44,14 @@ class DeltaHandler(tornado.web.RequestHandler):
 
         self.write(json.dumps(result))
 
+# ======================================== Aliases
+RECIPES_FIELD_NAME = 'recipes'
+CATEGORIES_FIELD_NAME = 'categories'
+INGREDIENTS_FIELD_NAME = 'ingredients'
+RECIPE_INGREDIENTS_FIELD_NAME = 'recipeIngredients'
+NEW_UPDATED_FIELD_NAME = 'newUpdated'
+# ========================================
+
 
 class UpdateHandler(tornado.web.RequestHandler):
     def data_received(self, chunk):
@@ -61,10 +70,31 @@ class UpdateHandler(tornado.web.RequestHandler):
             return
 
         try:
-            new_recipes = models.TimeAdded.get(models.TimeAdded.time_added > last_updated)
-            result = json.dumps(new_recipes)
-        except peewee.DoesNotExist:
             result = {}
+
+            select_result = models.Category.get(models.Category.timestamp_added > last_updated)
+            # TODO: выпилить из categories timestamp
+            result[CATEGORIES_FIELD_NAME] = json.dumps(select_result)
+
+            select_result = models.Ingredient.get(models.Ingredient.timestamp_added >last_updated)
+            # TODO: выпилить из ingredients timestamp
+            result[INGREDIENTS_FIELD_NAME] = json.dumps(select_result)
+
+            select_result = models.Recipe.get(models.Recipe.timestamp_added > last_updated)
+            # TODO: выпилить из recipes timestamp
+            result[RECIPES_FIELD_NAME] = json.dumps(select_result)
+
+            select_result = models.RecipeIngredient.select().join(models.Recipe)\
+                .where(models.Recipe.timestamp_added > last_updated)
+            # TODO: отбросить лишние поля
+            result[RECIPE_INGREDIENTS_FIELD_NAME] = json.dumps(select_result)
+
+            result[NEW_UPDATED_FIELD_NAME] = int(datetime.timestamp(datetime.now()))
+            result = json.dumps(result)
+        except peewee.DoesNotExist:
+            result = {CATEGORIES_FIELD_NAME: [], INGREDIENTS_FIELD_NAME: [], RECIPES_FIELD_NAME: [],
+                      RECIPE_INGREDIENTS_FIELD_NAME: [],
+                      NEW_UPDATED_FIELD_NAME: int(datetime.timestamp(datetime.now()))}
 
         self.write(result)
 

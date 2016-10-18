@@ -13,6 +13,7 @@ class BaseModel(Model):
 
 class Ingredient(BaseModel):
     name = CharField(unique=True)  # Названия рецепта
+    timestamp_added = IntegerField()  # Время добавления ингредиента в базу
 
     class Meta:
         db_table = 'ingredients'
@@ -20,6 +21,7 @@ class Ingredient(BaseModel):
 
 class Category(BaseModel):
     name = CharField(unique=True)  # Названия категории
+    timestamp_added = IntegerField()  # Время добавления категории в базу
 
     class Meta:
         db_table = 'categories'
@@ -33,6 +35,7 @@ class Recipe(BaseModel):
     time = IntegerField()  # Время приготовления в минутах
     instruction = TextField()  # Инструкция по приготовлению
     category = ForeignKeyField(Category)  # Категория рецепта
+    timestamp_added = IntegerField()  # Время добавления рецепта в базу
 
     class Meta:
         db_table = 'recipes'
@@ -47,17 +50,9 @@ class RecipeIngredient(BaseModel):
         db_table = 'recipe_ingredients'
 
 
-class TimeAdded(BaseModel):
-    recipe = ForeignKeyField(Recipe, related_name='time_added')  # Ссылка на рецепт
-    time_added = IntegerField(null=False)  # Когда этот рецепт был добавлен в базу
-
-    class Meta:
-        db_table = 'time_added'
-
-
 def create_tables():
     db.connect()
-    db.create_tables([Ingredient, Category, Recipe, RecipeIngredient, TimeAdded],
+    db.create_tables([Ingredient, Category, Recipe, RecipeIngredient],
                      safe=True)  # safe=True для того, чтобы таблицы не пересоздавались
 
 if __name__ == '__main__':
