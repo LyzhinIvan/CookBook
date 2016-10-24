@@ -1,43 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
+    android:id="@+id/card_view"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginRight="5dp">
+    android:layout_gravity="center"
+    android:layout_margin="8dp"
+    android:orientation="vertical"
+    card_view:cardCornerRadius="5dp"
+    card_view:cardElevation="8dp"
+    card_view:contentPadding="5dp">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/card_view"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        card_view:cardCornerRadius="5dp"
-        card_view:contentPadding="5dp"
-        card_view:cardElevation="5dp"
-        android:layout_gravity="center">
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/ivCategoryIcon"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_placeholder" />
+
+        <TextView
+            android:id="@+id/tvCategoryCaption"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_margin="5dp"
+            android:maxLines="1"
+            android:text="Category Caption" />
 
-            <ImageView
-                android:id="@+id/ivCategoryIcon"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:src="@drawable/ic_placeholder"/>
-            <TextView
-                android:id="@+id/tvCategoryCaption"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Category Caption"
-                android:layout_margin="5dp"
-                android:maxLines="1"/>
-
-        </LinearLayout>
+    </LinearLayout>
 
 
-    </android.support.v7.widget.CardView>
-
-
-</LinearLayout>
+</android.support.v7.widget.CardView>
