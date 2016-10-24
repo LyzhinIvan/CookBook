@@ -19,6 +19,7 @@ import com.cookbook.fragments.CategoriesFragment;
 import com.cookbook.fragments.RecipesListFragment;
 import com.cookbook.fragments.SearchRecipeFragment;
 import com.cookbook.fragments.ShopingListFragment;
+import com.cookbook.fragments.UpdateDatabaseFragment;
 import com.cookbook.helpers.DBHelper;
 import com.cookbook.helpers.FavoritesHelper;
 
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
     CategoriesFragment categoriesFragment = new CategoriesFragment();
     SearchRecipeFragment searchRecipeFragment = new SearchRecipeFragment();
     ShopingListFragment shopingListFragment = new ShopingListFragment();
+    UpdateDatabaseFragment updateDatabaseFragment = new UpdateDatabaseFragment();
 
     Fragment currentFragment;
     ActionBarDrawerToggle drawerToggle;
@@ -123,11 +125,12 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         } else if (id == R.id.nav_categories) {
             setFragment(categoriesFragment, false);
         } else if (id == R.id.nav_favorite) {
-            FavoritesHelper favHelper = FavoritesHelper.getInstance(this);
             RecipesListFragment favRecipes = RecipesListFragment.newInstance("Любимые рецепты",this);
             setFragment(favRecipes, false);
         } else if (id == R.id.nav_shop_list) {
             setFragment(shopingListFragment, false);
+        } else if (id== R.id.nav_update) {
+            setFragment(updateDatabaseFragment,false);
         }
 
         mDrawerLayout.closeDrawer(GravityCompat.START);

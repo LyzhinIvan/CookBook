@@ -70,9 +70,10 @@ public class CategoriesFragment extends Fragment implements Category.CategoryCli
 
 
     private void initRecycleView() {
+        final int columns = getResources().getInteger(R.integer.category_columns);
         recyclerView = (RecyclerView)getView().findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),columns));
 
         CategoriesGridAdapter adapter = new CategoriesGridAdapter(getContext(),categories,this);
         recyclerView.setAdapter(adapter);

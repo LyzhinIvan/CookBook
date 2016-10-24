@@ -69,7 +69,7 @@ public class ShopingListFragment extends Fragment implements View.OnClickListene
             }
         });
 
-        adapter = new ShopListAdapter(dbShopListHelper.getAll());
+        adapter = new ShopListAdapter(dbShopListHelper.getAll(), this);
         recyclerView.setAdapter(adapter);
 
         btnAdd.setOnClickListener(this);
@@ -116,7 +116,7 @@ public class ShopingListFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(int position) {
-        //dbShopListHelper.remove(adapter.get(position));
+        dbShopListHelper.remove(adapter.get(position));
         adapter.remove(position);
     }
 }

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.cookbook.ButtonRemoveClickListener;
 import com.cookbook.R;
 
 import java.util.List;
@@ -14,9 +15,11 @@ import java.util.List;
 public class ShopListAdapter  extends RecyclerView.Adapter<ShopListAdapter.ViewHolder> {
 
     private List<String> lines;
+    private ButtonRemoveClickListener listener;
 
-    public ShopListAdapter(List<String> lines) {
+    public ShopListAdapter(List<String> lines, ButtonRemoveClickListener listener) {
         this.lines = lines;
+        this.listener = listener;
     }
 
     public void add(String line) {
@@ -50,12 +53,22 @@ public class ShopListAdapter  extends RecyclerView.Adapter<ShopListAdapter.ViewH
         return lines.size();
     }
 
+    public String get(int position) {
+        return lines.get(position);
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvCaption;
 
         ViewHolder(View itemView) {
             super(itemView);
             tvCaption = (TextView)itemView.findViewById(R.id.tvCaption);
+            itemView.findViewById(R.id.btnRemove).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onClick(getAdapterPosition());
+                }
+            });
         }
     }
 }
