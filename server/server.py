@@ -8,6 +8,7 @@ import models
 import json
 import peewee
 import sys
+import os
 from datetime import datetime
 
 
@@ -111,4 +112,5 @@ if __name__ == '__main__':
     print("Tornado works")
     app = make_app()
     app.listen(8888)
+    # app.listen(int(os.environ['PORT'])) # if you're deploying it on heroku cloud
     tornado.ioloop.IOLoop.current().start()
