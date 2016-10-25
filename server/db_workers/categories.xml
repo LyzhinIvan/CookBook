@@ -1,0 +1,21 @@
+<!-- List of categories for cookbook.db, Categories table
+	Simple ingredient: <category> categoryName </category>
+	Redundant spaces will be dropped.
+
+	Rename category: <category replaces="oldName">newName</category> - still not implemented
+
+	Delete ingredient: remove it from the list 
+	(sic!) Now deletion is still not implemented. All of the ingredients once inserted in database are kept there.
+ -->
+<category_list>
+	<category>Основные блюда</category>
+	<category>Гарниры</category>
+	<category>Супы</category>
+	<category>Закуски</category>
+	<category>Салаты</category>
+	<category>Завтраки</category>
+	<category>Десерты</category>
+	<category>Напитки</category>
+	<category>Соусы</category>
+	<category>Прочее</category>
+</category_list>

@@ -2,12 +2,12 @@
 	Simple ingredient: <ingredient> ingredientName </ingredient>
 	Redundant spaces will be dropped.
 
-	Rename ingredient: <ingredient replaces="oldName">newName</ingredient>
+	Rename ingredient: <ingredient replaces="oldName">newName</ingredient> - still not implemented
 
 	Delete ingredient: remove it from the list 
 	(sic!) Now deletion is still not implemented. All of the ingredients once inserted in database are kept there.
 
-	Keep it in alphabetical order for better readability!
+	Keep it in the alphabetical order for better readability!
  -->
 <ingredient_list>
 
@@ -58,7 +58,7 @@
 <ingredient></ingredient>
 <ingredient>перец острый</ingredient>
 <ingredient>перец болгарский</ingredient>
-<ingredient>томаты</ingredient>
+<ingredient>помидор</ingredient>
 <ingredient></ingredient>
 <ingredient></ingredient>
 
