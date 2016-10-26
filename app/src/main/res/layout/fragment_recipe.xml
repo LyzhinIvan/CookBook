@@ -29,28 +29,38 @@
             android:layout_marginTop="40dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:maxLines="2"
-            android:id="@+id/tvCaption" />
+            android:id="@+id/dishName"/>
 
-        <RelativeLayout
-            android:layout_marginTop="20dp"
+        <LinearLayout
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tvSatiety"
-                android:layout_alignParentLeft="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Сытность"/>
 
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <ImageView
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_time"
+                android:layout_gravity="center_vertical"
+                android:layout_width="18dp"
+                android:layout_height="18dp" />
             <TextView
                 android:id="@+id/tvCookingTime"
-                android:layout_alignParentRight="true"
+                android:layout_marginLeft="3dp"
+                android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="40 мин"/>
-        </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <TextView
@@ -61,7 +71,8 @@
         android:text="Что потребуется?"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="18sp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -69,6 +80,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutManager="LinearLayoutManager"
+        android:layout_marginRight="-10dp"
+        android:layout_marginLeft="-10dp"
         tools:listitem="@layout/recipe_ingredient_item">
     </android.support.v7.widget.RecyclerView>
 
@@ -80,7 +93,8 @@
         android:text="Как приготовить?"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/tvRecipe"
@@ -88,7 +102,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/lorem"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="16sp" />
 
 </RelativeLayout>
 </android.support.v4.widget.NestedScrollView>
