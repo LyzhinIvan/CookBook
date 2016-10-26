@@ -1,37 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="40dp">
+    android:layout_height="40dp"
+    android:stretchColumns="0"
+    android:shrinkColumns="0"
+    android:background="@drawable/item_border">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvCaption"
-        android:text="Что"
-        android:layout_marginLeft="10dp"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-    <ImageButton
-        android:id="@+id/btnToShopList"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:padding="10dp"
-        android:layout_marginRight="5dp"
-        android:src="@drawable/ic_shopping_list"
-        android:background="@android:color/transparent"
-        android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvQuantity"
-        android:text="Сколько"
-        android:layout_marginRight="15dp"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@id/btnToShopList"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-</RelativeLayout>
+    <TableRow>
+        <TextView
+            android:id="@+id/tvCaption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Что"
+            android:layout_gravity="center_vertical"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/tvQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:text="Сколько"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="16sp" />
+        <ImageButton
+            android:id="@+id/btnToShopList"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:background="@android:color/transparent"
+            android:padding="10dp"
+            android:src="@drawable/ic_add_shopping_cart" />
+    </TableRow>
+</TableLayout>
