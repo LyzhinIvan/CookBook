@@ -1,12 +1,12 @@
 package com.cookbook.helpers;
 
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
 
@@ -19,9 +19,13 @@ public class BitmapHelper {
 
     public static Bitmap getImage(byte[] bytes) {
         if (bytes==null)
-            //return Bitmap.createBitmap(40,40, Bitmap.Config.ARGB_8888);
             return null;
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+    }
+
+    public static Bitmap getImage(String base64) {
+        byte[] decodedString = Base64.decode(base64, Base64.DEFAULT);
+        return getImage(decodedString);
     }
 
     public static Bitmap drawableToBitmap (Drawable drawable) {

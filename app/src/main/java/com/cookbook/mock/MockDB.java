@@ -3,6 +3,7 @@ package com.cookbook.mock;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
+import android.util.Base64;
 import android.util.Log;
 
 import com.cookbook.R;
@@ -66,10 +67,11 @@ public class MockDB {
         DBRecipesHelper dbRecipesHelper = new DBRecipesHelper(context);
         DBIngredientsHelper dbIngredientsHelper = new DBIngredientsHelper(context);
 
+        final byte[] bytes = Base64.decode(context.getResources().getString(R.string.testImg), Base64.DEFAULT);
 
         ArrayList<Category> cats = new ArrayList<Category>() {{
-            add(new Category(0, "Блюда из курицы", null));
-            add(new Category(1, "Закуски", null));
+            add(new Category(0, "Блюда из курицы", bytes));
+            add(new Category(1, "Закуски", bytes));
         }};
         dbCategoriesHelper.addOrUpdate(cats);
 
@@ -82,11 +84,11 @@ public class MockDB {
         dbIngredientsHelper.addOrReplace(ings);
 
         ArrayList<Recipe> recipes = new ArrayList<Recipe>() {{
-            add(new Recipe(0, "Острая курица с кабачками", 45, Satiety.Medium, 0, "", null));
-            add(new Recipe(1, "Курица по-кавказски", 30, Satiety.Medium, 0, "", null));
-            add(new Recipe(3, "Вареная курица", 45, Satiety.Medium, 0, "", null));
-            add(new Recipe(2, "Острые кабачки", 45, Satiety.Medium, 1, "", null));
-            add(new Recipe(4, "Кабачки, тушеные с томатами", 45, Satiety.Medium, 1, "", null));
+            add(new Recipe(0, "Острая курица с кабачками", 45, Satiety.Medium, 0, "", bytes));
+            add(new Recipe(1, "Курица по-кавказски", 30, Satiety.Medium, 0, "", bytes));
+            add(new Recipe(3, "Вареная курица", 45, Satiety.Medium, 0, "", bytes));
+            add(new Recipe(2, "Острые кабачки", 45, Satiety.Medium, 1, "", bytes));
+            add(new Recipe(4, "Кабачки, тушеные с томатами", 45, Satiety.Medium, 1, "", bytes));
         }};
         dbRecipesHelper.addOrUpdate(recipes);
 

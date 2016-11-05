@@ -22,6 +22,7 @@ import com.cookbook.fragments.ShopingListFragment;
 import com.cookbook.fragments.UpdateDatabaseFragment;
 import com.cookbook.helpers.DBHelper;
 import com.cookbook.helpers.FavoritesHelper;
+import com.cookbook.mock.MockDB;
 
 public class MainActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener, NavigationView.OnNavigationItemSelectedListener {
 

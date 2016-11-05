@@ -6,11 +6,11 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_margin="8dp"
     android:orientation="vertical"
     card_view:cardCornerRadius="5dp"
-    card_view:cardElevation="8dp"
-    card_view:contentPadding="5dp">
+    card_view:cardElevation="5dp"
+    android:layout_margin="8dp"
+    card_view:cardPreventCornerOverlap="false">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -21,14 +21,16 @@
             android:id="@+id/ivCategoryIcon"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:src="@drawable/ic_placeholder" />
+
+            android:src="@drawable/ic_placeholder"
+            android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/tvCategoryCaption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:maxLines="1"
+            android:maxLines="2"
             android:text="Category Caption" />
 
     </LinearLayout>

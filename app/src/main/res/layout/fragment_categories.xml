@@ -12,7 +12,6 @@
         tools:context="com.cookbook.MainActivity"
         tools:showIn="@layout/content_main"
         app:layoutManager="GridLayoutManager"
-        tools:listitem="@layout/category_grid_item"
-        android:padding="8dp"/>
+        tools:listitem="@layout/category_grid_item" />
 
 </FrameLayout>
