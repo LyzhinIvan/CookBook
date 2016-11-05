@@ -3,25 +3,26 @@ package com.cookbook.helpers;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AlertDialog;
+import android.support.v4.util.Pair;
 import android.util.Log;
 
 import com.cookbook.pojo.Ingredient;
 import com.cookbook.pojo.Recipe;
-import com.cookbook.pojo.Satiety;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class DBSearchHelper extends DBRecipesHelper {
 
     public static class Builder {
 
         private DBSearchHelper instance;
-        private String caption;
-        private List<Ingredient> ingredients;
-        private String category;
-        private Satiety satiety;
+        private String caption = null;
+        private List<Ingredient> ingredients = null;
+        private Long categoryId = -1L;
+        private int cookingTime = -1;
 
         public Builder(Context context) {
             instance = new DBSearchHelper(context);
@@ -37,24 +38,18 @@ public class DBSearchHelper extends DBRecipesHelper {
             return this;
         }
 
-        public Builder inCategory(String category) {
-            this.category = category;
+        public Builder inCategory(Long categoryId) {
+            this.categoryId = categoryId;
             return this;
         }
 
-        public Builder withSatiety(Satiety satiety) {
-            this.satiety = satiety;
+        public Builder withCookingTime(int cookingTime) {
+            this.cookingTime = cookingTime;
             return this;
         }
 
-        public List<Long> search() {
-            if (caption != null && ingredients != null)
-                return instance.findRecipes(caption, ingredients);
-            else if (caption!=null)
-                return instance.findRecipes(caption);
-            else if (ingredients!=null)
-                return instance.findRecipes(ingredients);
-            else return null;
+        public Pair<Boolean, List<Long>> search() {
+            return instance.findRecipes(caption, ingredients, categoryId, cookingTime);
         }
     }
 
@@ -62,20 +57,50 @@ public class DBSearchHelper extends DBRecipesHelper {
         super(context);
     }
 
+    public Pair<Boolean, List<Long>> findRecipes(String recipeName, List<Ingredient> ings, Long categoryId, int cookingTime) {
+
+        List<Recipe> recipes = ings != null ? getRecipes(ings) : getRecipes(recipeName); // находим рецепты с указанным именем или ингредиентами
+        boolean exactlyFound = true;
+
+        Set<Recipe> toRemove = new HashSet<>();
+        for (Recipe r : recipes) {
+            // если будут указаны и ингредиенты, и название рецепта, первоначальный поиск произойдет по ингредиентам
+            // в таком случае, выполним фильтрацию по имени
+            if (ings != null && recipeName != null && !r.name.contains(recipeName))
+                toRemove.add(r);
+            if (toRemove.size() == recipes.size() && ings != null) { // если после неё не осталось ниодного подходящего рецепта
+                toRemove.clear(); // игнорируем ограничение по имени
+                exactlyFound = false; //ставим соответствующий флаг
+            }
+
+            // производим поиск по доп. параметрам
+            if (categoryId != -1 && r.categoryId != categoryId)
+                toRemove.add(r);
+            else if (cookingTime != -1 && r.cookingTime > cookingTime)
+                toRemove.add(r);
+        }
+        recipes.removeAll(toRemove);
+        List<Long> result = new ArrayList<>();
+        for (Recipe r : recipes) {
+            result.add(r.id);
+        }
+        return new Pair<>(exactlyFound, result);
+    }
+
     /**
      * поиск id рецептов по названию и с любыми ингредиентами
      */
-    public List<Long> findRecipes(String recipeName) {
+    public List<Recipe> getRecipes(String recipeName) {
         if (recipeName.isEmpty())
             return new ArrayList<>();
 
-        final String query = String.format("select %4$s from %1$s where %2$s like '%%%3$s%%' ORDER BY %2$s", TABLE_RECIPES, RECIPE_CAPTION, recipeName, RECIPE_ID);
+        final String query = String.format("select * from %1$s where %2$s like '%%%3$s%%' ORDER BY %2$s", TABLE_RECIPES, RECIPE_CAPTION, recipeName);
         SQLiteDatabase db = getReadableDatabase();
 
         Cursor c = db.rawQuery(query, null);
 
-        ArrayList<Long> recipes = new ArrayList<>();
-        bindLongs(c, recipes);
+        ArrayList<Recipe> recipes = new ArrayList<>();
+        bindRecipes(c, recipes);
 
         db.close();
         return recipes;

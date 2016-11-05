@@ -48,7 +48,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
                 android:text="Искать в категории:" />
 
             <Spinner
@@ -64,7 +63,7 @@
             android:layout_below="@id/linLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Сытность:"
+            android:text="Время приготовления не больше:"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="2dp" />
 
@@ -84,12 +83,12 @@
                     android:id="@+id/rbLight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Легкое"/>
+                    android:text="15 мин"/>
                 <RadioButton
                     android:id="@+id/rbMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Среднее"/>
+                    android:text="30 мин"/>
             </RadioGroup>
             <RadioGroup
                 android:id="@+id/rg2"
@@ -100,7 +99,7 @@
                     android:id="@+id/rbNourishing"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Сытное"/>
+                    android:text="45 мин"/>
                 <RadioButton
                     android:id="@+id/rbAny"
                     android:layout_width="wrap_content"
