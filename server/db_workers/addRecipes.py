@@ -14,6 +14,13 @@ from server.db_workers import models
 
 
 RESIZE_TO = 200
+RECIPE_TAG = "recipe"
+NAME_TAG = "title"
+CATEGORY_TAG = "category"
+COOK_TIME_TAG = "cook_time"
+PICTURE_TAG = "picture_filepath"
+INGREDIENT_TAG = "ingredient"
+INSTRUCTION_TAG = "instruction"
 
 
 def resize_img(filepath_from, dir_to):
@@ -48,11 +55,13 @@ def text_similarity_percent(str1, str2):
 # Class for preprocessing items of recipe before writing them to database
 class PreprocessItem:
     def __init__(self):
-        self.ingredients_available = []
-        self.categories_available = []
-        # TODO: read ingredients & categories from db
-        # TODO: how to identify recipes?
-        pass
+        select_res = models.Ingredient.select()
+        self.ingredients_available = [i.name for i in select_res]
+        select_res = models.Category.select()
+        self.categories_available = [i.name for i in select_res]
+        select_res = models.Recipe.select()
+        # recipes are identified by their instructions
+        self.recipes_available = [i.instruction for i in select_res]
 
     def preprocess_title(self, text):
         text = str.join(" ", text.split())  # Убираем лишние пробелы
@@ -60,26 +69,35 @@ class PreprocessItem:
 
     # Removes redundant spaces, converts to lowercase, raises ValueError if not in ingredients_available
     def preprocess_ingredient(self, text):
-        pass
+        text = str.join(" ", text.split()).lower()
+        return text
 
     # converts into int else raises ValueError
-    def preprocess_cook_time(self, text):
-        pass
+    @staticmethod
+    def preprocess_cook_time(text):
+        return int(text)
 
     # Removes redundant spaces, convert to lowercase, raise ValueError if not in categories_available
     def preprocess_category(self, text):
-        pass
+        text = str.join(" ", text.split()).lower()
+        if text not in self.categories_available:
+            raise ValueError("Unknown category")
+        return text
 
     ''' Reads the picture, converts to base64. Raises OSError if file not found'''
     def preprocess_img(self, path):
-        pass
+        return img_to_base64(path)
 
     def preprocess_instruction(self, text):
+        for i in self.recipes_available:
+            if text_similarity_percent(text, i) >= 0.9:
+                raise ValueError("Text similarity percent >= 0.9")
         return text
+
 
 def add_recipes(xml_filepath):
     log_filepath = 'db.log'
-
+    preprocessor = PreprocessItem()
     tree = ET.parse(xml_filepath)
     root = tree.getroot()
     try:
@@ -90,28 +108,49 @@ def add_recipes(xml_filepath):
 
     count_insertions = 0
     inserted = []
-    if not select_result:
-        for recipe in root:
-            if recipe.tag != "recipe":
-                continue
-            for item in recipe:
 
-                name = str.join(" ", recipe.text.split())  # Убираем лишние пробелы
-                name = str.lower(name)
-                i = models.Ingredient(name=name, timestamp_added=int(datetime.timestamp(datetime.now())))
-                i.save()
-                count_insertions += 1
-                inserted.append(name)
-    else:
-        for recipe in root:
-            if recipe.text is None or recipe.text in select_result:
-                continue
-            name = str.join(" ", recipe.text.split())  # Убираем лишние пробелы
-            name = str.lower(name)
-            i = models.Ingredient(name=name, timestamp_added=int(datetime.timestamp(datetime.now())))
-            i.save()
-            count_insertions += 1
-            inserted.append(name)
+    for recipe in root:
+        if recipe.tag != RECIPE_TAG:
+            continue
+        ingredient_list = []
+        try:
+            for item in recipe:
+                if item.tag == NAME_TAG:
+                    title = preprocessor.preprocess_title(item.text)
+                    continue
+                if item.tag == CATEGORY_TAG:
+                    category = preprocessor.preprocess_category(item.text)
+                    continue
+                if item.tag == COOK_TIME_TAG:
+                    time = preprocessor.preprocess_cook_time(item.text)
+                    continue
+                if item.tag == PICTURE_TAG:
+                    picture = preprocessor.preprocess_img(item.text)
+                    continue
+                if item.tag == INGREDIENT_TAG:
+                    ingredient_list.append(preprocessor.preprocess_ingredient(item.text))
+                    continue
+                if item.tag == INSTRUCTION_TAG:
+                    instruction = preprocessor.preprocess_instruction(item.text)
+                    continue
+        except ValueError:
+            continue
+
+        new_recipe = models.Recipe(name=title, timestamp_added=int(datetime.timestamp(datetime.now())))
+        new_recipe.category = category
+        new_recipe.time = time
+        new_recipe.picture = picture
+        new_recipe.instruction = instruction
+        new_recipe.save()
+        count_insertions += 1
+        inserted.append(title)
+
+        ingredient_list = [models.Ingredient.get(models.Ingredient.name == i) for i in ingredient_list]
+        for i in ingredient_list:
+            rec_ing = models.RecipeIngredient(recipe = new_recipe, ingredient = i)
+            rec_ing.save()
+
+
 if __name__ == "__main__":
     # preprocess_img('img/non-resized', 'img/')
     add_recipes("recipes.xml")

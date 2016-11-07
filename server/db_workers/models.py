@@ -43,7 +43,7 @@ class Recipe(BaseModel):
 
 class RecipeIngredient(BaseModel):
     recipe = ForeignKeyField(Recipe, related_name='ingredients')  # Ссылка на рецепт
-    ingredient = ForeignKeyField(Ingredient)  # Ссылка на игредиент
+    ingredient = ForeignKeyField(Ingredient)  # Ссылка на ингредиент
     quantity = CharField()
 
     class Meta:

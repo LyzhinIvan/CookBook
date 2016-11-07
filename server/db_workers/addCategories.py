@@ -41,7 +41,7 @@ else:
 with open(log_filepath, 'a') as f:
     msg = datetime.now().strftime('%d/%m/%Y %H:%M') + ' Inserted %d row(s)' % count_insertions + '\n'
     f.write(msg)
-    msg = "=========== Inserted: "
+    msg = "=========== Inserted: \n"
     msg += str.join("\n", [i for i in inserted])
     msg += "======================"
     f.write(msg)
