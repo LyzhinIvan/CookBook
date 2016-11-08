@@ -22,13 +22,14 @@ PICTURE_TAG = "picture_filepath"
 INGREDIENT_TAG = "ingredient"
 INSTRUCTION_TAG = "instruction"
 
+log_filepath = 'db.log'
 
 def resize_img(filepath_from, dir_to):
     print("Resizing " + filepath_from + "...")
     img = imread(filepath_from)
     min_size = min(img.shape[0], img.shape[1])
     if min_size > RESIZE_TO:
-        k = RESIZE_TO/min_size
+        k = RESIZE_TO / min_size
         img = resize(img, None, fx=k, fy=k)
     filepath_to = join(dir_to, os.path.basename(filepath_from))
     imwrite(filepath_to, img)
@@ -56,9 +57,13 @@ def text_similarity_percent(str1, str2):
 class PreprocessItem:
     def __init__(self):
         select_res = models.Ingredient.select()
-        self.ingredients_available = [i.name for i in select_res]
+        names = [i.name for i in select_res]
+        ids = [i.id for i in select_res]
+        self.ingredients_available = dict(zip(names, ids))
         select_res = models.Category.select()
-        self.categories_available = [i.name for i in select_res]
+        names = [i.name for i in select_res]
+        ids = [i.id for i in select_res]
+        self.categories_available = dict(zip(names, ids))
         select_res = models.Recipe.select()
         # recipes are identified by their instructions
         self.recipes_available = [i.instruction for i in select_res]
@@ -70,7 +75,10 @@ class PreprocessItem:
     # Removes redundant spaces, converts to lowercase, raises ValueError if not in ingredients_available
     def preprocess_ingredient(self, text):
         text = str.join(" ", text.split()).lower()
-        return text
+        if text not in self.ingredients_available:
+            raise ValueError("Unknown ingredient \'%s\'" % text)
+        return self.ingredients_available[text]
+
 
     # converts into int else raises ValueError
     @staticmethod
@@ -81,12 +89,17 @@ class PreprocessItem:
     def preprocess_category(self, text):
         text = str.join(" ", text.split()).lower()
         if text not in self.categories_available:
-            raise ValueError("Unknown category")
-        return text
+            raise ValueError("Unknown category \'%s\'" % text)
+        return self.categories_available[text]
 
-    ''' Reads the picture, converts to base64. Raises OSError if file not found'''
+    ''' Reads the picture, converts to base64. Raises ValueError if file not found'''
     def preprocess_img(self, path):
-        return img_to_base64(path)
+        try:
+            res = img_to_base64(path)
+        except FileNotFoundError as e:
+            msg = e.args[1] + " " + path
+            raise ValueError(msg)
+        return res
 
     def preprocess_instruction(self, text):
         for i in self.recipes_available:
@@ -96,7 +109,6 @@ class PreprocessItem:
 
 
 def add_recipes(xml_filepath):
-    log_filepath = 'db.log'
     preprocessor = PreprocessItem()
     tree = ET.parse(xml_filepath)
     root = tree.getroot()
@@ -107,9 +119,13 @@ def add_recipes(xml_filepath):
         select_result = []
 
     count_insertions = 0
+    count_rec_ing_insertions = 0
     inserted = []
+    rec_ing_inserted = []
+    error_msgs = []
 
     for recipe in root:
+        skip = False
         if recipe.tag != RECIPE_TAG:
             continue
         ingredient_list = []
@@ -117,6 +133,9 @@ def add_recipes(xml_filepath):
             for item in recipe:
                 if item.tag == NAME_TAG:
                     title = preprocessor.preprocess_title(item.text)
+                    if title == "":
+                        skip = True
+                        break
                     continue
                 if item.tag == CATEGORY_TAG:
                     category = preprocessor.preprocess_category(item.text)
@@ -128,12 +147,21 @@ def add_recipes(xml_filepath):
                     picture = preprocessor.preprocess_img(item.text)
                     continue
                 if item.tag == INGREDIENT_TAG:
-                    ingredient_list.append(preprocessor.preprocess_ingredient(item.text))
+                    ingredient_id = preprocessor.preprocess_ingredient(item.text)
+                    ingredient_qty = item.attrib['qty']
+                    ingredient_list.append((ingredient_id, ingredient_qty))
                     continue
                 if item.tag == INSTRUCTION_TAG:
                     instruction = preprocessor.preprocess_instruction(item.text)
                     continue
-        except ValueError:
+        except ValueError as e:
+            error_msgs.append("\'%s\': %s" % (title, e.args[0]))
+            continue
+        except KeyError as e:
+            error_msgs.append("\'%s\': %s" % (title, e.args[0]))
+            continue
+
+        if skip:
             continue
 
         new_recipe = models.Recipe(name=title, timestamp_added=int(datetime.timestamp(datetime.now())))
@@ -147,10 +175,27 @@ def add_recipes(xml_filepath):
 
         ingredient_list = [models.Ingredient.get(models.Ingredient.name == i) for i in ingredient_list]
         for i in ingredient_list:
-            rec_ing = models.RecipeIngredient(recipe = new_recipe, ingredient = i)
+            rec_ing = models.RecipeIngredient(recipe=new_recipe, ingredient=i[0], quantity=i[1])
             rec_ing.save()
+            count_rec_ing_insertions += 1
+            rec_ing_inserted.append((new_recipe.name, i.name))
+
+    with open(log_filepath, 'a') as f:
+        f.write("***************************************\n")
+        f.write(datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ":\n")
+        for e in error_msgs:
+            f.write(str(e) + "\n")
+        f.write("---------------------------------------\n")
+        f.write('Recipes inserted: ' + str(count_insertions) + '\n')
+        for i in inserted:
+            f.write(str(i) + "\n")
+        f.write("---------------------------------------\n")
+        f.write('Recipe-ingredient inserted: ' + str(count_rec_ing_insertions) + '\n')
+        for i in rec_ing_inserted:
+            f.write(str(i) + "\n")
+        f.write("***************************************\n")
 
 
 if __name__ == "__main__":
-    # preprocess_img('img/non-resized', 'img/')
+    # preprocess_all_imgs('img/non-resized', 'img/')
     add_recipes("recipes.xml")
