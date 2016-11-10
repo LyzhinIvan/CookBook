@@ -40,7 +40,7 @@
 	<ingredient qty="200 г.">Мука</ingredient>
 	<ingredient qty="5 шт."> Яйцо куриное</ingredient>
 	<ingredient qty="150 г."> Сахар</ingredient>
-	<ingredient qty="40 г."> Кокосовая стружка</ingredient>
+	<ingredient qty="40 г."> стружка кокосовая</ingredient>
 	<ingredient qty="1 ст.л."> Ванильный сахар</ingredient>
 	<ingredient qty="щепотка">Соль </ingredient>
 	<ingredient qty="200 г."> Шоколад</ingredient>
@@ -95,7 +95,7 @@
 	<cook_time>40</cook_time>
 	<picture_filepath>img/chicken-adzharian.jpg</picture_filepath> 
 
-	<ingredient qty="2 кг.">курица</ingredient>
+	<ingredient qty="2 кг.">курица сырая</ingredient>
 	<ingredient qty="8 зубчиков"> чеснок</ingredient>
 	<ingredient qty="20 г."> кинза</ingredient>
 	<ingredient qty="1 ст.л."> соль</ingredient>
@@ -125,11 +125,11 @@
 	<title>Салат с куриной грудкой, овощами и йогуртом</title>
 	<category>Салаты</category>
 	<cook_time>20</cook_time>
-	<picture_filepath>img/salad-chicken-yougurt.jpg</picture_filepath> 
+	<picture_filepath>img/salad-chicken-youghurt.jpg</picture_filepath> 
 	<ingredient qty="400 г.">филе куриное</ingredient>
 	<ingredient qty="200 г.">капуста китайская</ingredient>
 	<ingredient qty="1 шт.">огурец</ingredient>
-	<ingredient qty="2 шт.">перец сладкий</ingredient>
+	<ingredient qty="2 шт.">перец болгарский</ingredient>
 	<ingredient qty="200 г.">йогурт</ingredient>
 	<ingredient qty="2 ст.л.">масло оливковое</ingredient>
 	<ingredient qty="4 шт.">помидор</ingredient>

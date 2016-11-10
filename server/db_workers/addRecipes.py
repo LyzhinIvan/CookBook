@@ -24,6 +24,12 @@ INSTRUCTION_TAG = "instruction"
 
 log_filepath = 'db.log'
 
+
+class RecipeExistsError(Exception):
+    def __init__(self, message):
+        self.message = message
+
+
 def resize_img(filepath_from, dir_to):
     print("Resizing " + filepath_from + "...")
     img = imread(filepath_from)
@@ -77,7 +83,8 @@ class PreprocessItem:
         text = str.join(" ", text.split()).lower()
         if text not in self.ingredients_available:
             raise ValueError("Unknown ingredient \'%s\'" % text)
-        return self.ingredients_available[text]
+        # return self.ingredients_available[text]
+        return text
 
 
     # converts into int else raises ValueError
@@ -104,7 +111,7 @@ class PreprocessItem:
     def preprocess_instruction(self, text):
         for i in self.recipes_available:
             if text_similarity_percent(text, i) >= 0.9:
-                raise ValueError("Text similarity percent >= 0.9")
+                raise RecipeExistsError("Text similarity percent >= 0.9")
         return text
 
 
@@ -125,6 +132,7 @@ def add_recipes(xml_filepath):
     error_msgs = []
 
     for recipe in root:
+        add_rec = True
         skip = False
         if recipe.tag != RECIPE_TAG:
             continue
@@ -157,6 +165,9 @@ def add_recipes(xml_filepath):
         except ValueError as e:
             error_msgs.append("\'%s\': %s" % (title, e.args[0]))
             continue
+        except RecipeExistsError as e:
+            error_msgs.append("\'%s\': %s" % (title, e.args[0]))
+            add_rec = False
         except KeyError as e:
             error_msgs.append("\'%s\': %s" % (title, e.args[0]))
             continue
@@ -164,21 +175,27 @@ def add_recipes(xml_filepath):
         if skip:
             continue
 
-        new_recipe = models.Recipe(name=title, timestamp_added=int(datetime.timestamp(datetime.now())))
-        new_recipe.category = category
-        new_recipe.time = time
-        new_recipe.picture = picture
-        new_recipe.instruction = instruction
-        new_recipe.save()
-        count_insertions += 1
-        inserted.append(title)
+        if add_rec:
+            new_recipe = models.Recipe(name=title, timestamp_added=int(datetime.timestamp(datetime.now())))
+            new_recipe.category = category
+            new_recipe.time = time
+            new_recipe.picture = picture
+            new_recipe.instruction = instruction
+            new_recipe.save()
+            count_insertions += 1
+            inserted.append(title)
+        else:
+            new_recipe = models.Recipe.get(models.Recipe.name == title)
 
-        ingredient_list = [models.Ingredient.get(models.Ingredient.name == i) for i in ingredient_list]
+        ing_obj = []
         for i in ingredient_list:
+            ing_obj.append((models.Ingredient.get(models.Ingredient.name == i[0]), i[1]))
+
+        for i in ing_obj:
             rec_ing = models.RecipeIngredient(recipe=new_recipe, ingredient=i[0], quantity=i[1])
             rec_ing.save()
             count_rec_ing_insertions += 1
-            rec_ing_inserted.append((new_recipe.name, i.name))
+            rec_ing_inserted.append((new_recipe.name, i[0].name))
 
     with open(log_filepath, 'a') as f:
         f.write("***************************************\n")
