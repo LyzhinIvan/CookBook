@@ -45,12 +45,15 @@ class DeltaHandler(tornado.web.RequestHandler):
 
         self.write(json.dumps(result))
 
+
 # ======================================== Aliases
 RECIPES_FIELD_NAME = 'recipes'
 CATEGORIES_FIELD_NAME = 'categories'
 INGREDIENTS_FIELD_NAME = 'ingredients'
 RECIPE_INGREDIENTS_FIELD_NAME = 'recipeIngredients'
 NEW_UPDATED_FIELD_NAME = 'newUpdated'
+
+
 # ========================================
 
 
@@ -69,34 +72,49 @@ class UpdateHandler(tornado.web.RequestHandler):
         except ValueError:
             self.write('Invalid arguments')
             return
+        result = {NEW_UPDATED_FIELD_NAME: int(datetime.timestamp(datetime.now()))}
 
         try:
-            result = {}
 
-            select_result = models.Category.get(models.Category.timestamp_added > last_updated)
-            # TODO: выпилить из categories timestamp
-            result[CATEGORIES_FIELD_NAME] = json.dumps(select_result)
+            """ Adding categories """
+            select_result = models.Recipe.select().where(models.Recipe.timestamp_added > last_updated)
+            recipes = []
 
-            select_result = models.Ingredient.get(models.Ingredient.timestamp_added >last_updated)
-            # TODO: выпилить из ingredients timestamp
-            result[INGREDIENTS_FIELD_NAME] = json.dumps(select_result)
+            for s in select_result:
+                if s.id is None:
+                    continue
+                tmp_rec = {}
+                tmp_rec['id'] = s.id
+                tmp_rec['name'] = s.name
+                tmp_rec['icon'] = s.picture.decode()
+                tmp_rec['time'] = s.time
+                tmp_rec['instruction'] = s.instruction
+                tmp_rec['category'] = s.category.id
+                recipes.append(tmp_rec)
+            for i in recipes:
+                print(i['name'])
+            result[RECIPES_FIELD_NAME] = recipes
 
-            select_result = models.Recipe.get(models.Recipe.timestamp_added > last_updated)
-            # TODO: выпилить из recipes timestamp
-            result[RECIPES_FIELD_NAME] = json.dumps(select_result)
-
-            select_result = models.RecipeIngredient.select().join(models.Recipe)\
-                .where(models.Recipe.timestamp_added > last_updated)
-            # TODO: отбросить лишние поля
-            result[RECIPE_INGREDIENTS_FIELD_NAME] = json.dumps(select_result)
-
-            result[NEW_UPDATED_FIELD_NAME] = int(datetime.timestamp(datetime.now()))
-            result = json.dumps(result)
+            # select_result = models.Ingredient.get(models.Ingredient.timestamp_added > last_updated)
+            # # TODO: выпилить из ingredients timestamp
+            # result[INGREDIENTS_FIELD_NAME] = json.dumps(select_result)
+            #
+            # select_result = models.Recipe.get(models.Recipe.timestamp_added > last_updated)
+            # # TODO: выпилить из recipes timestamp
+            # result[RECIPES_FIELD_NAME] = json.dumps(select_result)
+            #
+            # select_result = models.RecipeIngredient.select().join(models.Recipe) \
+            #     .where(models.Recipe.timestamp_added > last_updated)
+            # # TODO: отбросить лишние поля
+            # result[RECIPE_INGREDIENTS_FIELD_NAME] = json.dumps(select_result)
+            #
+            # result = json.dumps(result)
         except peewee.DoesNotExist:
             result = {CATEGORIES_FIELD_NAME: [], INGREDIENTS_FIELD_NAME: [], RECIPES_FIELD_NAME: [],
                       RECIPE_INGREDIENTS_FIELD_NAME: [],
                       NEW_UPDATED_FIELD_NAME: int(datetime.timestamp(datetime.now()))}
 
+        result = json.dumps(result, ensure_ascii=False).encode('utf8')
         self.write(result)
 
 
@@ -111,6 +129,6 @@ def make_app():
 if __name__ == '__main__':
     print("Tornado works")
     app = make_app()
-    app.listen(8888)
+    app.listen(8800)
     # app.listen(int(os.environ['PORT'])) # if you're deploying it on heroku cloud
     tornado.ioloop.IOLoop.current().start()
