@@ -223,7 +223,7 @@ public class SearchRecipeFragment extends Fragment implements View.OnClickListen
         if (withAdditionalParams && expandableLayout.isExpanded()) { // учитывать доп. параметры
             int selectedIndex = spCategories.getSelectedItemPosition();
             if (selectedIndex != 0) {
-                Category category = categories.get(selectedIndex);
+                Category category = categories.get(selectedIndex-1);
                 builder.inCategory(category.id);
             }
 

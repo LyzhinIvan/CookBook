@@ -22,6 +22,7 @@ import com.cookbook.fragments.ShopingListFragment;
 import com.cookbook.fragments.UpdateDatabaseFragment;
 import com.cookbook.helpers.DBHelper;
 import com.cookbook.helpers.FavoritesHelper;
+import com.cookbook.mock.MockDB;
 
 public class MainActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener, NavigationView.OnNavigationItemSelectedListener {
 
@@ -45,9 +46,9 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         setSupportActionBar(toolbar);
 
         //TODO: не удалять базу!
-        //dropData();
+        dropData();
         //MockDB.createFakeDatabase(getApplicationContext());
-        //MockDB.createTestDatabase(getApplicationContext());
+        MockDB.createTestDatabase(getApplicationContext());
 
         /*DBSearchHelper dbSearchHelper = new DBSearchHelper(this);
         DBIngredientsHelper dbIngredientsHelper = new DBIngredientsHelper(this);
@@ -103,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_categories);
+        navigationView.setItemIconTintList(null);
     }
 
 
