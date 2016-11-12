@@ -1,33 +1,18 @@
 package com.cookbook.helpers;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-
-import com.cookbook.pojo.Recipe;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class FavoritesHelper {
+public class FavoritesHelper extends PreferencesWorker {
 
-    private static final String APP_PREFS = "CookBook_Prefs", PREF_FAVORITES = "favorites";
-    private final SharedPreferences mPrefs;
+    private static final String PREF_FAVORITES = "favorites";
 
-    //region Singleton
-    private static FavoritesHelper instance = null;
-
-    public static FavoritesHelper getInstance(Context context) {
-        if (instance == null)
-            instance = new FavoritesHelper(context);
-        return instance;
+    public FavoritesHelper(Context context) {
+        super(context);
     }
-
-    private FavoritesHelper(Context context) {
-        mPrefs = context.getSharedPreferences(APP_PREFS, Context.MODE_PRIVATE);
-    }
-    //endregion
-
 
     public void addToFavorite(long id) {
         List<Long> savedIds = getFavoriteRecipeIds();
@@ -46,17 +31,9 @@ public class FavoritesHelper {
     }
 
     public void removeAll() {
-        mPrefs.edit().putString(PREF_FAVORITES,"").apply();
+        prefs.edit().putString(PREF_FAVORITES,"").apply();
     }
 
-    /*
-    public List<Recipe> getFavoriteRecipes() {
-        List<Recipe> recipes = new ArrayList<>();
-        for (Long id : getFavoriteRecipeIds()) {
-            recipes.add(dbRecipesHelper.getById(id));
-        }
-        return recipes;
-    }*/
 
     public boolean isFavorite(long id) {
         return getFavoriteRecipeIds().contains(id);
@@ -67,11 +44,11 @@ public class FavoritesHelper {
         for (long sId : savedIds) {
             sb.append(sId).append(" ");
         }
-        mPrefs.edit().putString(PREF_FAVORITES,sb.toString()).apply();
+        prefs.edit().putString(PREF_FAVORITES,sb.toString()).apply();
     }
 
     public List<Long> getFavoriteRecipeIds() {
-        String[] savedIds = mPrefs.getString(PREF_FAVORITES, "").split(" ");
+        String[] savedIds = prefs.getString(PREF_FAVORITES, "").split(" ");
         ArrayList<Long> res = new ArrayList<>();
         for (String id : savedIds) {
             if (!Objects.equals(id, "")) {

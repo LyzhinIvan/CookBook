@@ -3,6 +3,6 @@
     <color name="colorPrimary">#fb8c00</color>
     <color name="colorPrimaryDark">#f57c00</color>
     <color name="colorAccent">#dd2c00</color>
-    <color name="recycler_background">#e0e0e0</color>
+    <color name="recycler_background">#efebe9</color>
     <color name="border_color">#e0e0e0</color>
 </resources>

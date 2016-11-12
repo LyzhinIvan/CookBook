@@ -1,4 +1,4 @@
-package com.cookbook.helpers;
+package com.cookbook.dao;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
 import android.util.Pair;
 
-import com.cookbook.mock.IngRecPair;
+import com.cookbook.pojo.IngRecPair;
 import com.cookbook.pojo.Ingredient;
 
 import java.util.ArrayList;

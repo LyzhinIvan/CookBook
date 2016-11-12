@@ -11,7 +11,7 @@ import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.cookbook.R;
-import com.cookbook.helpers.DBIngredientsHelper;
+import com.cookbook.dao.DBIngredientsHelper;
 import com.cookbook.pojo.Ingredient;
 
 import java.util.ArrayList;

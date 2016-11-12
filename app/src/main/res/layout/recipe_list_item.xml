@@ -11,34 +11,20 @@
 
         <ImageView
             android:id="@+id/ivIcon"
-            android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginRight="10dp"
-            android:src="@drawable/ic_placeholder" />
+            android:src="@drawable/ic_placeholder"
+            android:layout_width="100dp"
+            android:scaleType="centerCrop" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/tvCaption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tvCaption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:maxLines="2"
-                android:text="Название блюда очень длинное очень длинное очень длинное очень длинное"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-            <TextView
-                android:id="@+id/tvSatiety"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:text="Сытность" />
-
-        </LinearLayout>
+            android:layout_marginBottom="5dp"
+            android:maxLines="3"
+            android:text="Название блюда очень длинное очень длинное очень длинное очень длинное"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         <LinearLayout android:layout_width="wrap_content"
             android:layout_height="wrap_content"

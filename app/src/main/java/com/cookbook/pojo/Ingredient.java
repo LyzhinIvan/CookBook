@@ -1,5 +1,6 @@
 package com.cookbook.pojo;
 
+import com.cookbook.helpers.StringsUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -10,7 +11,7 @@ public class Ingredient {
     @JsonCreator
     public Ingredient(@JsonProperty("id") long id, @JsonProperty("name") String caption) {
         this.id = id;
-        this.caption = caption;
+        this.caption = StringsUtils.capitalize(caption);
     }
 
     @Override

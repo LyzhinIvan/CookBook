@@ -1,4 +1,4 @@
-package com.cookbook.helpers;
+package com.cookbook.dao;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 import android.graphics.Bitmap;
 import android.util.Log;
+
+import com.cookbook.helpers.BitmapHelper;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -32,7 +34,6 @@ public class DBHelper extends SQLiteOpenHelper {
         RECIPE_ID = "rec_id",
         RECIPE_CAPTION = "rec_caption",
         RECIPE_TIME = "rec_time",
-        RECIPE_SATIETY = "rec_satiety",
         RECIPE_CATEGORY_ID = "rec_category_id",
         RECIPE_ICON = "rec_icon",
         RECIPE_INSTRUCTION = "rec_instruction",
@@ -66,7 +67,6 @@ public class DBHelper extends SQLiteOpenHelper {
                     + RECIPE_ID +" INTEGER PRIMARY KEY,"
                     + RECIPE_CAPTION +" varchar(255) NOT NULL,"
                     + RECIPE_TIME +" INTEGER NOT NULL,"
-                    + RECIPE_SATIETY+" TINYINT,"
                     + RECIPE_CATEGORY_ID +" INTEGER NOT NULL,"
                     + RECIPE_ICON +" BLOB,"
                     + RECIPE_INSTRUCTION +" TEXT NOT NULL,"
@@ -98,7 +98,7 @@ public class DBHelper extends SQLiteOpenHelper {
     protected void bindBitmapOrNull(SQLiteStatement statement, int index, Bitmap img) {
         if (img==null)
             statement.bindNull(index);
-        else statement.bindBlob(index,BitmapHelper.getBytes(img));
+        else statement.bindBlob(index, BitmapHelper.getBytes(img));
     }
 
     @Override

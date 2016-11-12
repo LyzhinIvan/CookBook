@@ -1,4 +1,4 @@
-package com.cookbook.helpers;
+package com.cookbook.dao;
 
 import android.content.Context;
 import android.database.Cursor;

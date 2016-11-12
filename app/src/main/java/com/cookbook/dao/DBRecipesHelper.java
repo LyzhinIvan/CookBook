@@ -1,4 +1,4 @@
-package com.cookbook.helpers;
+package com.cookbook.dao;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -7,13 +7,9 @@ import android.database.sqlite.SQLiteStatement;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.cookbook.pojo.Category;
 import com.cookbook.pojo.Recipe;
-import com.cookbook.pojo.Satiety;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DBRecipesHelper extends DBHelper {
@@ -26,7 +22,7 @@ public class DBRecipesHelper extends DBHelper {
             return;
 
         SQLiteDatabase db = getWritableDatabase();
-        String sql = "INSERT OR REPLACE INTO " + TABLE_RECIPES + " VALUES (?,?,?,?,?,?,?);";
+        String sql = "INSERT OR REPLACE INTO " + TABLE_RECIPES + " VALUES (?,?,?,?,?,?);";
         SQLiteStatement statement = db.compileStatement(sql);
 
         try {
@@ -36,10 +32,9 @@ public class DBRecipesHelper extends DBHelper {
                 statement.bindLong(1, r.id);
                 statement.bindString(2, r.name);
                 statement.bindLong(3, r.cookingTime);
-                statement.bindLong(4, r.satiety.getValue());
-                statement.bindLong(5, r.categoryId);
-                bindBitmapOrNull(statement, 6, r.icon);
-                statement.bindString(7, r.instruction);
+                statement.bindLong(4, r.categoryId);
+                bindBitmapOrNull(statement, 5, r.icon);
+                statement.bindString(6, r.instruction);
 
                 statement.execute();
             }
@@ -121,12 +116,11 @@ public class DBRecipesHelper extends DBHelper {
                     long id = c.getLong(c.getColumnIndex(RECIPE_ID));
                     String name = c.getString(c.getColumnIndex(RECIPE_CAPTION));
                     int time = c.getInt(c.getColumnIndex(RECIPE_TIME));
-                    Satiety satiety = Satiety.fromInt(c.getInt(c.getColumnIndex(RECIPE_SATIETY)));
                     long catId = c.getLong(c.getColumnIndex(RECIPE_CATEGORY_ID));
                     String instruction = c.getString(c.getColumnIndex(RECIPE_INSTRUCTION));
                     byte[] iconBytes = c.getBlob(c.getColumnIndex(RECIPE_ICON));
 
-                    recipes.add(new Recipe(id, name, time, satiety, catId, instruction, iconBytes));
+                    recipes.add(new Recipe(id, name, time, catId, instruction, iconBytes));
 
                 } while (c.moveToNext());
             }

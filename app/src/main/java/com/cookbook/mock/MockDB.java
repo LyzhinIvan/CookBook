@@ -8,14 +8,14 @@ import android.util.Log;
 
 import com.cookbook.R;
 import com.cookbook.helpers.BitmapHelper;
-import com.cookbook.helpers.DBCategoriesHelper;
-import com.cookbook.helpers.DBIngredientsHelper;
-import com.cookbook.helpers.DBRecipesHelper;
+import com.cookbook.dao.DBCategoriesHelper;
+import com.cookbook.dao.DBIngredientsHelper;
+import com.cookbook.dao.DBRecipesHelper;
 import com.cookbook.helpers.FavoritesHelper;
 import com.cookbook.pojo.Category;
+import com.cookbook.pojo.IngRecPair;
 import com.cookbook.pojo.Ingredient;
 import com.cookbook.pojo.Recipe;
-import com.cookbook.pojo.Satiety;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +51,7 @@ public class MockDB {
         }
 
         // добавляем несколько рецептов в любимые
-        FavoritesHelper favHelper = FavoritesHelper.getInstance(context);
+        FavoritesHelper favHelper = new FavoritesHelper(context);
         favHelper.addToFavorite(1);
         favHelper.addToFavorite(101);
         favHelper.addToFavorite(505);
@@ -84,11 +84,11 @@ public class MockDB {
         dbIngredientsHelper.addOrReplace(ings);
 
         ArrayList<Recipe> recipes = new ArrayList<Recipe>() {{
-            add(new Recipe(0, "Острая курица с кабачками", 45, Satiety.Medium, 0, "", bytes));
-            add(new Recipe(1, "Курица по-кавказски", 30, Satiety.Medium, 0, "", bytes));
-            add(new Recipe(3, "Вареная курица", 45, Satiety.Medium, 0, "", bytes));
-            add(new Recipe(2, "Острые кабачки", 45, Satiety.Medium, 1, "", bytes));
-            add(new Recipe(4, "Кабачки, тушеные с томатами", 45, Satiety.Medium, 1, "", bytes));
+            add(new Recipe(0, "Острая курица с кабачками", 45, 0, "", bytes));
+            add(new Recipe(1, "Курица по-кавказски", 30, 0, "", bytes));
+            add(new Recipe(3, "Вареная курица", 45, 0, "", bytes));
+            add(new Recipe(2, "Острые кабачки", 45, 1, "", bytes));
+            add(new Recipe(4, "Кабачки, тушеные с томатами", 45, 1, "", bytes));
         }};
         dbRecipesHelper.addOrUpdate(recipes);
 
@@ -145,14 +145,9 @@ public class MockDB {
         for (int i = 0; i < count; i++) {
             String instruction = context.getResources().getString(R.string.lorem);
             Bitmap image = BitmapHelper.drawableToBitmap(context.getResources().getDrawable(R.drawable.ic_placeholder));
-            categories.add(new Recipe(catId * 100 + i, captions[random.nextInt(captions.length)], (random.nextInt(6) + 1) * 15, getRandomSatiety(), catId, instruction, BitmapHelper.getBytes(image)));
+            categories.add(new Recipe(catId * 100 + i, captions[random.nextInt(captions.length)], (random.nextInt(6) + 1) * 15, catId, instruction, BitmapHelper.getBytes(image)));
         }
         return categories;
-    }
-
-    private static Satiety getRandomSatiety() {
-        Satiety[] values = Satiety.values();
-        return values[random.nextInt(values.length)];
     }
 
     private static String getRandomQuantity() {

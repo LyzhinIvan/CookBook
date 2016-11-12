@@ -15,14 +15,15 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.cookbook.dao.DBHelper;
 import com.cookbook.fragments.CategoriesFragment;
 import com.cookbook.fragments.RecipesListFragment;
 import com.cookbook.fragments.SearchRecipeFragment;
 import com.cookbook.fragments.ShopingListFragment;
 import com.cookbook.fragments.UpdateDatabaseFragment;
-import com.cookbook.helpers.DBHelper;
 import com.cookbook.helpers.FavoritesHelper;
-import com.cookbook.mock.MockDB;
+import com.cookbook.rest.IRestApi;
+import com.cookbook.rest.RestClient;
 
 public class MainActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener, NavigationView.OnNavigationItemSelectedListener {
 
@@ -45,10 +46,59 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        IRestApi client = RestClient.getClient(this);
+        /*client.getDelta(0L).enqueue(new Callback<DeltaResponse>() {
+            @Override
+            public void onResponse(Call<DeltaResponse> call, Response<DeltaResponse> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<DeltaResponse> call, Throwable t) {
+
+            }
+        });*/
+
+        /*client.update(0L).enqueue(new Callback<UpdateResponse>() {
+            @Override
+            public void onResponse(Call<UpdateResponse> call, Response<UpdateResponse> response) {
+                if (response.code() != 200) {
+                    Log.e(LOG_TAG, String.format("Server error! Code: %d, Message: %s", response.code(), response.message()));
+                    return;
+                }
+                UpdateResponse content = response.body();
+                Log.d(LOG_TAG, String.format("Получение данных успешно завершено! Получено категорий: %d, рецептов: %d, ингредиентов: %d", content.categories.size(), content.recipes.size(), content.ingredients.size()));
+                Log.d(LOG_TAG, "Сохранение данных");
+
+                dropData();
+
+                //присваивает категориям иконки первого рецепта, входящего в неё
+                for (Category c : content.categories) {
+                    for (Recipe r : content.recipes) {
+                        if (r.categoryId==c.id) {
+                            c.icon = r.icon;
+                            break;
+                        }
+                    }
+                }
+
+                new DBCategoriesHelper(MainActivity.this).addOrUpdate(content.categories);
+                new DBIngredientsHelper(MainActivity.this).addOrReplace(content.ingredients);
+                new DBRecipesHelper(MainActivity.this).addOrUpdate(content.recipes);
+
+                Log.d(LOG_TAG, "Сохранение завершено!");
+            }
+
+            @Override
+            public void onFailure(Call<UpdateResponse> call, Throwable t) {
+                Log.e(LOG_TAG, "Не удалось получить данные", t);
+            }
+        });*/
+
         //TODO: не удалять базу!
-        dropData();
+        //dropData();
         //MockDB.createFakeDatabase(getApplicationContext());
-        MockDB.createTestDatabase(getApplicationContext());
+        //MockDB.createTestDatabase(getApplicationContext());
 
         /*DBSearchHelper dbSearchHelper = new DBSearchHelper(this);
         DBIngredientsHelper dbIngredientsHelper = new DBIngredientsHelper(this);
@@ -72,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
     private void dropData() {
         Log.w(LOG_TAG, "Удаление локальной базы");
         deleteDatabase(DBHelper.DB_NAME);
-        FavoritesHelper.getInstance(this).removeAll();
+        new FavoritesHelper(this).removeAll();
     }
 
     public void setFragment(Fragment fragment, boolean backEnabled) {
@@ -104,7 +154,6 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_categories);
-        navigationView.setItemIconTintList(null);
     }
 
 
@@ -127,12 +176,12 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         } else if (id == R.id.nav_categories) {
             setFragment(categoriesFragment, false);
         } else if (id == R.id.nav_favorite) {
-            RecipesListFragment favRecipes = RecipesListFragment.newInstance("Любимые рецепты",this);
+            RecipesListFragment favRecipes = RecipesListFragment.newInstance("Любимые рецепты");
             setFragment(favRecipes, false);
         } else if (id == R.id.nav_shop_list) {
             setFragment(shopingListFragment, false);
-        } else if (id== R.id.nav_update) {
-            setFragment(updateDatabaseFragment,false);
+        } else if (id == R.id.nav_update) {
+            setFragment(updateDatabaseFragment, false);
         }
 
         mDrawerLayout.closeDrawer(GravityCompat.START);

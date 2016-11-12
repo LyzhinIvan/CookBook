@@ -19,9 +19,8 @@ import android.widget.Button;
 import com.cookbook.ButtonRemoveClickListener;
 import com.cookbook.R;
 import com.cookbook.adapters.IngAutoCompleteAdapter;
-import com.cookbook.adapters.IngredientListAdapter;
 import com.cookbook.adapters.ShopListAdapter;
-import com.cookbook.helpers.DBShopListHelper;
+import com.cookbook.dao.DBShopListHelper;
 import com.cookbook.pojo.Ingredient;
 
 import java.util.Objects;

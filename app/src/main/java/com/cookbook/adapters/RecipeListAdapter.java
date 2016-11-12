@@ -44,7 +44,6 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
 
         holder.tvCaption.setText(r.name);
         holder.tvCookingTime.setText(String.format("%d мин",r.cookingTime));
-        holder.tvSatiety.setText(r.satiety.toString());
     }
 
     @Override
@@ -56,14 +55,12 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
         private ImageView ivIcon;
         private TextView tvCaption;
         private TextView tvCookingTime;
-        private TextView tvSatiety;
 
         ViewHolder(View itemView) {
             super(itemView);
 
             ivIcon = (ImageView) itemView.findViewById(R.id.ivIcon);
             tvCaption = (TextView) itemView.findViewById(R.id.tvCaption);
-            tvSatiety = (TextView) itemView.findViewById(R.id.tvSatiety);
             tvCookingTime = (TextView) itemView.findViewById(R.id.tvCookingTime);
             itemView.setOnClickListener(this);
         }

@@ -1,4 +1,4 @@
-package com.cookbook.mock;
+package com.cookbook.pojo;
 
 
 import com.fasterxml.jackson.annotation.JsonCreator;

@@ -1,13 +1,10 @@
-package com.cookbook.helpers;
+package com.cookbook.dao;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
-
-import com.cookbook.pojo.Recipe;
-import com.cookbook.pojo.Satiety;
 
 import java.util.ArrayList;
 import java.util.List;

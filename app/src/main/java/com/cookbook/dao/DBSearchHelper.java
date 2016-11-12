@@ -1,4 +1,4 @@
-package com.cookbook.helpers;
+package com.cookbook.dao;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -142,7 +142,7 @@ public class DBSearchHelper extends DBRecipesHelper {
         for (Ingredient i : ings) {
             db.execSQL(String.format("insert into _ingFind(id) select %s ", i.id));
         }
-        final String RECIPE_FIELDS = String.format("%s, %s, %s, %s, %s, %s, %s", RECIPE_ID, RECIPE_CAPTION, RECIPE_CATEGORY_ID, RECIPE_ICON, RECIPE_INSTRUCTION, RECIPE_SATIETY, RECIPE_TIME);
+        final String RECIPE_FIELDS = String.format("%s, %s, %s, %s, %s, %s", RECIPE_ID, RECIPE_CAPTION, RECIPE_CATEGORY_ID, RECIPE_ICON, RECIPE_INSTRUCTION, RECIPE_TIME);
         Cursor c = db.rawQuery(String.format("select distinct %s from %s", RECIPE_FIELDS, TABLE_RECIPES) +
                 String.format(" join (select * from %s join _ingFind on (%s == _ingFind.id))", TABLE_IR, IR_ING_ID) +
                 String.format(" on (%s == %s)", RECIPE_ID, IR_REC_ID), null);

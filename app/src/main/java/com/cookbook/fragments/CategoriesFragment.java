@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import com.cookbook.MainActivity;
 import com.cookbook.R;
 import com.cookbook.adapters.CategoriesGridAdapter;
-import com.cookbook.helpers.DBCategoriesHelper;
+import com.cookbook.dao.DBCategoriesHelper;
 import com.cookbook.pojo.Category;
 
 import java.util.List;

@@ -19,9 +19,9 @@ import android.widget.TextView;
 
 import com.cookbook.R;
 import com.cookbook.adapters.RecipeIngredientAdapter;
-import com.cookbook.helpers.DBIngredientsHelper;
-import com.cookbook.helpers.DBRecipesHelper;
-import com.cookbook.helpers.DBShopListHelper;
+import com.cookbook.dao.DBIngredientsHelper;
+import com.cookbook.dao.DBRecipesHelper;
+import com.cookbook.dao.DBShopListHelper;
 import com.cookbook.helpers.FavoritesHelper;
 import com.cookbook.pojo.Ingredient;
 import com.cookbook.pojo.Recipe;
@@ -64,7 +64,7 @@ public class RecipeFragment extends Fragment implements Ingredient.IngredientCli
             recipe = dbRecipesHelper.getById(recId); // получаем рецепт из базы
             pairs = dbIngredientsHelper.getByRecipeId(recId); // получаем список его ингредиентов и их количества
 
-            favoritesHelper = FavoritesHelper.getInstance(getContext());
+            favoritesHelper = new FavoritesHelper(getContext());
             isFavorite = favoritesHelper.isFavorite(recipe.id);
 
             getActivity().setTitle(recipe.name);

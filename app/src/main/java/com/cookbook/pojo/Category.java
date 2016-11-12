@@ -1,13 +1,12 @@
 package com.cookbook.pojo;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 
 import com.cookbook.helpers.BitmapHelper;
+import com.cookbook.helpers.StringsUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 public class Category {
 
@@ -24,7 +23,7 @@ public class Category {
     @JsonCreator
     public Category(@JsonProperty("id") long id, @JsonProperty("name") String name, @JsonProperty("icon") byte[] iconBytes) {
         this.id = id;
-        this.name = name;
+        this.name = StringsUtils.capitalize(name);
         this.icon = BitmapHelper.getImage(iconBytes);
     }
 }
