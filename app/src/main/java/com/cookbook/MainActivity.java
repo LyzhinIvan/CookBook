@@ -22,8 +22,6 @@ import com.cookbook.fragments.SearchRecipeFragment;
 import com.cookbook.fragments.ShopingListFragment;
 import com.cookbook.fragments.UpdateDatabaseFragment;
 import com.cookbook.helpers.FavoritesHelper;
-import com.cookbook.rest.IRestApi;
-import com.cookbook.rest.RestClient;
 
 public class MainActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener, NavigationView.OnNavigationItemSelectedListener {
 
@@ -45,71 +43,6 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        IRestApi client = RestClient.getClient(this);
-        /*client.getDelta(0L).enqueue(new Callback<DeltaResponse>() {
-            @Override
-            public void onResponse(Call<DeltaResponse> call, Response<DeltaResponse> response) {
-
-            }
-
-            @Override
-            public void onFailure(Call<DeltaResponse> call, Throwable t) {
-
-            }
-        });*/
-
-        /*client.update(0L).enqueue(new Callback<UpdateResponse>() {
-            @Override
-            public void onResponse(Call<UpdateResponse> call, Response<UpdateResponse> response) {
-                if (response.code() != 200) {
-                    Log.e(LOG_TAG, String.format("Server error! Code: %d, Message: %s", response.code(), response.message()));
-                    return;
-                }
-                UpdateResponse content = response.body();
-                Log.d(LOG_TAG, String.format("Получение данных успешно завершено! Получено категорий: %d, рецептов: %d, ингредиентов: %d", content.categories.size(), content.recipes.size(), content.ingredients.size()));
-                Log.d(LOG_TAG, "Сохранение данных");
-
-                dropData();
-
-                //присваивает категориям иконки первого рецепта, входящего в неё
-                for (Category c : content.categories) {
-                    for (Recipe r : content.recipes) {
-                        if (r.categoryId==c.id) {
-                            c.icon = r.icon;
-                            break;
-                        }
-                    }
-                }
-
-                new DBCategoriesHelper(MainActivity.this).addOrUpdate(content.categories);
-                new DBIngredientsHelper(MainActivity.this).addOrReplace(content.ingredients);
-                new DBRecipesHelper(MainActivity.this).addOrUpdate(content.recipes);
-
-                Log.d(LOG_TAG, "Сохранение завершено!");
-            }
-
-            @Override
-            public void onFailure(Call<UpdateResponse> call, Throwable t) {
-                Log.e(LOG_TAG, "Не удалось получить данные", t);
-            }
-        });*/
-
-        //TODO: не удалять базу!
-        //dropData();
-        //MockDB.createFakeDatabase(getApplicationContext());
-        //MockDB.createTestDatabase(getApplicationContext());
-
-        /*DBSearchHelper dbSearchHelper = new DBSearchHelper(this);
-        DBIngredientsHelper dbIngredientsHelper = new DBIngredientsHelper(this);
-
-        List<Ingredient> ing = dbIngredientsHelper.getByName("курица сырая");
-        ing.addAll(dbIngredientsHelper.getByName("кабачок"));
-
-        List<Recipe> rec = dbSearchHelper.findRecipes("курица", ing);
-        for (Recipe r : rec) {
-            Log.d(LOG_TAG, r.name);
-        }*/
 
         fragmentManager = getSupportFragmentManager();
         fragmentManager.addOnBackStackChangedListener(this);
