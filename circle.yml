@@ -1,3 +1,8 @@
+general:
+  branches:
+    only:
+      - mobile-dev
+
 dependencies:
   pre:
     - echo y | android update sdk --no-ui --all --filter build-tools-24.0.3
