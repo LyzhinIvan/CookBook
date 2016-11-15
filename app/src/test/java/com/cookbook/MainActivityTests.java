@@ -1,8 +1,14 @@
 package com.cookbook;
 
-import android.app.Activity;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.cookbook.fragments.CategoriesFragment;
+import com.cookbook.fragments.SearchRecipeFragment;
+
+import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +25,7 @@ public class MainActivityTests {
 
     private final static int VISIBLE = 0;
 
-    Activity activity;
+    AppCompatActivity activity;
 
     @Before
     public void setUp() {
@@ -27,19 +33,32 @@ public class MainActivityTests {
     }
 
     @Test
-    public void FrameIsVisible() {
+    public void frameIsVisible() {
         View frame = activity.findViewById(R.id.frame_layout);
         assertThat(frame.getVisibility(), is(VISIBLE));
     }
 
+
     @Test
-    public void ActivityTitle() {
-        assertThat(activity.getTitle().toString(), is("Категории"));
+    public void activityMenuItems() {
+        View menuSearch = activity.findViewById(R.id.action_search);
+        assertThat(menuSearch.getVisibility(), is(VISIBLE));
     }
 
     @Test
-    public void ActivityMenu() {
+    public void checkDefaultFragment() {
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+        Fragment currentFragment = fragmentManager.findFragmentByTag("currentFragment");
+        assertThat(currentFragment, is(CoreMatchers.instanceOf(CategoriesFragment.class)));
+    }
+
+    @Test
+    public void searchClickTest() {
         View menuSearch = activity.findViewById(R.id.action_search);
-        assertThat(menuSearch.getVisibility(), is(VISIBLE));
+        menuSearch.performClick();
+
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+        Fragment currentFragment = fragmentManager.findFragmentByTag("currentFragment");
+        assertThat(currentFragment, is(CoreMatchers.instanceOf(SearchRecipeFragment.class)));
     }
 }

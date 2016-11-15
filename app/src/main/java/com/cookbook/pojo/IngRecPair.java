@@ -9,7 +9,7 @@ public class IngRecPair {
     public String quantity;
 
     @JsonCreator
-    public IngRecPair(@JsonProperty("id") long id,@JsonProperty("recId") long recId,
+    public IngRecPair(@JsonProperty("id") long id,@JsonProperty("resId") long recId,
                       @JsonProperty("ingId") long ingId,@JsonProperty("quantity") String quantity) {
         this.id = id;
         this.recId = recId;

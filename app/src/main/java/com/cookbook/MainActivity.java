@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
 
     public void setFragment(Fragment fragment, boolean backEnabled) {
         FragmentTransaction fTrans = fragmentManager.beginTransaction();
-        fTrans = fTrans.replace(R.id.frame_layout, fragment);
+        fTrans = fTrans.replace(R.id.frame_layout, fragment, "currentFragment");
         if (backEnabled) {
             fTrans = fTrans.addToBackStack(null);
         } else {

@@ -15,6 +15,10 @@ public class UtilsTest {
         String expected = "Название рецепта";
         String capitalizedString = StringsUtils.capitalize(testString);
         assertEquals(expected,capitalizedString);
+
+        testString = "рецепт";
+        expected = "Рецепт";
+        assertEquals(expected,StringsUtils.capitalize(testString));
     }
 
 }

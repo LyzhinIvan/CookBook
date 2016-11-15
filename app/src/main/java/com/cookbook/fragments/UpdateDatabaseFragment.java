@@ -104,6 +104,7 @@ public class UpdateDatabaseFragment extends Fragment implements View.OnClickList
                 swithVisibility(false);
                 if (response.code() != 200) {
                     showErrorDialog("Сервер временно недоступен. Повторите попытку позже");
+                    return;
                 }
                 showCheckDialog(response.body().delta);
             }
@@ -159,8 +160,11 @@ public class UpdateDatabaseFragment extends Fragment implements View.OnClickList
                     }
 
                     new DBCategoriesHelper(getContext()).addOrUpdate(content.categories);
-                    new DBIngredientsHelper(getContext()).addOrReplace(content.ingredients);
+                    DBIngredientsHelper dbIngredientsHelper = new DBIngredientsHelper(getContext());
+                    dbIngredientsHelper.addOrReplace(content.ingredients);
+                    dbIngredientsHelper.addOrReplacePairs(content.recIng);
                     new DBRecipesHelper(getContext()).addOrUpdate(content.recipes);
+
 
                     Log.d(LOG_TAG, "Сохранение завершено!");
                 } catch (Exception ex) {
