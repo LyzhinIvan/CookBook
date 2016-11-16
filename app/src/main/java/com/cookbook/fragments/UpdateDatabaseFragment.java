@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.cookbook.MainActivity;
 import com.cookbook.R;
 import com.cookbook.dao.DBCategoriesHelper;
 import com.cookbook.dao.DBIngredientsHelper;
@@ -72,6 +73,8 @@ public class UpdateDatabaseFragment extends Fragment implements View.OnClickList
         } else {
             tvLastUpdate.setText(df.format(lastUpdatingTime));
         }
+        long recipesCount = new DBRecipesHelper(getContext()).getCount();
+        tvRecipesInBase.setText(Long.toString(recipesCount));
 
         btnUpdate.setOnClickListener(this);
         return view;
@@ -118,17 +121,26 @@ public class UpdateDatabaseFragment extends Fragment implements View.OnClickList
     }
 
     private void showCheckDialog(Double delta) {
-        new AlertDialog.Builder(getActivity())
-                .setTitle("Обновление данных")
-                .setMessage(String.format("Размер обновления составляет %.2f Мб. Приступить к загрузке?", delta))
-                .setPositiveButton("Загрузить", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        downloadContent();
-                    }
-                })
-                .setNegativeButton("Отмена", null)
-                .show();
+        double eps = 0.01;
+        if (delta > eps) {
+            new AlertDialog.Builder(getActivity())
+                    .setTitle(R.string.text_check_dialog_caption)
+                    .setMessage(String.format(getString(R.string.text_confirm_download), delta))
+                    .setPositiveButton("Загрузить", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            downloadContent();
+                        }
+                    })
+                    .setNegativeButton("Отмена", null)
+                    .show();
+        } else {
+            new AlertDialog.Builder(getActivity())
+                    .setTitle(R.string.text_check_dialog_caption)
+                    .setMessage(R.string.text_download_not_need)
+                    .setPositiveButton("Ок", null)
+                    .show();
+        }
     }
 
     private void downloadContent() {
@@ -138,6 +150,7 @@ public class UpdateDatabaseFragment extends Fragment implements View.OnClickList
         client.update(updatingHelper.getLastUpdatingTime()).enqueue(new Callback<UpdateResponse>() {
             @Override
             public void onResponse(Call<UpdateResponse> call, Response<UpdateResponse> response) {
+                boolean success = false;
                 try {
                     if (response.code() != 200) {
                         Log.e(LOG_TAG, String.format("Server error! Code: %d, Message: %s", response.code(), response.message()));
@@ -159,18 +172,23 @@ public class UpdateDatabaseFragment extends Fragment implements View.OnClickList
                         }
                     }
 
+                    updatingHelper.setLastUpdatingTime(content.newUpdated * 1000);
                     new DBCategoriesHelper(getContext()).addOrUpdate(content.categories);
                     DBIngredientsHelper dbIngredientsHelper = new DBIngredientsHelper(getContext());
                     dbIngredientsHelper.addOrReplace(content.ingredients);
                     dbIngredientsHelper.addOrReplacePairs(content.recIng);
                     new DBRecipesHelper(getContext()).addOrUpdate(content.recipes);
-
+                    success = true;
 
                     Log.d(LOG_TAG, "Сохранение завершено!");
                 } catch (Exception ex) {
                     Log.e(LOG_TAG, "Ошибка при обновлении данных:", ex);
                 } finally {
                     swithVisibility(false);
+                    if (success) {
+                        MainActivity activity = (MainActivity) getActivity();
+                        activity.setFragment(new CategoriesFragment(), false);
+                    }
                 }
             }
 

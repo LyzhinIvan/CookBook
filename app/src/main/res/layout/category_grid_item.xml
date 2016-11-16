@@ -9,8 +9,8 @@
     android:orientation="vertical"
     card_view:cardCornerRadius="10dp"
     card_view:cardElevation="10dp"
-    android:layout_margin="8dp"
-    card_view:cardPreventCornerOverlap="false">
+    android:layout_margin="@dimen/card_margin"
+    card_view:cardPreventCornerOverlap="true">
 
     <FrameLayout
         android:layout_width="match_parent"

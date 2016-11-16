@@ -2,6 +2,7 @@ package com.cookbook.dao;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 import android.text.TextUtils;
@@ -62,6 +63,11 @@ public class DBRecipesHelper extends DBHelper {
 
         db.close();
         return recipes;
+    }
+
+    public long getCount() {
+        SQLiteDatabase db = getReadableDatabase();
+        return DatabaseUtils.queryNumEntries(db, TABLE_RECIPES);
     }
 
     public Recipe getById(long recipeId) {

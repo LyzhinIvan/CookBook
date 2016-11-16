@@ -53,8 +53,7 @@
             <Spinner
                 android:id="@+id/spinnerCategories"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:entries="@array/dummy_categories"/>
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 

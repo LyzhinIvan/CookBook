@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.cookbook.MainActivity;
 import com.cookbook.R;
@@ -25,6 +26,8 @@ import java.util.List;
 public class CategoriesFragment extends Fragment implements Category.CategoryClickListener {
 
     RecyclerView recyclerView;
+    View layoutEmptyBase;
+    Button btnUpdate;
     List<Category> categories;
 
     public CategoriesFragment() {
@@ -34,7 +37,13 @@ public class CategoriesFragment extends Fragment implements Category.CategoryCli
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_categories, container, false);
+        View view = inflater.inflate(R.layout.fragment_categories, container, false);
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        layoutEmptyBase = view.findViewById(R.id.layoutEmptyBase);
+        btnUpdate = (Button) view.findViewById(R.id.btnUpdate);
+
+        return view;
     }
 
     @Override
@@ -49,21 +58,37 @@ public class CategoriesFragment extends Fragment implements Category.CategoryCli
     public void onStart() {
         super.onStart();
         getActivity().setTitle("Категории");
-        initRecycleView();
+        if (categories.size() > 0) {
+            initRecycleView();
+        } else {
+            showEmptyBase();
+        }
+    }
+
+    private void showEmptyBase() {
+        recyclerView.setVisibility(View.GONE);
+        layoutEmptyBase.setVisibility(View.VISIBLE);
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity activity = (MainActivity) getActivity();
+                activity.setFragment(new UpdateDatabaseFragment(), false);
+            }
+        });
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
-        super.onCreateOptionsMenu(menu,inflater);
+        super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.categories_menu, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId()==R.id.action_search) {
+        if (item.getItemId() == R.id.action_search) {
             MainActivity activity = (MainActivity) getActivity();
-            activity.setFragment(new SearchRecipeFragment(),false);
+            activity.setFragment(new SearchRecipeFragment(), false);
         }
         return true;
     }
@@ -71,11 +96,11 @@ public class CategoriesFragment extends Fragment implements Category.CategoryCli
 
     private void initRecycleView() {
         final int columns = getResources().getInteger(R.integer.category_columns);
-        recyclerView = (RecyclerView)getView().findViewById(R.id.recyclerView);
+        recyclerView.setVisibility(View.VISIBLE);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),columns));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), columns));
 
-        CategoriesGridAdapter adapter = new CategoriesGridAdapter(getContext(),categories,this);
+        CategoriesGridAdapter adapter = new CategoriesGridAdapter(getContext(), categories, this);
         recyclerView.setAdapter(adapter);
     }
 

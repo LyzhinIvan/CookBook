@@ -1,5 +1,6 @@
 package com.cookbook;
 
+import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -11,17 +12,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
-import com.cookbook.dao.DBHelper;
 import com.cookbook.fragments.CategoriesFragment;
 import com.cookbook.fragments.RecipesListFragment;
 import com.cookbook.fragments.SearchRecipeFragment;
 import com.cookbook.fragments.ShopingListFragment;
 import com.cookbook.fragments.UpdateDatabaseFragment;
-import com.cookbook.helpers.FavoritesHelper;
 
 public class MainActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener, NavigationView.OnNavigationItemSelectedListener {
 
@@ -52,12 +51,6 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         setFragment(categoriesFragment, false);
     }
 
-    private void dropData() {
-        Log.w(LOG_TAG, "Удаление локальной базы");
-        deleteDatabase(DBHelper.DB_NAME);
-        new FavoritesHelper(this).removeAll();
-    }
-
     public void setFragment(Fragment fragment, boolean backEnabled) {
         FragmentTransaction fTrans = fragmentManager.beginTransaction();
         fTrans = fTrans.replace(R.id.frame_layout, fragment, "currentFragment");
@@ -77,8 +70,13 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
 
     private void initDrawer(Toolbar toolbar) {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerToggle = new ActionBarDrawerToggle(
-                this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+            @Override
+            public void onDrawerStateChanged(int newState) {
+                InputMethodManager inputMethodManager = (InputMethodManager)  MainActivity.this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(MainActivity.this.getCurrentFocus().getWindowToken(), 0);
+            }
+        };
 
 
         mDrawerLayout.setDrawerListener(drawerToggle);
