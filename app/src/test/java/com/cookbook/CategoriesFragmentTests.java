@@ -1,13 +1,9 @@
 package com.cookbook;
 
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
-import com.cookbook.adapters.CategoriesGridAdapter;
 import com.cookbook.fragments.CategoriesFragment;
 
-import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,7 +36,7 @@ public class CategoriesFragmentTests {
         assertThat(activity.getTitle().toString(), is("Категории"));
     }
 
-    @Test
+    /*@Test
     public void recyclerViewVisible() {
         View recycler = fragment.getView().findViewById(R.id.recyclerView);
         assertThat(recycler.getVisibility(), is(VISIBLE));
@@ -56,6 +52,6 @@ public class CategoriesFragmentTests {
     public void recyclerIsEmpty() {
         RecyclerView recycler = (RecyclerView)fragment.getView().findViewById(R.id.recyclerView);
         assertThat(recycler.getAdapter().getItemCount(), is(0));
-    }
+    }*/
 
 }
