@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:title="Исключить из избранного"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_favorite"
+        android:id="@+id/menu_exculde"
+        />
+    <item android:title="Добавить в избранное"
+        app:showAsAction="always"
+        android:id="@+id/menu_include"
+        android:icon="@drawable/ic_not_favorite"
+        />
+</menu>

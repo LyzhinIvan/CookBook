@@ -1,3 +1,16 @@
 <resources>
-    <string name="app_name">Cookbook</string>
+    <string name="app_name">CookBook</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_categories_activity">Категории</string>
+    <string name="title_app_name">Книга рецептов</string>
+
+    <string name="text_confirm_download">Размер обновления составляет %.2f Мб. Приступить к загрузке?</string>
+    <string name="text_check_dialog_caption">Обновление данных</string>
+    <string name="text_download_not_need">Обновление данных не требуется: Вы уже используете самую свежую версию нашей базы</string>
+    <string name="search">Поиск</string>
+    <string name="text_no_favorite_recipes">Пока вы не добавили ни один рецепт в список любимых.\nСделать это можно нажав на иконку с сердечком при просмотре рецепта</string>
 </resources>

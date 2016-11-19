@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/item_border"
+    android:padding="5dp"
+    android:shrinkColumns="1"
+    android:stretchColumns="1">
+
+    <TableRow>
+
+        <ImageView
+            android:id="@+id/ivIcon"
+            android:layout_height="60dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_placeholder"
+            android:layout_width="100dp"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/tvCaption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:maxLines="3"
+            android:text="Название блюда очень длинное очень длинное очень длинное очень длинное"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <LinearLayout android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_time"
+                android:layout_gravity="center_vertical"
+                android:layout_width="18dp"
+                android:layout_height="18dp" />
+
+            <TextView
+                android:id="@+id/tvCookingTime"
+                android:layout_marginLeft="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="20 мин" />
+        </LinearLayout>
+
+
+    </TableRow>
+</TableLayout>
