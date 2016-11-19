@@ -23,6 +23,7 @@ import com.cookbook.adapters.ShopListAdapter;
 import com.cookbook.dao.DBShopListHelper;
 import com.cookbook.pojo.Ingredient;
 
+import java.util.List;
 import java.util.Objects;
 
 
@@ -68,11 +69,13 @@ public class ShopingListFragment extends Fragment implements View.OnClickListene
             }
         });
 
-        adapter = new ShopListAdapter(dbShopListHelper.getAll(), this);
+        List<String> lines = dbShopListHelper.getAll();
+        adapter = new ShopListAdapter(lines, this);
         recyclerView.setAdapter(adapter);
 
         btnAdd.setOnClickListener(this);
     }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

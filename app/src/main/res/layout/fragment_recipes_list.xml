@@ -13,4 +13,14 @@
         app:layoutManager="LinearLayoutManager"
         tools:listitem="@layout/recipe_list_item"/>
 
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tvEmptyList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:text="@string/text_no_favorite_recipes"/>
+
 </FrameLayout>

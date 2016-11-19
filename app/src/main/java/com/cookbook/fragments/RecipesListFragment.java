@@ -69,9 +69,6 @@ public class RecipesListFragment extends Fragment implements Recipe.RecipeClickL
         RecipesListFragment fragment = new RecipesListFragment();
         Bundle args = new Bundle();
 
-        /*FavoritesHelper favHelper = new FavoritesHelper(context);
-        long[] recIds = Longs.toArray(favHelper.getFavoriteRecipeIds());*/
-
         args.putString(ARG_SCREEN_NAME, screenCapture);
         args.putBoolean(ARG_SHOW_FAVORITES, true);
         fragment.setArguments(args);
@@ -116,8 +113,7 @@ public class RecipesListFragment extends Fragment implements Recipe.RecipeClickL
 
             if (catId != -1) {
                 recipes = dbRecipesHelper.getByCategory(catId);
-            } else if (!showFavs)
-            {
+            } else if (!showFavs) {
                 List<Long> recIds = Longs.asList(getArguments().getLongArray(ARG_RECIPES_ID));
                 recipes = dbRecipesHelper.getById(recIds);
             }
@@ -167,6 +163,7 @@ public class RecipesListFragment extends Fragment implements Recipe.RecipeClickL
             recipes = new DBRecipesHelper(getContext()).getById(ids);
         }
         initRecycleView();
+
     }
 
     @Override
@@ -181,6 +178,15 @@ public class RecipesListFragment extends Fragment implements Recipe.RecipeClickL
 
         RecipeListAdapter adapter = new RecipeListAdapter(getContext(), recipes, this);
         recyclerView.setAdapter(adapter);
+
+        View tvEmptyList = getView().findViewById(R.id.tvEmptyList);
+        if (showFavs && (recipes == null || recipes.size() == 0)) {
+            tvEmptyList.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        } else {
+            tvEmptyList.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+        }
     }
 
 

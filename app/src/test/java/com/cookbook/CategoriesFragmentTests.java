@@ -18,7 +18,6 @@ import static org.junit.Assert.assertThat;
 @Config(constants = BuildConfig.class, sdk = 21)
 public class CategoriesFragmentTests {
 
-    private final static int VISIBLE = 0;
 
     private CategoriesFragment fragment;
     private FragmentActivity activity;
@@ -35,23 +34,5 @@ public class CategoriesFragmentTests {
     public void activityTitleCheck() {
         assertThat(activity.getTitle().toString(), is("Категории"));
     }
-
-    /*@Test
-    public void recyclerViewVisible() {
-        View recycler = fragment.getView().findViewById(R.id.recyclerView);
-        assertThat(recycler.getVisibility(), is(VISIBLE));
-    }
-
-    @Test
-    public void recyclerAdapter() {
-        RecyclerView recycler = (RecyclerView)fragment.getView().findViewById(R.id.recyclerView);
-        assertThat(recycler.getAdapter(), is(CoreMatchers.instanceOf(CategoriesGridAdapter.class)));
-    }
-
-    @Test
-    public void recyclerIsEmpty() {
-        RecyclerView recycler = (RecyclerView)fragment.getView().findViewById(R.id.recyclerView);
-        assertThat(recycler.getAdapter().getItemCount(), is(0));
-    }*/
 
 }

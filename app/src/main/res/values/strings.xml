@@ -12,4 +12,5 @@
     <string name="text_check_dialog_caption">Обновление данных</string>
     <string name="text_download_not_need">Обновление данных не требуется: Вы уже используете самую свежую версию нашей базы</string>
     <string name="search">Поиск</string>
+    <string name="text_no_favorite_recipes">Пока вы не добавили ни один рецепт в список любимых.\nСделать это можно нажав на иконку с сердечком при просмотре рецепта</string>
 </resources>

@@ -91,7 +91,7 @@ public class RecipeFragment extends Fragment implements Ingredient.IngredientCli
         tvCookingTime.setText(recipe.cookingTime+" мин");
 
         if (recipe.instruction!=null)
-            tvInstruction.setText(recipe.instruction);
+            tvInstruction.setText(recipe.instruction.trim());
 
         return view;
     }
