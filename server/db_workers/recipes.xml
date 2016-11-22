@@ -670,394 +670,335 @@
 
 
 
-<recipe id="" replace="false">
-	<title> </title>
-	<category> </category>
-	<cook_time> </cook_time>
-	<picture_filepath> </picture_filepath> 
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
+<recipe id="26" replace="false">
+	<title>Креветки в соусе песто</title>
+	<category>Закуски</category>
+	<cook_time>15</cook_time>
+	<picture_filepath>img/krevetki-v-souse-pesto.jpg</picture_filepath> 
+	<ingredient qty="1 кг">креветки тигровые</ingredient>
+	<ingredient qty="7 зубчиков">чеснок</ingredient>
+	<ingredient qty="2 г.">перец красный чили</ingredient>
+	<ingredient qty="30 г.">масло сливочное</ingredient>
+	<ingredient qty="80 г.">сыр пармезан тертый</ingredient>
+	<ingredient qty="500 мл.">сливки</ingredient>
+	<ingredient qty="50 г.">листья петрушки</ingredient>
+	<ingredient qty="30 г.">базилик</ingredient>
+	<ingredient qty="50 г.">масло оливковое</ingredient>
+	<ingredient qty="1 ст.л.">лимонный сок</ingredient>
+	<ingredient qty="по вкусу">соль</ingredient>
+	<ingredient qty="по вкусу">перец черный молотый</ingredient>
 	<instruction> 
-
+1.  В блендере смешать петрушку, базилик, оливковое масло, сок лимона и 2 зубчика чеснока до состояния кашицы, но не слишком однородной.
+2.  В сотейнике разогреть сливочное масло, добавить рубленый чеснок и перец чили, тридцать секунд обжаривать, постоянно помешивая.
+3.  Креветки очистить от панциря, оставив только хвостики, и важно удалить в креветке пищевод. Добавить в сотейник. Как только они станут розовыми, добавить песто, все тщательно перемешать, и, постоянно помешивая, дать пропитаться одну минуту.
+4.  Добавить сливки, немного горячей воды, чтобы блюдо не очень жирным получилось. Добавить соль и перец по вкусу, дать покипеть минуту, добавить мелко натертый пармезан, он затянет соус, дать ему полностью раствориться. Снять с огня и сразу же подавать. Есть с любимым хлебом, макая его в соус.
 	</instruction>
 </recipe>
 
 
-
-<recipe id="" replace="false">
-	<title> </title>
-	<category> </category>
-	<cook_time> </cook_time>
-	<picture_filepath> </picture_filepath> 
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
+<recipe id="27" replace="false">
+	<title>Дьявольские яйца со вкусом карбонары</title>
+	<category>Закуски</category>
+	<cook_time>20</cook_time>
+	<picture_filepath>img/djavolskie-jajca-so-vkusom-karbonari.jpg</picture_filepath> 
+	<ingredient qty="5 шт.">яйцо куриное</ingredient>
+	<ingredient qty="25 г.">майонез</ingredient>
+	<ingredient qty="100 г.">бекон</ingredient>
+	<ingredient qty="5 г.">петрушка</ingredient>
+	<ingredient qty="1 шт.">лайм</ingredient>
+	<ingredient qty="25 г.">сыр пармезан</ingredient>
+	<ingredient qty="по вкусу">соль</ingredient>
+	<ingredient qty="по вкусу">перец черный молотый</ingredient>
 	<instruction> 
-
+1.  Яйца отварить на медленном огне, чтобы не потемнел желток. Очистить, разрезать, аккуратно вынуть желток), стараясь не повредить белок.
+2.  Смешать желтки с майонезом до однородной массы.
+3.  Бекон нарезать мелким кубиком (для этого его можно слегка заморозить), обжарить на сухой сковороде до хрустящего состояния.
+4.  Натереть сыр, мелко нарезать петрушку, снять цедру с лайма. Все перемешать с яично-майонезной массой, оставив немного ингредиентов для украшения. Посолить и поперчить по вкусу. Выложить массу в оставшийся белок, сверху украсить сыром, петрушкой, цедрой лайма и беконом.
 	</instruction>
 </recipe>
 
 
-<recipe id="" replace="false">
-	<title> </title>
-	<category> </category>
-	<cook_time> </cook_time>
-	<picture_filepath> </picture_filepath> 
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
+<recipe id="28" replace="false">
+	<title>Тирамису с сыром маскарпоне</title>
+	<category>Десерты</category>
+	<cook_time>30</cook_time>
+	<picture_filepath>img/tiramisu-s-sirom-maskarpone.jpg</picture_filepath> 
+	<ingredient qty="2 шт.">яйцо куриное</ingredient>
+	<ingredient qty="250 г.">сыр маскарпоне</ingredient>
+	<ingredient qty="30 шт.">печенье савоярди</ingredient>
+	<ingredient qty="75 г.">сахарная пудра</ingredient>
+	<ingredient qty="200 мл.">кофе крепкий</ingredient>
+	<ingredient qty="4 ст.л.">кофейный ликер</ingredient>
+	<ingredient qty="80 г.">какао</ingredient>
 	<instruction> 
-
+1.  Выложить маскарпоне в широкую миску и интенсивно взбить лопаткой или венчиком до однородного состояния — консистенция сыра должна стать почти такой же нежной, как у жирных сливок или густой сметаны.
+2.  Отделить белки от желтков. В одной миске взбить желтки и сахарную пудру добела и получившуюся массу постепенно добавить к маскарпоне, взбивая все вместе венчиком. Отдельно взбить белки и затем — по одной ложке — аккуратно вмешать в смесь желтков и маскарпоне.
+3.  Смешать охлажденный крепкий кофе с четырьмя столовыми ложками рома в широкой тарелке или миске с невысокими краями — емкость должна быть такой, чтобы в нее было удобно макать печенье целиком.
+4.  Аккуратно обмакнуть в смесь кофе и рома треть или половину савоярди — в зависимости от ширины формы, в которой вы хотите подавать десерт. Если форма не слишком широкая, тирамису можно сделать трехслойным, взяв по десять штук савоярди на слой.
+5.  Пропитанное печенье уложить на дно формы, сверху залить третью крема из маскарпоне. Окунуть вторую порцию печенья в кофейную смесь и плотно уложить на крем. Сверху выложить второй слой крема из маскарпоне. Затем — оставшееся пропитанное печенье.
+6.  Залить верхний слой савоярди оставшимся кремом и слегка постучать по бокам формы лопаткой, чтобы слои сровнялись и печенье погрузилось в крем. Поставить форму в холодильник минимум на три часа, а лучше — на ночь.
+7.  Перед подачей готовый десерт посыпать какао — для этих целей лучше использовать мелкое сито, чтобы на поверхности не было комочков и слой получился равномерным.
+8.  Острым ножом аккуратно разрезать тирамису на порции и разложить по тарелкам. Подавать десерт сразу, до того как крем успеет согреться до комнатной температуры и начнет таять.
 	</instruction>
 </recipe>
 
 
-<recipe id="" replace="false">
-	<title> </title>
-	<category> </category>
-	<cook_time> </cook_time>
-	<picture_filepath> </picture_filepath> 
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
+<recipe id="29" replace="false">
+	<title>Морковный пирог с миндалем</title>
+	<category>Десерты</category>
+	<cook_time>80</cook_time>
+	<picture_filepath>img/morkovnij-pirog-s-mindalem.jpg</picture_filepath> 
+	<ingredient qty="2 шт.">морковь</ingredient>
+	<ingredient qty="300 г.">миндаль</ingredient>
+	<ingredient qty="200 г.">сахар</ingredient>
+	<ingredient qty="4 шт.">яйцо куриное</ingredient>
+	<ingredient qty="50 г.">мука</ingredient>
+	<ingredient qty="3 ст.л.">лимонная цедра</ingredient>
+	<ingredient qty="щепотка">корица молотая</ingredient>
+	<ingredient qty="1 ст.л.">куантро</ingredient>
+	<ingredient qty="1 ч.л.">разрыхлитель</ingredient>
 	<instruction> 
-
+1.  Две крупные морковки очистить и натереть на крупной терке. Миндаль смолоть в крошку в кухонном комбайне. Смешать морковь и миндаль в большой глубокой миске.
+2.  Яйца разделить на желтки и белки. Желтки взбить с половиной сахара (100 г), добавить муку, разрыхлитель, щепотку корицы, цедру. В конце влить ликер и перемешать. Полученную массу соединить с морковью и миндалем.
+3.  В отдельной чистой и сухой миске венчиком взбить белки с оставшимся сахаром в плотную пену и аккуратно лопаткой или деревянной ложкой вмешать ее в морковно-ореховое тесто.
+4.  Тесто перелить в предварительно смазанную небольшим количеством растительного масла глубокую форму. Выпекать чуть меньше часа при температуре 180 градусов.
+5.  Готовый пирог вынуть из духовки, остудить в течение двадцати — двадцати пяти минут и вынуть из формы. Нарезать на порции и сразу подавать.
 	</instruction>
 </recipe>
 
 
-<recipe id="" replace="false">
-	<title> </title>
-	<category> </category>
-	<cook_time> </cook_time>
-	<picture_filepath> </picture_filepath> 
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
+<recipe id="30" replace="false">
+	<title>Торт «Наполеон» с апельсиновым кремом</title>
+	<category>Десерты</category>
+	<cook_time>120</cook_time>
+	<picture_filepath>img/tort-napoleon-s-apelsinovim-kremom.jpg</picture_filepath> 
+	<ingredient qty="300 г.">маргарин</ingredient>
+	<ingredient qty="1 ст.л.">уксус яблочный</ingredient>
+	<ingredient qty="2 шт.">яйцо куриное</ingredient>
+	<ingredient qty="щепотка">соль</ingredient>
+	<ingredient qty="200 мл.">вода</ingredient>
+	<ingredient qty="200 г.">масло сливочное</ingredient>
+	<ingredient qty="1 стакан">сахар</ingredient>
+	<ingredient qty="1 ч.л.">апельсиновая цедра</ingredient>
+	<ingredient qty="1 стакан">молоко</ingredient>
+	<ingredient qty="3 стакана">мука</ingredient>
 	<instruction> 
-
+1.  Охлажденный маргарин порубить с мукой в мелкую крошку острым ножом или специальным блендером для теста. Можно также потереть маргарин на терке и потом смешать руками с мукой — главное, действовать быстро, чтобы маргарин не начал таять.
+2.  В смеси муки и маргарина сделать небольшую ямку. В стакане смешать одно яйцо с уксусом и солью. Долить стакан доверху водой. Постепенно влить получившуюся смесь в центр ямки и ложкой аккуратно замесить тесто.
+3.  Аккуратно собрать получившееся тесто в ком (лучше с помо- щью двух ложек) и выложить на стол. Разрезать ком на три равные части, завернуть каждую в пленку и убрать в холодильник минимум на тридцать минут.
+4.  В маленьком ковшике смешать сахар с одной столовой ложкой муки, вмешать яйцо и влить молоко. Поставить на небольшой огонь и варить, непрерывно помешивая и не давая кипеть, до загустения. Как только масса начнет булькать, снять с огня и оставить остывать. В остывшую массу добавить размягченное сливочное масло и цедру и хорошенько взбить.
+5.  Каждую часть охлажденного теста по очереди раскатать в тонкий пласт, выложить на противень, проткнуть ножом в нескольких местах и выпекать при 180 градусах в течение пятнадцати минут. Из обрезков теста слепить отдельный комок, тоже раскатать и выпечь последним. Этот коржик пойдет на обсыпку.
+6.  Готовые коржи остудить и выложить на разделочную доску. Острым ножом аккуратно обрезать края, чтобы придать им ровную прямоугольную форму, — для этого их можно сложить стопочкой.
+7.  Первый корж намазать кремом, накрыть другим коржом и осторожно придавить руками. Снова смазать кремом, накрыть следующим коржом и придавить. Должно получиться три яруса.
+8.  Последний ярус намазать кремом и, поломав руками последний коржик, густо посыпать сверху получившейся крошкой. Обрезать еще раз неровные края и отправить торт в холодильник минимум на пару часов, а лучше — на ночь.
 	</instruction>
 </recipe>
 
 
-<recipe id="" replace="false">
-	<title> </title>
-	<category> </category>
-	<cook_time> </cook_time>
-	<picture_filepath> </picture_filepath> 
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
+<recipe id="31" replace="false">
+	<title>Молочный кисель с ванилью</title>
+	<category>Напитки</category>
+	<cook_time>35</cook_time>
+	<picture_filepath>img/molochnij-kisel-s-vanilju.jpg</picture_filepath> 
+	<ingredient qty="500 мл.">молоко</ingredient>
+	<ingredient qty="1 ст.л.">крахмал</ingredient>
+	<ingredient qty="1 шт.">ванильный стручок</ingredient>
+	<ingredient qty="3 ст.л.">сахар</ingredient>
+	<ingredient qty="1 ст.л.">шоколад тертый</ingredient>
 	<instruction> 
-
+1.  Стручок мадагаскарской ванили острым ножом разрезать в длину пополам и выскрести внутренности — маленькие черные семена.
+2.  Крахмал развести в половине стакана молока. Чтобы избежать образования комочков, молоко лучше влить тонкой струйкой в миску с крахмалом, а затем аккуратно размешать все чайной ложкой.
+3.  Оставшееся молоко вылить в маленький сотейник, добавить стручок ванили вместе с семенами, довести до кипения, затем убавить огонь, извлечь стручок и тонкой струйкой влить разведенный в молоке крахмал.
+4.  Добавить сахар или мед (мед лучше взять деликатный, например, из цветов акации). Варить, постоянно помешивая, две-три минуты. Помешивать лучше всего венчиком — тогда точно не будет комочков.
+5.  Готовый кисель охладить в течение тридцати минут, затем разлить по кружкам и подавать, посыпав тертым темным шоколадом (для контраста) или какао-порошком.
 	</instruction>
 </recipe>
 
-<recipe id="" replace="false">
-	<title> </title>
-	<category> </category>
-	<cook_time> </cook_time>
-	<picture_filepath> </picture_filepath> 
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
+<recipe id="32" replace="false">
+	<title>Грушевый лимонад с шалфеем</title>
+	<category>Напитки</category>
+	<cook_time>5</cook_time>
+	<picture_filepath>img/grushevij-limonad-s-shalfeem.jpg</picture_filepath> 
+	<ingredient qty="5 г.">шалфей свежий</ingredient>
+	<ingredient qty="25 г.">лайм</ingredient>
+	<ingredient qty="100 мл.">сок грушевый</ingredient>
+	<ingredient qty="50 мл.">вода газированная</ingredient>
+	<ingredient qty="по вкусу">лед</ingredient>
 	<instruction> 
-
+1.  В высокий узкий бокал положить четвертинку лайма, нарезанную ломтиками. Добавить листья шалфея. Лед превратить в крошку: для этого ледяные кубики можно смолоть в кухонном комбайне с прочными острыми ножами или завернуть в кухонное полотенце и побить скалкой или молотком для мяса.
+2.  Добавить в бокал пару ложек колотого льда и размять мадлером. Мадлер — это пластиковый или деревянный барменский пестик, которым выжимают сок из свежих фруктов, ягод или трав прямо в посуде, в которой подают коктейль. Если под рукой его нет, можно обойтись столовой ложкой.
+3.  Досыпать лед до краев бокала. Аккуратно влить грушевый сок. Можно использовать свежевыжатый сок или пакетированный; в первом случае сок, возможно, понадобится подсластить чуть побольше, чем готовый из пачки.
+4.  Добавить немного сахарного сиропа — буквально пол чайной ложки — и аккуратно помешать барной ложкой. Сироп можно, впрочем, вообще не добавлять, а просто долить в бокал газированной воды.
+5.  Украсить готовый лимонад листочками шалфея или тоненькой полукруглой долькой лайма, насадив ее на краешек бокала. И немедленно подавать — с трубочкой или просто так, как обычный домашний лимонад, разлитый из кувшина.
 	</instruction>
 </recipe>
 
 
-<recipe id="" replace="false">
-	<title> </title>
-	<category> </category>
-	<cook_time> </cook_time>
-	<picture_filepath> </picture_filepath> 
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
+<recipe id="33" replace="false">
+	<title>Мохито безалкогольный</title>
+	<category>Напитки</category>
+	<cook_time>5</cook_time>
+	<picture_filepath>img/mohito-bezalkogolnij.jpg</picture_filepath> 
+	<ingredient qty="10 г.">мята свежая</ingredient>
+	<ingredient qty="1/2 шт.">лайм</ingredient>
+	<ingredient qty="150 г.">спрайт</ingredient>
+	<ingredient qty="8 кусков">лед</ingredient>
+	<ingredient qty="1 ч.л.">сахар тростниковый</ingredient>
 	<instruction> 
-
+1.  Нарезаем лайм и кладем в бокал.
+2.  Добавляем мяту, тростниковый сахар и разминаем.
+3.  Добавляем ледяную крошку и перекладываем смесь в шейкер. Взбиваем.
+4.  Перекладываем в бокал и заливаем спрайтом.
+5.  Декорируем коктейль листиком мяты и лаймом — напиток готов.
 	</instruction>
 </recipe>
 
 
-<recipe id="" replace="false">
-	<title> </title>
-	<category> </category>
-	<cook_time> </cook_time>
-	<picture_filepath> </picture_filepath> 
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
+<recipe id="34" replace="false">
+	<title>Айоли</title>
+	<category>Соусы</category>
+	<cook_time>5</cook_time>
+	<picture_filepath>img/ajoli.jpg</picture_filepath> 
+	<ingredient qty="1 головка">чеснок</ingredient>
+	<ingredient qty="по вкусу">масло оливковое</ingredient>
+	<ingredient qty="щепотка">соль</ingredient>
 	<instruction> 
-
+1.  Очистить чеснок и размять в ступке с щепоткой соли до пастообразного состояния или натереть на мелкой терке. Предварительно из чеснока следует достать сердцевину, разрезав зубчик пополам.
+2.  Затем тонкой струйкой влить оливковое масло (здесь необязательно использовать масло extra virgin, оливковое масло помягче отлично подойдет) и непрерывно взбивать венчиком в одном направлении. На протяжении всего приготовления соуса не стоит менять направления движения венчика.
+3.  Соус готов, когда он достаточно густой, чтобы в нем стояла ложка.
 	</instruction>
 </recipe>
 
 
-
-<recipe id="" replace="false">
-	<title> </title>
-	<category> </category>
-	<cook_time> </cook_time>
-	<picture_filepath> </picture_filepath> 
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
+<recipe id="35" replace="false">
+	<title>Китайский кисло-сладкий соус</title>
+	<category>Соусы</category>
+	<cook_time>20</cook_time>
+	<picture_filepath>img/kitajskij-kislo-sladkij-sous.jpg</picture_filepath> 
+	<ingredient qty="1.5 ст.л.">сахар</ingredient>
+	<ingredient qty="2 ст.л.">уксус</ingredient>
+	<ingredient qty="1 ст.л.">соевый соус</ingredient>
+	<ingredient qty="1 ст.л.">томатное пюре</ingredient>
+	<ingredient qty="3 ст.л.">сок апельсиновый</ingredient>
+	<ingredient qty="1 ч.л.">мука кукурзная</ingredient>
 	<instruction> 
-
+1.  Сахар, уксус, томатное пюре, соевый соус и апельсиновый сок отправьте в ковшик. Муку смешайте с 4 столовыми ложками воды и тоже добавьте в ковш.
+2.  На медленном огне доведите соус до кипения, постоянно помешивая.
+3.  Подавайте горячим — этот соус подходит к жареной свинине, отбивным и так далее.
 	</instruction>
 </recipe>
 
 
-
-<recipe id="" replace="false">
-	<title> </title>
-	<category> </category>
-	<cook_time> </cook_time>
-	<picture_filepath> </picture_filepath> 
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
+<recipe id="36" replace="false">
+	<title>Итальянский томатный соус</title>
+	<category>Соусы</category>
+	<cook_time>40</cook_time>
+	<picture_filepath>img/italjanskij-tomatnij-sous.jpg</picture_filepath> 
+	<ingredient qty="2 ст.л.">масло оливковое</ingredient>
+	<ingredient qty="1 головка">лук репчатый</ingredient>
+	<ingredient qty="3 зубчика">чеснок</ingredient>
+	<ingredient qty="1 ст.л.">орегано</ingredient>
+	<ingredient qty="800 г.">помидор консервированный</ingredient>
+	<ingredient qty="4 шт.">помидор</ingredient>
+	<ingredient qty="2 ст.л.">паста томатная</ingredient>
+	<ingredient qty="1 ст.л.">сахар</ingredient>
 	<instruction> 
-
+1.  Разогреть масло в большой кастрюле, добавить мелко нарезанный лук и раздавленный чеснок и готовить примерно 7–8 минут.
+2.  Добавить сухое орегано, нарезанные консервированные помидоры, томатную пасту, сахар. Приправить по вкусу и тушить 20 минут, помешивая, до тех пор пока соус не выпарится на треть и немного загустеет.
+3.  Свежие помидоры очистить от кожицы и семян, добавить в соус и готовить еще 2 минуты. Приправить солью и молотым черным перцем и подавать с макаронами или покрывать соусом основу для пиццы.
 	</instruction>
 </recipe>
 
 
-<recipe id="" replace="false">
-	<title> </title>
-	<category> </category>
-	<cook_time> </cook_time>
-	<picture_filepath> </picture_filepath> 
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
+<recipe id="37" replace="false">
+	<title>Зеленый гарнир</title>
+	<category>Гарниры</category>
+	<cook_time>20</cook_time>
+	<picture_filepath>img/zelenij-garnir.jpg</picture_filepath> 
+	<ingredient qty="50 мл.">масло оливковое</ingredient>
+	<ingredient qty="6 зубчиков">чеснок</ingredient>
+	<ingredient qty="500 г.">шпинат</ingredient>
+	<ingredient qty="500 г.">капуста молодая</ingredient>
+	<ingredient qty="по вкусу">соль</ingredient>
+	<ingredient qty="по вкусу">перец черный молотый</ingredient>
 	<instruction> 
-
+1.  Разогреть оливковое масло в сковороде на среднем огне. Кинуть измельченный чеснок и потушить две минуты.
+2.  Листья капусты нашинковать, кинуть в сковороду, добавить соль и перец по вкусу и потушить в течение пяти-десяти ­минут до мягкости.
+3.  Можно добавить для яркости вкуса немного сахара — одну-две чайные ложки, понятное дело, соль, щепотку черного молотого перца и совсем чуть-чуть кумина.
+4.  Когда капуста будет почти готова — протушена, но еще сохранит остатки плотности, — нужно добавить в нее шпинат, перемешать и снять с огня. Тепла сковороды и капусты хватит, чтобы довести шпинат до готовности. Сохранить сковороду с гарниром теплой до подачи.
 	</instruction>
 </recipe>
 
 
-<recipe id="" replace="false">
-	<title> </title>
-	<category> </category>
-	<cook_time> </cook_time>
-	<picture_filepath> </picture_filepath> 
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
+<recipe id="38" replace="false">
+	<title>Картофельный гарнир</title>
+	<category>Гарниры</category>
+	<cook_time>45</cook_time>
+	<picture_filepath>img/kartofelnij-garnir.jpg</picture_filepath> 
+	<ingredient qty="по вкусу">соль</ingredient>
+	<ingredient qty="3 стебля">петрушка</ingredient>
+	<ingredient qty="4 ст.л.">масло растительное</ingredient>
+	<ingredient qty="50 г.">масло сливочное</ingredient>
+	<ingredient qty="1 ст.л.">молоко</ingredient>
+	<ingredient qty="750 г.">картофель</ingredient>
 	<instruction> 
-
+1.  Положите вымытые, но неочищенные картофелины в большую кастрюлю с холодной водой, добавьте молоко и чайную ложку соли. Убедитесь, что жидкость закрывает всю картошку. Доведите до кипения, потом варите 20-30 минут, пока картофель не станет мягким. Слейте, почистите и порежьте на кусочки.
+2.  Растопите сливочное масло с растительным в сковороде на большом огне, добавьте картофель и готовьте, встряхивая сковородку, пока ломтики не станут золотистыми. Вытащите их шумовкой, посолите, посыпьте мелко порезанной петрушкой и тут же подавайте.
 	</instruction>
 </recipe>
 
 
-<recipe id="" replace="false">
-	<title> </title>
-	<category> </category>
-	<cook_time> </cook_time>
-	<picture_filepath> </picture_filepath> 
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
+<recipe id="39" replace="false">
+	<title>Гарнир из замороженный овощей в мультиварке</title>
+	<category>Гарниры</category>
+	<cook_time>30</cook_time>
+	<picture_filepath>img/garnir-iz-zamorozhennij-ovoshhej-v-multivarke.jpg</picture_filepath> 
+	<ingredient qty="25 г.">масло сливочное</ingredient>
+	<ingredient qty="400 г.">замороженная овощная смесь</ingredient>
+	<ingredient qty="по вкусу">соль</ingredient>
+	<ingredient qty="по вкусу">перец черный молотый</ingredient>
+	<ingredient qty="по вкусу">специи</ingredient>
 	<instruction> 
-
+1.  Включаем мультиварку в режим «Выпечка» на 30 минут, добавляем масло с ставим разогреваться минут на 6–8. Как только масло растопится и нагреется, высыпаем замороженные овощи, закрываем крышку и готовим примерно 10 минут (т. е. ждем, пока овощи разморозятся).
+2.  Через 10 минут открываем крышку, солим, перчим, посыпаем специями овощи и перемешиваем. Закрываем крышку и готовим еще 10–15 минут (до желаемой твердости, если готовить 15 минут, овощи не будут хрустящими, но и не разварятся, зато их легко жуют маленькие дети).
 	</instruction>
 </recipe>
 
 
-<recipe id="" replace="false">
-	<title> </title>
-	<category> </category>
-	<cook_time> </cook_time>
-	<picture_filepath> </picture_filepath> 
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
-	<ingredient qty=""> </ingredient>
+<recipe id="40" replace="false">
+	<title>Горячие бутерброды</title>
+	<category>Прочее</category>
+	<cook_time>15</cook_time>
+	<picture_filepath>img/gorjachie-buterbrodi.jpg</picture_filepath> 
+	<ingredient qty="250 г.">сыр</ingredient>
+	<ingredient qty="1 шт.">французский багет</ingredient>
+	<ingredient qty="3 шт.">чеснок</ingredient>
+	<ingredient qty="2 шт.">помидор</ingredient>
+	<ingredient qty="по вкусу">майонез</ingredient>
 	<instruction> 
+1.  Хлеб нарезать тонкими ломтиками.
+2.  Сыр, измельченный чеснок и майонез перемешать, чтобы получилась довольно густая масса, выложить на хлеб, сверху поместить тонкий кружочек помидора.
+3.  Запечь в духовке в течение 10 минут.
+	</instruction>
+</recipe>
 
+<recipe id="41" replace="false">
+	<title>Гамбургер с соусом тартар</title>
+	<category>Прочее</category>
+	<cook_time>15</cook_time>
+	<picture_filepath>img/gamburger-s-sousom-tartar.jpg</picture_filepath> 
+	<ingredient qty="150 г.">говядина</ingredient>
+	<ingredient qty="30 мл.">кетчуп</ingredient>
+	<ingredient qty="1 шт.">булочка</ingredient>
+	<ingredient qty="30 г.">лук красный</ingredient>
+	<ingredient qty="1 шт.">помидор</ingredient>
+	<ingredient qty="1 шт.">яйцо куриное</ingredient>
+	<ingredient qty="1 шт.">салат айсберг</ingredient>
+	<ingredient qty="1 ст.л.">соус тартар</ingredient>
+	<instruction> 
+1.  Мясо пропустить через мясорубку. Достаточно сделать это один раз, чтобы фарш получился грубым. Посолить, поперчить его, добавить мелко нарезанный красный лук и кетчуп. Хорошо перемешать, отбить, наотмашь кидая котлету на стол, чтобы фарш насытился воздухом. Жарить на сковороде или на гриле с обеих сторон. Время зависит от степени прожарки, которая вам нравится.
+2.  Сделать глазунью из одного яйца, слегка посолить, поперчить.
+3.  Булочку разрезать пополам, ­обжарить и намазать соусом. Выложить на половину булки лист салата, на него — тонкий ломтик большого помидора, ­мясо и глазунью. Рядом положить вторую часть булки и тонкие кольца красного лука.
 	</instruction>
 </recipe>
 
