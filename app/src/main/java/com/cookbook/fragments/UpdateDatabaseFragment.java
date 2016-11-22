@@ -1,6 +1,8 @@
 package com.cookbook.fragments;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -28,10 +30,13 @@ import com.cookbook.rest.RestClient;
 import com.cookbook.rest.UpdateResponse;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.content.ContentValues.TAG;
 
 
 public class UpdateDatabaseFragment extends Fragment implements View.OnClickListener {
@@ -101,7 +106,7 @@ public class UpdateDatabaseFragment extends Fragment implements View.OnClickList
         tvUpdatingStatus.setText("Запрос обновлений...");
         swithVisibility(true);
 
-        client.getDelta(updatingHelper.getLastUpdatingTime()).enqueue(new Callback<DeltaResponse>() {
+        client.getDelta(updatingHelper.getLastUpdatingTime() / 1000).enqueue(new Callback<DeltaResponse>() {
             @Override
             public void onResponse(Call<DeltaResponse> call, Response<DeltaResponse> response) {
                 swithVisibility(false);
@@ -147,10 +152,9 @@ public class UpdateDatabaseFragment extends Fragment implements View.OnClickList
         tvUpdatingStatus.setText("Загрузка данных");
         swithVisibility(true);
 
-        client.update(updatingHelper.getLastUpdatingTime()).enqueue(new Callback<UpdateResponse>() {
+        client.update(updatingHelper.getLastUpdatingTime() / 1000).enqueue(new Callback<UpdateResponse>() {
             @Override
             public void onResponse(Call<UpdateResponse> call, Response<UpdateResponse> response) {
-                boolean success = false;
                 try {
                     if (response.code() != 200) {
                         Log.e(LOG_TAG, String.format("Server error! Code: %d, Message: %s", response.code(), response.message()));
@@ -158,37 +162,24 @@ public class UpdateDatabaseFragment extends Fragment implements View.OnClickList
                         return;
                     }
                     UpdateResponse content = response.body();
-                    tvUpdatingStatus.setText("Обновление базы");
                     Log.d(LOG_TAG, String.format("Получение данных успешно завершено! Получено категорий: %d, рецептов: %d, ингредиентов: %d", content.categories.size(), content.recipes.size(), content.ingredients.size()));
-                    Log.d(LOG_TAG, "Сохранение данных");
+                    tvUpdatingStatus.setText("Обновление базы");
 
-                    //присваивает категориям иконки первого рецепта, входящего в неё
-                    for (Category c : content.categories) {
-                        for (Recipe r : content.recipes) {
-                            if (r.categoryId == c.id) {
-                                c.icon = r.icon;
-                                break;
+                    UpdateDatabaseTask.TaskResult onResult = new UpdateDatabaseTask.TaskResult() {
+                        @Override
+                        public void onComplete(Boolean success) {
+                            swithVisibility(false);
+                            if (success) {
+                                MainActivity activity = (MainActivity) getActivity();
+                                activity.setFragment(new CategoriesFragment(), false);
                             }
                         }
-                    }
+                    };
 
-                    updatingHelper.setLastUpdatingTime(content.newUpdated * 1000);
-                    new DBCategoriesHelper(getContext()).addOrUpdate(content.categories);
-                    DBIngredientsHelper dbIngredientsHelper = new DBIngredientsHelper(getContext());
-                    dbIngredientsHelper.addOrReplace(content.ingredients);
-                    dbIngredientsHelper.addOrReplacePairs(content.recIng);
-                    new DBRecipesHelper(getContext()).addOrUpdate(content.recipes);
-                    success = true;
-
-                    Log.d(LOG_TAG, "Сохранение завершено!");
+                    UpdateDatabaseTask task = new UpdateDatabaseTask(getContext(), onResult, content);
+                    task.execute();
                 } catch (Exception ex) {
                     Log.e(LOG_TAG, "Ошибка при обновлении данных:", ex);
-                } finally {
-                    swithVisibility(false);
-                    if (success) {
-                        MainActivity activity = (MainActivity) getActivity();
-                        activity.setFragment(new CategoriesFragment(), false);
-                    }
                 }
             }
 
@@ -216,6 +207,64 @@ public class UpdateDatabaseFragment extends Fragment implements View.OnClickList
         } else {
             layoutMain.setVisibility(View.VISIBLE);
             layoutUpdating.setVisibility(View.GONE);
+        }
+    }
+
+    private static class UpdateDatabaseTask extends AsyncTask<Void, Void, Boolean> {
+
+        interface TaskResult {
+            void onComplete(Boolean result);
+        }
+
+        private final Context context;
+        private final TaskResult taskResult;
+        private UpdateResponse content;
+
+        public UpdateDatabaseTask(Context context, TaskResult onResult, UpdateResponse content) {
+            this.context = context;
+            taskResult = onResult;
+            this.content = content;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            Log.d(LOG_TAG, "Сохранение данных");
+
+            try {
+                UpdatingHelper updatingHelper = new UpdatingHelper(context);
+                updatingHelper.setLastUpdatingTime(content.newUpdated * 1000);
+                new DBCategoriesHelper(context).addOrUpdate(content.categories);
+                DBIngredientsHelper dbIngredientsHelper = new DBIngredientsHelper(context);
+                dbIngredientsHelper.addOrReplace(content.ingredients);
+                dbIngredientsHelper.addOrReplacePairs(content.recIng);
+                new DBRecipesHelper(context).addOrUpdate(content.recipes);
+
+                updateCategoriesIcon();
+
+                Log.d(LOG_TAG, "Сохранение завершено!");
+                return true;
+            }
+            catch (Exception ex) {
+                Log.e(TAG, "doInBackground: ", ex);
+                return false;
+            }
+        }
+
+        private void updateCategoriesIcon() {
+            DBCategoriesHelper dbCategoriesHelper = new DBCategoriesHelper(context);
+            DBRecipesHelper dbRecipesHelper = new DBRecipesHelper(context);
+            for (Category c : dbCategoriesHelper.getAll()) {
+                List<Recipe> recipes = dbRecipesHelper.getByCategory(c.id);
+                if (recipes != null && recipes.size() != 0) {
+                    c.icon = recipes.get(0).icon;
+                    dbCategoriesHelper.addOrUpdate(c);
+                }
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            taskResult.onComplete(success);
         }
     }
 }
