@@ -19,14 +19,17 @@
 <ingredient>ананас консервированный</ingredient>
 <ingredient>арбуз</ingredient>
 <ingredient>базилик</ingredient>
+<ingredient>базилик сушеный</ingredient>
 <ingredient>баклажаны</ingredient>
 <ingredient>бальзамический уксус</ingredient>
 <ingredient>банан</ingredient>
 <ingredient>баранина</ingredient>
+<ingredient>баранина на кости</ingredient>
 <ingredient>бараньи ребрышки</ingredient>
 <ingredient>батон</ingredient>
 <ingredient>бекон копченый</ingredient>
 <ingredient>блины</ingredient>
+<ingredient>бобовые проростки</ingredient>
 <ingredient>болгарский перец</ingredient>
 <ingredient>брокколи</ingredient>
 <ingredient>брынза</ingredient>
@@ -35,6 +38,7 @@
 <ingredient>бульон мясной</ingredient>
 <ingredient>ванилин</ingredient>
 <ingredient>ванильный сахар</ingredient>
+<ingredient>ванильный стручок</ingredient>
 <ingredient>вареный картофель</ingredient>
 <ingredient>вермишель</ingredient>
 <ingredient>ветчина</ingredient>
@@ -51,88 +55,121 @@
 <ingredient></ingredient>
 <ingredient></ingredient>
 <ingredient></ingredient>
-<ingredient></ingredient>
-<ingredient></ingredient>
+<ingredient>гашеная сода</ingredient>
 <ingredient>гвоздика</ingredient>
 <ingredient>говядина</ingredient>
 <ingredient>говядина тушеная</ingredient>
 <ingredient>горох</ingredient>
 <ingredient>горчица</ingredient>
-<ingredient></ingredient>
+<ingredient>горчица дижонская</ingredient>
+<ingredient>гренки</ingredient>
+<ingredient>грибы шиитаке</ingredient>
+<ingredient>зеленый лук</ingredient>
+<ingredient>зелень</ingredient>
+<ingredient>изюм</ingredient>
 <ingredient>йогурт</ingredient>
 <ingredient>кабачок</ingredient>
-<ingredient></ingredient>
+<ingredient>картофель</ingredient>
 <ingredient>какао</ingredient>
 <ingredient>капуста китайская</ingredient>
+<ingredient>капуста белокочанная</ingredient>
 <ingredient></ingredient>
 <ingredient>кинза</ingredient>
-<ingredient></ingredient>
-<ingredient></ingredient>
-<ingredient></ingredient>
-<ingredient></ingredient>
+<ingredient>коктейль из морепродуктов</ingredient>
+<ingredient>корица молотая</ingredient>
 <ingredient>крахмал</ingredient>
-<ingredient></ingredient>
-<ingredient></ingredient>
+<ingredient>круглый рис</ingredient>
+<ingredient>кунжутное масло</ingredient>
+<ingredient>курдючное сало</ingredient>
 <ingredient>курица копченая</ingredient>
 <ingredient>курица сырая</ingredient>
-<ingredient>макароны</ingredient>
+<ingredient>лапша рисовая</ingredient>
+<ingredient>лимонный сок</ingredient>
+<ingredient>лист лавровый</ingredient>
+<ingredient>лосось слабосоленый</ingredient>
+<ingredient>лук красный</ingredient>
+<ingredient>лук репчатый</ingredient>
 <ingredient></ingredient>
+<ingredient>мак</ingredient>
+<ingredient>макароны</ingredient>
+<ingredient>манго</ingredient>
+<ingredient>маслины</ingredient>
 <ingredient>масло сливочное</ingredient>
 <ingredient>масло оливковое</ingredient>
+<ingredient>масло растительное</ingredient>
 <ingredient></ingredient>
 <ingredient></ingredient>
 <ingredient>мед</ingredient>
-<ingredient></ingredient>
+<ingredient>мини цукини</ingredient>
 <ingredient></ingredient>
 <ingredient>молоко</ingredient>
-<ingredient></ingredient>
+<ingredient>молотый кумин</ingredient>
 <ingredient></ingredient>
 <ingredient></ingredient>
 <ingredient></ingredient>
 <ingredient></ingredient>
 <ingredient>мука</ingredient>
-<ingredient></ingredient>
-<ingredient></ingredient>
+<ingredient>мягкий творог</ingredient>
+<ingredient>огурец</ingredient>
+<ingredient>орегано сушеный</ingredient>
+<ingredient>орехи</ingredient>
 <ingredient></ingredient>
 <ingredient>паприка</ingredient>
 <ingredient>паста томатная</ingredient>
+<ingredient>перец зеленый</ingredient>
+<ingredient>перец красный</ingredient>
+<ingredient>перец кайенский молотый</ingredient>
+<ingredient>перец красный стручковый</ingredient>
+<ingredient>перец красный сладкий</ingredient>
 <ingredient>перец острый</ingredient>
 <ingredient>перец болгарский</ingredient>
+<ingredient>перец сладкий</ingredient>
 <ingredient>перец черный молотый</ingredient>
-<ingredient></ingredient>
-<ingredient></ingredient>
-<ingredient>огурец</ingredient>
-<ingredient></ingredient>
-<ingredient></ingredient>
-<ingredient></ingredient>
-<ingredient></ingredient>
-<ingredient></ingredient>
+<ingredient>перец черный горошком</ingredient>
+<ingredient>печень куриная</ingredient>
 <ingredient>помидор</ingredient>
+<ingredient>прованские травы</ingredient>
+<ingredient></ingredient>
+<ingredient></ingredient>
+<ingredient></ingredient>
 <ingredient></ingredient>
 <ingredient></ingredient>
 <ingredient>разрыхлитель</ingredient>
-<ingredient></ingredient>
-<ingredient></ingredient>
+<ingredient>рис девзира</ingredient>
+<ingredient>рисовая бумага</ingredient>
+<ingredient>розмарин</ingredient>
+<ingredient>сало</ingredient>
 <ingredient>сахар</ingredient>
-<ingredient></ingredient>
+<ingredient>сельдерей</ingredient>
 <ingredient></ingredient>
 <ingredient>сливки</ingredient>
-<ingredient></ingredient>
-<ingredient></ingredient>
+<ingredient>сметана</ingredient>
+<ingredient>смесь салатных листьев</ingredient>
+<ingredient>соевый соус</ingredient>
+<ingredient>сок томатный</ingredient>
 <ingredient>соль</ingredient>
-<ingredient></ingredient>
 <ingredient>специи</ingredient>
 <ingredient>стружка кокосовая</ingredient>
 <ingredient>сыр</ingredient>
+<ingredient>сыр грюйгер</ingredient>
+<ingredient>сыр плавленый</ingredient>
 <ingredient>творог</ingredient>
+<ingredient>твердый сыр</ingredient>
+<ingredient>тертый имбирь</ingredient>
+<ingredient>телятина</ingredient>
 <ingredient>хмели-сунели</ingredient>
-<ingredient></ingredient>
+<ingredient>хлеб белый</ingredient>
+<ingredient>укроп</ingredient>
 <ingredient>уксус столовый</ingredient>
+<ingredient>уксус красный винный</ingredient>
 <ingredient>филе куриное</ingredient>
+<ingredient>французский багет</ingredient>
+<ingredient>цветочный мед</ingredient>
 <ingredient>чеснок</ingredient>
-<ingredient></ingredient>
+<ingredient>шафран</ingredient>
 <ingredient>шоколад</ingredient>
-<ingredient></ingredient>
+<ingredient>эстрагон свежий</ingredient>
+<ingredient>яблоко</ingredient>
 <ingredient>яйцо куриное</ingredient>
 <ingredient></ingredient>
 <ingredient></ingredient>
