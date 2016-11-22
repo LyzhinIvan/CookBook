@@ -132,7 +132,6 @@ def add_recipes(xml_filepath):
     error_msgs = []
 
     for recipe in root:
-        add_rec = True
         skip = False
         if recipe.tag != RECIPE_TAG:
             continue
@@ -166,8 +165,8 @@ def add_recipes(xml_filepath):
             error_msgs.append("\'%s\': %s" % (title, e.args[0]))
             continue
         except RecipeExistsError as e:
-            error_msgs.append("\'%s\': %s" % (title, e.args[0]))
-            add_rec = False
+            # error_msgs.append("\'%s\': %s" % (title, e.args[0]))
+            continue
         except KeyError as e:
             error_msgs.append("\'%s\': %s" % (title, e.args[0]))
             continue
@@ -175,18 +174,16 @@ def add_recipes(xml_filepath):
         if skip:
             continue
 
-        if add_rec:
-            new_recipe = models.Recipe(name=title, timestamp_added=int(datetime.timestamp(datetime.now())))
-            new_recipe.category = category
-            new_recipe.time = time
-            new_recipe.picture = picture
-            new_recipe.instruction = instruction
-            new_recipe.save()
-            count_insertions += 1
-            inserted.append(title)
-        else:
-            new_recipe = models.Recipe.get(models.Recipe.name == title)
+        new_recipe = models.Recipe(name=title, timestamp_added=int(datetime.timestamp(datetime.now())))
+        new_recipe.category = category
+        new_recipe.time = time
+        new_recipe.picture = picture
+        new_recipe.instruction = instruction
+        new_recipe.save()
+        count_insertions += 1
+        inserted.append(title)
 
+        # Adding recipe-ingredients connections
         ing_obj = []
         for i in ingredient_list:
             ing_obj.append((models.Ingredient.get(models.Ingredient.name == i[0]), i[1]))
