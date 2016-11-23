@@ -36,9 +36,10 @@ public class RecipeFragment extends Fragment implements Ingredient.IngredientCli
 
     private boolean isFavorite;
     private Recipe recipe = null;
-    private List<Pair<Ingredient,String>> pairs = null;
+    private List<Pair<Ingredient, String>> pairs = null;
     private FavoritesHelper favoritesHelper;
     private DBShopListHelper dbShopListHelper;
+    RecipeIngredientAdapter adapter;
 
     public RecipeFragment() {
     }
@@ -68,9 +69,8 @@ public class RecipeFragment extends Fragment implements Ingredient.IngredientCli
             isFavorite = favoritesHelper.isFavorite(recipe.id);
 
             getActivity().setTitle(recipe.name);
-        }
-        else {
-            Log.e(LOG_TAG,"Создан фрагмент RecipeFragment без аргументов!");
+        } else {
+            Log.e(LOG_TAG, "Создан фрагмент RecipeFragment без аргументов!");
         }
         setHasOptionsMenu(true);
     }
@@ -85,12 +85,12 @@ public class RecipeFragment extends Fragment implements Ingredient.IngredientCli
         TextView tvCookingTime = (TextView) view.findViewById(R.id.tvCookingTime);
         TextView tvInstruction = (TextView) view.findViewById(R.id.tvInstaction);
 
-        if (recipe.icon!=null)
+        if (recipe.icon != null)
             ivIcon.setImageBitmap(recipe.icon);
         tvCaption.setText(recipe.name);
-        tvCookingTime.setText(recipe.cookingTime+" мин");
+        tvCookingTime.setText(recipe.cookingTime + " мин");
 
-        if (recipe.instruction!=null)
+        if (recipe.instruction != null)
             tvInstruction.setText(recipe.instruction.trim());
 
         return view;
@@ -103,9 +103,8 @@ public class RecipeFragment extends Fragment implements Ingredient.IngredientCli
         inflater.inflate(R.menu.recipe_menu, menu);
         if (isFavorite) {
             menu.findItem(R.id.menu_include).setVisible(false);
-        }
-        else menu.findItem(R.id.menu_exculde).setVisible(false);
-        super.onCreateOptionsMenu(menu,inflater);
+        } else menu.findItem(R.id.menu_exculde).setVisible(false);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -129,16 +128,35 @@ public class RecipeFragment extends Fragment implements Ingredient.IngredientCli
     }
 
     private void initRecycleView() {
-        RecyclerView recycler = (RecyclerView)getView().findViewById(R.id.recyclerView);
+        RecyclerView recycler = (RecyclerView) getView().findViewById(R.id.recyclerView);
         recycler.setHasFixedSize(true);
 
-        RecipeIngredientAdapter adapter = new RecipeIngredientAdapter(getContext(), pairs, this);
+        adapter = new RecipeIngredientAdapter(getContext(), pairs, this);
         recycler.setAdapter(adapter);
     }
 
     @Override
     public void onClick(Ingredient i) {
-        dbShopListHelper.add(i.caption);
-        Snackbar.make(getActivity().findViewById(R.id.root_layout),String.format("%s добавлен в список покупок",i.caption), Snackbar.LENGTH_SHORT).show();
+        final String ing = i.caption;
+        final View.OnClickListener removeIngListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dbShopListHelper.remove(ing);
+                adapter.removeIng(ing);
+            }
+        };
+
+        if (adapter.isInList(ing)) {
+            Snackbar.make(getActivity().findViewById(R.id.root_layout), String.format("%s уже есть в списке покупок", ing), Snackbar.LENGTH_SHORT)
+                    .setAction("Удалить", removeIngListener)
+                    .show();
+
+        } else {
+            adapter.addInList(ing);
+            dbShopListHelper.add(ing);
+            Snackbar.make(getActivity().findViewById(R.id.root_layout), String.format("%s добавлен в список покупок", ing), Snackbar.LENGTH_SHORT)
+                    .setAction("Отмена", removeIngListener)
+                    .show();
+        }
     }
 }
