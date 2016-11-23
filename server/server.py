@@ -19,6 +19,7 @@ RECIPE_INGREDIENTS_FIELD_NAME = 'recipeIngredients'
 NEW_UPDATED_FIELD_NAME = 'newUpdated'
 # ========================================
 
+
 def get_new_records(last_updated):
     result = {CATEGORIES_FIELD_NAME: [], INGREDIENTS_FIELD_NAME: [], RECIPES_FIELD_NAME: [],
               RECIPE_INGREDIENTS_FIELD_NAME: [],
@@ -132,10 +133,6 @@ class DeltaHandler(tornado.web.RequestHandler):
             result = {'delta': -1}
 
         self.write(json.dumps(result))
-
-
-
-
 
 class UpdateHandler(tornado.web.RequestHandler):
     def data_received(self, chunk):

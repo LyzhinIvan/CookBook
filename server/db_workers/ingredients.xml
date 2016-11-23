@@ -16,7 +16,6 @@
 <ingredient>айва</ingredient>
 <ingredient>ананас</ingredient>
 <ingredient>апельсин</ingredient>
-<ingredient>апельсиновая цедра</ingredient>
 <ingredient>ананас консервированный</ingredient>
 <ingredient>арбуз</ingredient>
 <ingredient>базилик</ingredient>
@@ -76,6 +75,7 @@
 <ingredient>зеленый лук</ingredient>
 <ingredient>зелень</ingredient>
 <ingredient>изюм</ingredient>
+<ingredient>имбирь</ingredient>
 <ingredient>йогурт</ingredient>
 <ingredient>кабачок</ingredient>
 <ingredient>картофель</ingredient>
@@ -88,8 +88,7 @@
 <ingredient>кинза</ingredient>
 <ingredient>коктейль из морепродуктов</ingredient>
 <ingredient>корица молотая</ingredient>
-<ingredient>кофе крепкий</ingredient>
-<ingredient>кофейный ликер</ingredient>
+<ingredient>кофе</ingredient>
 <ingredient>крахмал</ingredient>
 <ingredient>креветки тигровые</ingredient>
 <ingredient>круглый рис</ingredient>
@@ -102,11 +101,10 @@
 <ingredient>лед</ingredient>
 <ingredient>лапша рисовая</ingredient>
 <ingredient></ingredient>
+<ingredient>ликер кофейный</ingredient>
 <ingredient>лимон</ingredient>
 <ingredient>лимонный сок</ingredient>
-<ingredient>лимонная цедра</ingredient>
 <ingredient>лист лавровый</ingredient>
-<ingredient>листья петрушки</ingredient>
 <ingredient>лосось слабосоленый</ingredient>
 <ingredient>лук красный</ingredient>
 <ingredient>лук репчатый</ingredient>
@@ -186,13 +184,13 @@
 <ingredient>соль</ingredient>
 <ingredient>соус тартар</ingredient>
 <ingredient>специи</ingredient>
+<ingredient>Спрайт</ingredient>
 <ingredient>стружка кокосовая</ingredient>
 <ingredient>сыр</ingredient>
 <ingredient>сыр грюйгер</ingredient>
 <ingredient>сыр маскарпоне</ingredient>
 <ingredient>сыр плавленый</ingredient>
 <ingredient>сыр пармезан</ingredient>
-<ingredient>сыр пармезан тертый</ingredient>
 <ingredient>сыр фета</ingredient>
 <ingredient></ingredient>
 <ingredient></ingredient>
@@ -200,7 +198,6 @@
 <ingredient></ingredient>
 <ingredient>творог</ingredient>
 <ingredient>твердый сыр</ingredient>
-<ingredient>тертый имбирь</ingredient>
 <ingredient>телятина</ingredient>
 <ingredient>томатное пюре</ingredient>
 <ingredient>хмели-сунели</ingredient>
@@ -212,11 +209,12 @@
 <ingredient>филе куриное</ingredient>
 <ingredient>французский багет</ingredient>
 <ingredient>цветочный мед</ingredient>
+<ingredient>цедра апельсиновая</ingredient>
+<ingredient>цедра лимонная</ingredient>
 <ingredient>чеснок</ingredient>
 <ingredient>шалфей свежий</ingredient>
 <ingredient>шафран</ingredient>
 <ingredient>шоколад</ingredient>
-<ingredient>шоколад тертый</ingredient>
 <ingredient>шпинат</ingredient>
 <ingredient>эстрагон свежий</ingredient>
 <ingredient>яблоко</ingredient>

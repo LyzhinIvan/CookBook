@@ -1,7 +1,7 @@
 import xml.etree.ElementTree as ET
 from peewee import *
 # import models
-from server.db_workers import models
+import models
 from datetime import datetime
 
 log_filepath = 'db.log'

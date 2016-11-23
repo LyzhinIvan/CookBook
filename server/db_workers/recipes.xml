@@ -205,7 +205,7 @@
 	<ingredient qty="1 шт.">курица сырая</ingredient>
 	<ingredient qty="4 ст.л.">цветочный мед</ingredient>
 	<ingredient qty="2 шт.">апельсин</ingredient>
-	<ingredient qty="40 г.">тертый имбирь</ingredient>
+	<ingredient qty="40 г.">имбирь</ingredient>
 	<ingredient qty="3 ст.л.">масло растительное</ingredient>
 	<ingredient qty="по вкусу">специи</ingredient>
 	<ingredient qty="по вкусу">соль</ingredient>
@@ -233,7 +233,7 @@
 	<ingredient qty="50 г.">зеленый лук</ingredient>
 	<ingredient qty="1 шт.">морковь</ingredient>
 	<ingredient qty="1 шт.">перец красный стручковый</ingredient>
-	<ingredient qty="1/2 ч.л.">тертый имбирь</ingredient>
+	<ingredient qty="1/2 ч.л.">имбирь</ingredient>
 	<ingredient qty="6 шт.">грибы шиитаке</ingredient>
 	<ingredient qty="2 зубчика">чеснок</ingredient>
 	<ingredient qty="4 ст.л.">соевый соус</ingredient>
@@ -678,9 +678,9 @@
 	<ingredient qty="7 зубчиков">чеснок</ingredient>
 	<ingredient qty="2 г.">перец красный чили</ingredient>
 	<ingredient qty="30 г.">масло сливочное</ingredient>
-	<ingredient qty="80 г.">сыр пармезан тертый</ingredient>
+	<ingredient qty="80 г.">сыр пармезан</ingredient>
 	<ingredient qty="500 мл.">сливки</ingredient>
-	<ingredient qty="50 г.">листья петрушки</ingredient>
+	<ingredient qty="50 г.">петрушка</ingredient>
 	<ingredient qty="30 г.">базилик</ingredient>
 	<ingredient qty="50 г.">масло оливковое</ingredient>
 	<ingredient qty="1 ст.л.">лимонный сок</ingredient>
@@ -726,17 +726,24 @@
 	<ingredient qty="250 г.">сыр маскарпоне</ingredient>
 	<ingredient qty="30 шт.">печенье савоярди</ingredient>
 	<ingredient qty="75 г.">сахарная пудра</ingredient>
-	<ingredient qty="200 мл.">кофе крепкий</ingredient>
-	<ingredient qty="4 ст.л.">кофейный ликер</ingredient>
+	<ingredient qty="200 мл.">кофе</ingredient>
+	<ingredient qty="4 ст.л.">ликер кофейный</ingredient>
 	<ingredient qty="80 г.">какао</ingredient>
 	<instruction> 
 1.  Выложить маскарпоне в широкую миску и интенсивно взбить лопаткой или венчиком до однородного состояния — консистенция сыра должна стать почти такой же нежной, как у жирных сливок или густой сметаны.
+
 2.  Отделить белки от желтков. В одной миске взбить желтки и сахарную пудру добела и получившуюся массу постепенно добавить к маскарпоне, взбивая все вместе венчиком. Отдельно взбить белки и затем — по одной ложке — аккуратно вмешать в смесь желтков и маскарпоне.
+
 3.  Смешать охлажденный крепкий кофе с четырьмя столовыми ложками рома в широкой тарелке или миске с невысокими краями — емкость должна быть такой, чтобы в нее было удобно макать печенье целиком.
+
 4.  Аккуратно обмакнуть в смесь кофе и рома треть или половину савоярди — в зависимости от ширины формы, в которой вы хотите подавать десерт. Если форма не слишком широкая, тирамису можно сделать трехслойным, взяв по десять штук савоярди на слой.
+
 5.  Пропитанное печенье уложить на дно формы, сверху залить третью крема из маскарпоне. Окунуть вторую порцию печенья в кофейную смесь и плотно уложить на крем. Сверху выложить второй слой крема из маскарпоне. Затем — оставшееся пропитанное печенье.
+
 6.  Залить верхний слой савоярди оставшимся кремом и слегка постучать по бокам формы лопаткой, чтобы слои сровнялись и печенье погрузилось в крем. Поставить форму в холодильник минимум на три часа, а лучше — на ночь.
+
 7.  Перед подачей готовый десерт посыпать какао — для этих целей лучше использовать мелкое сито, чтобы на поверхности не было комочков и слой получился равномерным.
+
 8.  Острым ножом аккуратно разрезать тирамису на порции и разложить по тарелкам. Подавать десерт сразу, до того как крем успеет согреться до комнатной температуры и начнет таять.
 	</instruction>
 </recipe>
@@ -752,7 +759,7 @@
 	<ingredient qty="200 г.">сахар</ingredient>
 	<ingredient qty="4 шт.">яйцо куриное</ingredient>
 	<ingredient qty="50 г.">мука</ingredient>
-	<ingredient qty="3 ст.л.">лимонная цедра</ingredient>
+	<ingredient qty="3 ст.л.">цедра лимонная</ingredient>
 	<ingredient qty="щепотка">корица молотая</ingredient>
 	<ingredient qty="1 ст.л.">куантро</ingredient>
 	<ingredient qty="1 ч.л.">разрыхлитель</ingredient>
@@ -778,7 +785,7 @@
 	<ingredient qty="200 мл.">вода</ingredient>
 	<ingredient qty="200 г.">масло сливочное</ingredient>
 	<ingredient qty="1 стакан">сахар</ingredient>
-	<ingredient qty="1 ч.л.">апельсиновая цедра</ingredient>
+	<ingredient qty="1 ч.л.">цедра апельсиновая</ingredient>
 	<ingredient qty="1 стакан">молоко</ingredient>
 	<ingredient qty="3 стакана">мука</ingredient>
 	<instruction> 
@@ -803,7 +810,7 @@
 	<ingredient qty="1 ст.л.">крахмал</ingredient>
 	<ingredient qty="1 шт.">ванильный стручок</ingredient>
 	<ingredient qty="3 ст.л.">сахар</ingredient>
-	<ingredient qty="1 ст.л.">шоколад тертый</ingredient>
+	<ingredient qty="1 ст.л.">шоколад</ingredient>
 	<instruction> 
 1.  Стручок мадагаскарской ванили острым ножом разрезать в длину пополам и выскрести внутренности — маленькие черные семена.
 2.  Крахмал развести в половине стакана молока. Чтобы избежать образования комочков, молоко лучше влить тонкой струйкой в миску с крахмалом, а затем аккуратно размешать все чайной ложкой.
@@ -875,7 +882,7 @@
 	<cook_time>20</cook_time>
 	<picture_filepath>img/kitajskij-kislo-sladkij-sous.jpg</picture_filepath> 
 	<ingredient qty="1.5 ст.л.">сахар</ingredient>
-	<ingredient qty="2 ст.л.">уксус</ingredient>
+	<ingredient qty="2 ст.л.">уксус столовый</ingredient>
 	<ingredient qty="1 ст.л.">соевый соус</ingredient>
 	<ingredient qty="1 ст.л.">томатное пюре</ingredient>
 	<ingredient qty="3 ст.л.">сок апельсиновый</ingredient>

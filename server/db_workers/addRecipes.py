@@ -9,8 +9,8 @@ from os.path import isfile, join
 import xml.etree.ElementTree as ET
 from peewee import *
 from difflib import SequenceMatcher
-from server.db_workers import models
-# import models
+# from server.db_workers import models
+import models
 
 
 RESIZE_TO = 200
